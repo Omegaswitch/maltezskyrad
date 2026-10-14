@@ -78,7 +78,8 @@ p{margin:0}
 
 /* ---------- page transitions (cross-document view transitions, progressive) ---------- */
 @view-transition{navigation:auto}
-.site-header{view-transition-name:site-header}
+/* the transition name makes the header its own stacking context; lift it so dropdowns sit above animated page content */
+.site-header{view-transition-name:site-header;position:relative;z-index:30}
 .site-footer{view-transition-name:site-footer}
 ::view-transition-old(root){animation:vt-out 180ms var(--ease) both}
 ::view-transition-new(root){animation:vt-in 260ms var(--ease) both}
