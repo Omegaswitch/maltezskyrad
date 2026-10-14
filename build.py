@@ -120,11 +120,12 @@ def image_size(rel_url):
     return None
 
 
-def img(src, alt, cls="", sizes=None, eager=False):
+def img(src, alt, cls="", sizes=None, eager=False, srcset=None):
     wh = image_size(src)
     dims = f' width="{wh[0]}" height="{wh[1]}"' if wh else ""
     load = 'fetchpriority="high"' if eager else 'loading="lazy"'
-    return f'<img class="ph-img {cls}" src="{esc(src)}" alt="{esc(alt)}"{dims} {load} decoding="async">'
+    responsive = f' srcset="{esc(srcset)}" sizes="{esc(sizes)}"' if srcset and sizes else ""
+    return f'<img class="ph-img {cls}" src="{esc(src)}"{responsive} alt="{esc(alt)}"{dims} {load} decoding="async">'
 
 
 def enhance_body(body):
@@ -316,6 +317,10 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
 # ---------------------------------------------------------------- shared blocks
 
 
+def palace_img(alt):
+    return img("/media/2018/07/velkoprevorstvi.jpg", alt, eager=True)
+
+
 def calendar_widget(lang, view="month"):
     a = SITE["addcal"]
     t = I18N[lang]
@@ -389,7 +394,7 @@ def render_home():
   </dl>
   <p class="text-links"><a href="/rad-a-jeho-instituce/historie-ceskeho-velkoprevorstvi/">Historie velkopřevorství</a><a href="/rad-a-jeho-instituce/predstavitele-ceskeho-velkoprevorstvi/">Představitelé</a><a href="/velkoprevorsky-palac/">Velkopřevorský palác</a></p>
  </div>
- <figure class="open-figure reveal">{img('/media/2018/07/velkoprevorstvi.jpg', 'Průčelí Velkopřevorského paláce na Malé Straně', eager=True)}<figcaption>Velkopřevorský palác</figcaption></figure>
+ <figure class="open-figure reveal">{palace_img('Průčelí Velkopřevorského paláce na Malé Straně')}<figcaption>Velkopřevorský palác</figcaption></figure>
 </div></section>
 
 <section class="band band-grey" id="kalendar" aria-labelledby="cal-title"><div class="wrap">
@@ -625,7 +630,7 @@ def render_foreign_home(lang):
   <h2 class="display-s official-head">{esc(t['officialTexts'])}</h2>
   <ul class="plain-links">{official}</ul>
  </div>
- <figure class="open-figure reveal">{img('/media/2018/07/velkoprevorstvi.jpg', names['entity'], eager=True)}</figure>
+ <figure class="open-figure reveal">{palace_img(names['entity'])}</figure>
 </div></section>
 <section class="band band-grey" id="kalendar"><div class="wrap">
  <div class="section-head"><h2 class="display-m">{esc(t['calendar'])}</h2><p>{esc(t['calendarLead'])}</p></div>

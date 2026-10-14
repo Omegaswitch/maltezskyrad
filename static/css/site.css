@@ -31,7 +31,7 @@
   --rule:#c7c7c7;
   --white:#fff;
   --sky:#a7b7d5;          /* right edge of the official banner photograph */
-  --sky-left:#9baed0;     /* left edge of the same photograph */
+  --sky-left:#8ca2c7;     /* left edge of the same photograph */
   --ui:"Asap","Segoe UI",Arial,sans-serif;
   --display:"EB Garamond",Garamond,"Times New Roman",serif;
   --wrap:1180px;
@@ -102,8 +102,9 @@ p{margin:0}
 .lang a{display:inline-grid;place-items:center;min-width:32px;min-height:28px;padding:0 6px;border-radius:2px;font-weight:500;transition:background var(--fast) var(--ease),color var(--fast) var(--ease)}
 .lang a:hover{background:rgba(255,255,255,.18);text-decoration:none}
 .lang a[aria-current]{background:#fff;color:var(--red);font-weight:700}
-.banner{position:relative;background-color:var(--sky);background-image:linear-gradient(90deg,rgba(14,28,46,0) 45%,rgba(14,28,46,.42) 100%),url(/img/banner/banner-order-of-malta.webp),linear-gradient(90deg,var(--sky-left) 50%,var(--sky) 50%);background-repeat:no-repeat;background-size:100% 100%,auto 100%,100% 100%;background-position:0 0,max(0px,calc(50vw - var(--wrap)/2)) center,0 0}
-.banner .wrap{display:flex;align-items:center;justify-content:flex-end;min-height:clamp(118px,11vw,150px);padding-block:var(--s4);position:relative}
+/* the official 2546×218 banner, centred at native height as in the Grand Magistry theme: its lockup lands on the content column */
+.banner{position:relative;background-color:var(--sky);background-image:linear-gradient(90deg,rgba(14,28,46,0) 45%,rgba(14,28,46,.42) 100%),url(/img/banner/banner-order-of-malta.webp),linear-gradient(90deg,var(--sky-left) 50%,var(--sky) 50%);background-repeat:no-repeat;background-size:100% 100%,2546px 218px,100% 100%;background-position:0 0,max(-653px,calc(50vw - 1273px)) 0,0 0}
+.banner .wrap{display:flex;align-items:center;justify-content:flex-end;min-height:218px;padding-block:var(--s4);position:relative}
 .banner-home{position:absolute;left:0;top:0;bottom:0;width:min(42%,340px)}
 .fullname{color:#fff;text-align:right;font:600 clamp(.74rem,1.2vw,1rem)/1.32 var(--ui);letter-spacing:.035em;text-transform:uppercase;max-width:31em;text-shadow:0 1px 2px rgba(0,0,0,.45),0 0 14px rgba(14,28,46,.5)}
 .fullname span{display:block;margin-top:5px;font-size:.86em;letter-spacing:.09em}
@@ -128,7 +129,7 @@ p{margin:0}
 @media (max-width:960px){
   .topbar-social{display:none}
   /* photo pinned to a fixed height so the lockup never meets the name; it fades into the menu grey below */
-  .banner{background-color:var(--ink);background-image:linear-gradient(180deg,rgba(69,69,69,0) 60px,var(--ink) 124px),url(/img/banner/banner-order-of-malta.webp);background-size:100% 100%,auto 128px;background-position:0 0,0 0}
+  .banner{background-color:var(--ink);background-image:linear-gradient(180deg,rgba(69,69,69,0) 60px,var(--ink) 124px),url(/img/banner/banner-order-of-malta.webp);background-size:100% 100%,auto 128px;background-position:0 0,-383px 0}
   .banner .wrap{justify-content:flex-start;align-items:flex-end;min-height:0;padding-top:104px;padding-bottom:var(--s3)}
   .fullname{text-align:left;font-size:.72rem}
   .banner-home{width:60%;bottom:auto;height:80px}
@@ -163,11 +164,11 @@ p{margin:0}
 
 /* ---------- home ---------- */
 .home-open{padding-block:clamp(var(--s7),6vw,var(--s9)) clamp(var(--s7),6vw,var(--s8))}
-.open-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(var(--s6),6vw,88px);align-items:start}
+.open-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(var(--s6),5vw,72px);align-items:start}
 .open-text{display:grid;gap:var(--s4);max-width:66ch}
 .open-text .display{margin-bottom:var(--s1)}
-.open-figure{margin:var(--s6) 0 0}
-.open-figure img{width:100%;aspect-ratio:800/470;object-fit:cover}
+.open-figure{margin:var(--s2) 0 0;max-width:800px}
+.open-figure img{width:100%;height:auto}
 .open-figure figcaption,.page-figure figcaption{font-size:.8rem;color:var(--muted);margin-top:var(--s2)}
 .facts{margin:var(--s2) 0 0;border-top:1px solid var(--rule)}
 .facts div{display:grid;grid-template-columns:minmax(0,11em) minmax(0,1fr);gap:var(--s4);padding:10px 0;border-bottom:1px solid var(--rule);font-size:.97rem}
@@ -343,7 +344,6 @@ p{margin:0}
 /* ---------- responsive ---------- */
 @media (max-width:960px){
   .open-grid,.split,.cal-grid,.page--with-side,.cal-below{grid-template-columns:minmax(0,1fr)}
-  .open-figure{margin-top:0;max-width:560px}
   .side-nav{position:static}
   .f-nav ul{grid-template-columns:repeat(2,minmax(0,1fr))}
   .f-red .wrap{grid-template-columns:1fr}
