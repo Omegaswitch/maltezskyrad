@@ -448,11 +448,6 @@
         "purpose": "Skeleton placeholders."
       },
       {
-        "name": "opening-trace",
-        "value": "visible 1.45s, fade 0.45s, once per session",
-        "purpose": "Client-approved emblem outline trace behind openingTrace switch; disabled under reduced motion."
-      },
-      {
         "name": "reduced-motion",
         "value": "all animation/transition ~0, view transitions off",
         "purpose": "prefers-reduced-motion: reduce."
@@ -599,8 +594,7 @@
       "**Do** show skeleton shimmer for images and the calendar, and respect reduced motion everywhere."
     ],
     "donts": [
-      "**Don't** create, redraw, approximate or restyle any emblem. Only the two official emblems (armorial bearing, red shield for activities) may appear, from approved originals; until supplied, use labelled placeholders. check.py fails the build for any file under /img/ outside the approved brand set (armorial-bearing 420/840, coa-trace.svg, the official banner, favicons).",
-      "**Don't** extend the opening trace exception: no other animated, outlined or stylised use of the emblem.",
+      "**Don't** create, redraw, approximate or restyle any emblem. Only the two official emblems (armorial bearing, red shield for activities) may appear, from approved originals; until supplied, use labelled placeholders. check.py fails the build for any file under /img/ outside the approved brand set (armorial-bearing 420/840, the official banner, favicons).",
       "**Don't** build the charity-landing pattern: hero slogan over a photo, donate button, card grids.",
       "**Don't** use red as a band, card fill or heading colour inside the frame.",
       "**Don't** add cards, raised panels, hover lifts or shadows beyond the desktop dropdown.",

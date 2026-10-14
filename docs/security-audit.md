@@ -49,7 +49,6 @@ Date: 14 October 2026. Scope: the live site (read-only observation; nothing was 
 **Privacy**
 - No cookies and no analytics.
 - The privacy notice (`/ochrana-osobnich-udaju/`) states that there are no analytics or advertising cookies and no tracking, and names AddCal and what it receives. It is marked "approval" and needs sign-off by the Grand Priory.
-- The opening animation stores one `sessionStorage` flag (`intro-seen`). It is not a cookie and is never sent to the server.
 
 **Secrets**
 - The repository and build contain no credentials, keys or tokens.

@@ -14,7 +14,7 @@ DIST = ROOT / "dist"
 sys.path.insert(0, str(ROOT / "tools"))
 
 # Only these official emblem/brand files may appear; anything else under /img/ is a new, unapproved mark.
-BRAND_FILES = re.compile(r"^/img/(emblems/(armorial-bearing-(420|840)\.webp|coa-trace\.svg)|banner/banner-order-of-malta\.webp|favicon/[\w.-]+)$")
+BRAND_FILES = re.compile(r"^/img/(emblems/armorial-bearing-(420|840)\.webp|banner/banner-order-of-malta\.webp|favicon/[\w.-]+)$")
 # The communications policy forbids the acronym; legacy texts are flagged, not rewritten.
 ACRONYM = re.compile(r"\bS\.?\s?M\.?\s?O\.?\s?M\b")
 

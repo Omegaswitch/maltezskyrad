@@ -35,8 +35,6 @@ The importer's sanitiser self-test runs too. The check was proven to fail on inj
 
 ✅ means no horizontal overflow, one `<h1>`, no console errors other than the local-HTTP COOP warning, and a manual screenshot review.
 
-The opening trace was captured at 0.4, 1.0, 1.7 and 2.6 s. It draws, fades out and leaves the page by about 2 s.
-
 Fixed during QA:
 - The banner shield overlapped the full name on mobile and tablet.
 - The section menu sat above the page title on mobile.
@@ -67,8 +65,7 @@ Fixed during QA:
 - On mobile, the menu button toggles `aria-expanded` and opens the menu.
 
 **Motion:**
-- Under `prefers-reduced-motion` the opening trace never plays, and view transitions, the skeleton shimmer and the reveal animation are disabled.
-- The trace can be skipped with any key or tap.
+- Under `prefers-reduced-motion` view transitions, the skeleton shimmer and the reveal animation are disabled.
 
 ## Performance
 

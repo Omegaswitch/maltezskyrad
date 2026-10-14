@@ -24,7 +24,7 @@ Status values: ✅ complies · ⚠️ complies with a caveat or needs a decision
 | 10 | Institutional use takes the armorial bearing; activities take the shield | CoA | ⚠️ | The Grand Priory page shows the armorial bearing. The banner uses the shield lockup because the Grand Magistry theme does; the CoA guideline for institutional internet use points the other way. Ask the Grand Magistry. |
 | 11 | Personalised lockup ("ORDER OF MALTA" + entity name) | CoA, Theme | ⚠️ | The generic "ORDER OF MALTA" banner is used, with the Czech name set as live text beside it. The personalised Czech lockup must be requested from the Grand Magistry (asset `BAN-01`). |
 | 12 | Emblem files are originals, not approximations | CoA | ⚠️ | The armorial bearing was extracted from the CoA PDF (p. 21, CMYK → sRGB, resized only). Replace it with the RGB master when it is supplied (asset `EMB-01`). |
-| 13 | Opening animation of the emblem | CoA (no alteration, no animation of the emblems) | ❌ | A thin red outline trace of the armorial-bearing silhouette plays once per session (about 2 s; never with reduced motion; any key or tap skips it). The client asked for it knowing it is a deviation (14 Oct 2026). Turn it off with `"openingTrace": false` in `content/site.json`; nothing else changes. |
+| 13 | No animation or alteration of the emblems | CoA | ✅ | An opening outline trace of the armorial bearing was tried and removed at the client's request (14 Oct 2026). The emblems appear only as official static files. |
 | 14 | Apolitical, neutral, no invented facts | CP | ✅ | New texts state only facts found in the existing site, the Grand Magistry site or the 2027 calendar. New texts are labelled "new" until approved. |
 | 15 | Images | Theme (basic image 800×470) | ⚠️ | Only real photographs from the existing site are used. Usage rights and consent for identifiable people still need confirming (`docs/asset-manifest.md`). |
 | 16 | Social links | CP | ⚠️ | The site links to Facebook (the Grand Priory) and to the Grand Magistry's YouTube and LinkedIn. CP p. 74 swaps the X handles of two entities, so X is omitted until that is resolved. |
@@ -36,6 +36,5 @@ Status values: ✅ complies · ⚠️ complies with a caveat or needs a decision
 2. EB Garamond for headings, or Asap only.
 3. Shield lockup or armorial bearing in the banner of an institutional site.
 4. The personalised Czech banner lockup (`BAN-01`) and the RGB master of the armorial bearing (`EMB-01`).
-5. Keeping the opening trace (row 13). It is the client's call and can be switched off in one line.
-6. Native-speaker review of the FR, IT and DE interface strings (`content/i18n.json`) and of the EN entry page.
-7. Approval of every page marked "new", and the privacy notice (marked "approval").
+5. Native-speaker review of the FR, IT and DE interface strings (`content/i18n.json`) and of the EN entry page.
+6. Approval of every page marked "new", and the privacy notice (marked "approval").

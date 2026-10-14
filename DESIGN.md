@@ -202,7 +202,7 @@ A white-and-grey institutional palette framed by the Order's red and a graphite 
 
 ## Layout
 
-A single centred column (max 1180px) with a fluid gutter (16–32px, safe-area aware). Pages are stacks of full-bleed bands alternating white and #f3f3f3, each padded 48–96px vertically (clamped to 7vw). Within a band, content sits in asymmetric two-column grids: the home opening is a 36rem text column on white with the palace photograph filling the band's right side to the screen edge (clean edges all round, no fades, never under text, capped at 1.2× its 800×470 source, muted caption below); below 1200px the photograph stacks above the text at its true 800:470 shape; section bands are 0.8fr heading column / 1.2fr record column; inner pages are a fluid main column with a 270px sticky side navigation. Readable measure is capped at 65–68ch.
+A single centred column (max 1180px) with a fluid gutter (16–32px, safe-area aware). Pages are stacks of full-bleed bands alternating white and #f3f3f3, each padded 48–96px vertically (clamped to 7vw). Within a band, content sits in asymmetric two-column grids: the home opening has no photograph (client decision): heading and introduction on the left (1.15fr), the facts list and links on the right (0.85fr), top-aligned with the lead; the palace photograph lives on its own page; section bands are 0.8fr heading column / 1.2fr record column; inner pages are a fluid main column with a 270px sticky side navigation. Readable measure is capped at 65–68ch.
 
 Spacing follows a 4px-based scale (4, 8, 12, 16, 24, 32, 48, 64, 96). Rows are padded 10–16px vertically.
 
@@ -258,11 +258,8 @@ Images and the calendar show a soft grey shimmer (#ececec to #f7f7f7, 1.4s) unti
 ### Content-status bar (preview only)
 A thin full-width tinted bar under the menu stating the page's editorial state in 0.8rem Asap 500. Preview tooling, not a design element.
 
-### Opening trace (client-approved exception)
-A once-per-session outline trace of the armorial bearing's silhouette over a 94% white veil, ending at 1.45s + 0.45s fade, cancelled by any key or tap, never shown under reduced motion. It is a knowingly approved deviation from the Grand Magistry guidelines, switched by `openingTrace` in content/site.json, and is removed if the Grand Magistry objects. It is not a pattern for other surfaces.
-
 ### Motion
-Easing `cubic-bezier(.22,.61,.36,1)`; 160ms for state changes, 280ms for disclosure and fades. Cross-document view transitions (180ms out, 260ms in, 4–6px drift) with the header and footer held in place. Page heads settle in from 8px over 0.5s, starting visible. `prefers-reduced-motion` collapses all animation and transition and disables the opening trace.
+Easing `cubic-bezier(.22,.61,.36,1)`; 160ms for state changes, 280ms for disclosure and fades. Cross-document view transitions (180ms out, 260ms in, 4–6px drift) with the header and footer held in place. Page heads settle in from 8px over 0.5s, starting visible. `prefers-reduced-motion` collapses all animation and transition.
 
 ## Do's and Don'ts
 
@@ -276,8 +273,7 @@ Easing `cubic-bezier(.22,.61,.36,1)`; 160ms for state changes, 280ms for disclos
 - **Do** show skeleton shimmer for images and the calendar, and respect reduced motion everywhere.
 
 ### Don't:
-- **Don't** create, redraw, approximate or restyle any emblem. Only the two official emblems (armorial bearing, red shield for activities) may appear, from approved originals; until supplied, use labelled placeholders. check.py fails the build for any file under /img/ outside the approved brand set (armorial-bearing 420/840, coa-trace.svg, the official banner, favicons).
-- **Don't** extend the opening trace exception: no other animated, outlined or stylised use of the emblem.
+- **Don't** create, redraw, approximate or restyle any emblem. Only the two official emblems (armorial bearing, red shield for activities) may appear, from approved originals; until supplied, use labelled placeholders. check.py fails the build for any file under /img/ outside the approved brand set (armorial-bearing 420/840, the official banner, favicons).
 - **Don't** build the charity-landing pattern: hero slogan over a photo, donate button, card grids.
 - **Don't** use red as a band, card fill or heading colour inside the frame.
 - **Don't** add cards, raised panels, hover lifts or shadows beyond the desktop dropdown.

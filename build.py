@@ -236,9 +236,6 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
     robots = "" if PRODUCTION else '<meta name="robots" content="noindex, nofollow">'
     alt_links = "".join(f'<link rel="alternate" hreflang="{l}" href="{SITE["baseUrl"]}{u}">' for l, u in (alternates or {}).items())
     preload = "".join(f'<link rel="preload" href="/fonts/{f}.woff2" as="font" type="font/woff2" crossorigin>' for f in FONTS_PRELOAD)
-    intro = ""
-    if SITE.get("openingTrace"):
-        intro = ('<div class="intro" aria-hidden="true"><img src="/img/emblems/coa-trace.svg" alt="" width="1079" height="1305"></div>')
     status_bar = ""
     if status and not PRODUCTION:
         status_bar = f'<p class="content-status content-status--{esc(status)}"><span>{esc(t["status"].get(status, status))}</span></p>'
@@ -272,11 +269,10 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
 <link rel="alternate" type="application/rss+xml" title="{esc(names['site'])}" href="/feed.xml">
 {preload}
 <link rel="stylesheet" href="/css/site.css?v={ASSET_VERSION}">
-{'<script src="/js/intro.js?v=' + ASSET_VERSION + '"></script>' if SITE.get("openingTrace") else ''}
+<script src="/js/head.js?v={ASSET_VERSION}"></script>
 <script src="/js/site.js?v={ASSET_VERSION}" defer></script>
 </head>
 <body>
-{intro}
 <a class="skip" href="#main">{esc(t['skip'])}</a>
 <header class="site-header">
  <div class="topbar"><div class="wrap">
@@ -315,10 +311,6 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
 
 
 # ---------------------------------------------------------------- shared blocks
-
-
-def palace_img(alt):
-    return img("/media/2018/07/velkoprevorstvi.jpg", alt, eager=True)
 
 
 def calendar_widget(lang, view="month"):
@@ -383,18 +375,19 @@ def render_home():
     ]
     works_html = "".join(f'<li><a href="{u}"><b>{esc(a)}</b><span>{esc(b)}</span></a></li>' for a, b, u in works)
     body = f"""
-<section class="home-open" aria-labelledby="home-title"><div class="wrap open-grid">
- <div class="open-text reveal">
+<section class="home-open" aria-labelledby="home-title"><div class="wrap home-intro">
+ <div class="home-intro-main reveal">
   <h1 id="home-title" class="display">České velkopřevorství</h1>
   <p class="lead">{esc(SITE['names']['cs']['order'])} je v českých zemích přítomen od druhé poloviny 12. století, kdy kníže Vladislav II. daroval johanitům území u paty Juditina mostu. Po potlačení komunisty přežilo velkopřevorství v exilu; v Praze obnovilo činnost 1. dubna 1990.</p>
   <p>Členové velkopřevorství, jeho dobrovolníci a organizace, které založilo, slouží nemocným, seniorům a lidem v nouzi v duchu hesla Řádu <i lang="la">Tuitio fidei et obsequium pauperum</i> – ochrana víry a služba chudým a nemocným.</p>
+ </div>
+ <div class="home-intro-facts reveal">
   <dl class="facts">{officers}
    <div><dt>Sídlo</dt><dd>Velkopřevorský palác, Velkopřevorské náměstí 4</dd></div>
    <div><dt>Řádový kostel</dt><dd><a href="/radovy-kostel-panny-marie-pod-retezem/o-kostele/">Panna Maria pod řetězem, Lázeňská ulice</a></dd></div>
   </dl>
   <p class="text-links"><a href="/rad-a-jeho-instituce/historie-ceskeho-velkoprevorstvi/">Historie velkopřevorství</a><a href="/rad-a-jeho-instituce/predstavitele-ceskeho-velkoprevorstvi/">Představitelé</a><a href="/velkoprevorsky-palac/">Velkopřevorský palác</a></p>
  </div>
- <figure class="hero-photo">{palace_img('Průčelí Velkopřevorského paláce na Malé Straně')}<figcaption>Velkopřevorský palác</figcaption></figure>
 </div></section>
 
 <section class="band band-grey" id="kalendar" aria-labelledby="cal-title"><div class="wrap">
@@ -622,15 +615,14 @@ def render_foreign_home(lang):
         en_files = "".join(f'<li><a href="{f}">{esc(label)} <span class="file-meta">PDF</span></a></li>' for d in SITE["calendarFiles"] for label, f in d["files"] if "English" in label)
         downloads = f'<div class="dl-block"><h3 class="display-s">{esc(t["calendar2027"])}</h3><ul class="plain-links">{en_files}</ul></div>'
     body = f"""
-<section class="home-open"><div class="wrap open-grid">
- <div class="open-text reveal">
+<section class="home-open"><div class="wrap home-intro home-intro--single">
+ <div class="home-intro-main reveal">
   <h1 class="display">{esc(names['entity'])}</h1>
   <p class="lead">{esc(names['order'])}</p>
   <p class="notice">{esc(t['pendingTranslation'])}</p>
   <h2 class="display-s official-head">{esc(t['officialTexts'])}</h2>
   <ul class="plain-links">{official}</ul>
  </div>
- <figure class="hero-photo">{palace_img(names['entity'])}</figure>
 </div></section>
 <section class="band band-grey" id="kalendar"><div class="wrap">
  <div class="section-head"><h2 class="display-m">{esc(t['calendar'])}</h2><p>{esc(t['calendarLead'])}</p></div>

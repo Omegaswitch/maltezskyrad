@@ -21,7 +21,7 @@ Add `--offline` to skip fetching the Grand Magistry news feed. CI (`.github/work
 |---|---|
 | `content/pages/<url>/index.html` | Pages. Each file has JSON front matter between `---` lines, then HTML. |
 | `content/news/YYYY/MM/DD/slug.html` | News posts. The URL matches the old WordPress URL. |
-| `content/site.json` | Names, contact details, service times, menu, 2027 calendar files, AddCal calendar, redirects, `openingTrace` switch. |
+| `content/site.json` | Names, contact details, service times, menu, 2027 calendar files, AddCal calendar, redirects. |
 | `content/i18n.json` | Interface strings in cs, en, fr, it and de. |
 | `static/` | CSS, JS, fonts, official brand files (`img/`), calendar PDFs (`files/`) and migrated media (`media/`). |
 | `tools/import_wp.py` | One-off importer from the old WordPress site. Re-running it never overwrites a file marked `"imported": false`. |
