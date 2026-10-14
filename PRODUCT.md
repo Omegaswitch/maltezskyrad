@@ -20,7 +20,7 @@ The official website of the Czech Grand Priory (České velkopřevorství) of th
 
 ## Positioning
 
-The only official Czech presence of a sovereign, 900-year-old lay religious order of the Catholic Church whose mission is "Tuitio fidei et obsequium pauperum". The Czech Grand Priory has been continuously present in Prague since c. 1156–1159 at the church beneath the Chain and the Grand Prior's palace. No other organisation can truthfully claim this.
+The only official Czech presence of a sovereign, 900-year-old lay religious order of the Catholic Church whose mission is "Tuitio fidei et obsequium pauperum". The Czech Grand Priory has been present in Prague since the second half of the 12th century (c. 1158–1169; recent research favours c. 1169, per M. M. Buben, 2026) at the church beneath the Chain and the Grand Prior's palace. No other organisation can truthfully claim this.
 
 ## Operating Context
 
@@ -50,6 +50,7 @@ The only official Czech presence of a sovereign, 900-year-old lay religious orde
 - Existing site content via WordPress REST API (pages, posts, media) — authentic, partly outdated (mostly 2018).
 - Authentic photography from the existing media library (church interior, palace, Lourdes pilgrimage, Night of Churches, concerts, visits). Reuse permission is inherited from the institution's own site and must be confirmed; photos of identifiable people need consent review.
 - Official banner photograph from the Grand Magistry Entities Theme package.
+- Milan M. Buben, *Chrám Panny Marie pod řetězem a Velkopřevorský palác. Dějiny a průvodce* (Praha 2026, text without photos), supplied by the user as the current source for the history of the church and the palace; summarised, not copied, and cited on the pages that use it.
 - Terminology reference only (user instruction): the Grand Priory's 2026 Honours Ceremony booklet (Czech) is used solely to verify the correct Czech forms of names, titles, grades and honours. No person, list or detail from it may appear on the site.
 - Absent and not to be fabricated: approved emblem artwork, officer titles in foreign languages, translated page texts, current statistics, testimonials.
 

@@ -377,7 +377,7 @@ def render_home():
     works = [
         ("Maltézská pomoc, o.p.s.", "Sociální služby a dobrovolnické programy pro seniory a lidi v nouzi, založena roku 2002.", "https://maltezskapomoc.cz/"),
         ("Pomoc seniorům a potřebným", "Jak velkopřevorství pomáhá seniorům, lidem se zdravotním postižením a lidem bez domova.", "/cinnosti-maltezskeho-radu-v-ceske-republice/pomoc-seniorum/"),
-        ("Školy", "Vyšší odborná škola zdravotnická v Praze, Základní škola Maltézských rytířů v Kladně, gymnázium ve Skutči.", "/cinnosti-maltezskeho-radu-v-ceske-republice/skolstvi/"),
+        ("Školy", "Vyšší odborná škola zdravotnická v Praze 3, Základní škola Maltézských rytířů v Kladně, gymnázium ve Skutči.", "/cinnosti-maltezskeho-radu-v-ceske-republice/skolstvi/"),
         ("Pouť do Lurd", "Každoroční řádová pouť s nemocnými poutníky, jejich zdravotníky a dobrovolníky.", "/cinnosti-maltezskeho-radu-v-ceske-republice/pout-do-lurd/"),
         ("Česká maltézská mládež a další aktivity", "Volnočasové a dobročinné aktivity pro mladé lidi s postižením, katedrální služba.", "/cinnosti-maltezskeho-radu-v-ceske-republice/dalsi-aktivity/"),
     ]
@@ -386,7 +386,7 @@ def render_home():
 <section class="home-open" aria-labelledby="home-title"><div class="wrap open-grid">
  <div class="open-text reveal">
   <h1 id="home-title" class="display">České velkopřevorství</h1>
-  <p class="lead">{esc(SITE['names']['cs']['order'])} je v českých zemích přítomen od poloviny 12. století, kdy kníže Vladislav II. svěřil johanitům území u Juditina mostu. Po potlačení komunisty v roce 1950 přežilo velkopřevorství v exilu; v Praze bylo obnoveno 20. dubna 1990.</p>
+  <p class="lead">{esc(SITE['names']['cs']['order'])} je v českých zemích přítomen od druhé poloviny 12. století, kdy kníže Vladislav II. daroval johanitům území u paty Juditina mostu. Po potlačení komunisty přežilo velkopřevorství v exilu; v Praze obnovilo činnost 1. dubna 1990.</p>
   <p>Členové velkopřevorství, jeho dobrovolníci a organizace, které založilo, slouží nemocným, seniorům a lidem v nouzi v duchu hesla Řádu <i lang="la">Tuitio fidei et obsequium pauperum</i> – ochrana víry a služba chudým a nemocným.</p>
   <dl class="facts">{officers}
    <div><dt>Sídlo</dt><dd>Velkopřevorský palác, Velkopřevorské náměstí 4</dd></div>
@@ -394,7 +394,7 @@ def render_home():
   </dl>
   <p class="text-links"><a href="/rad-a-jeho-instituce/historie-ceskeho-velkoprevorstvi/">Historie velkopřevorství</a><a href="/rad-a-jeho-instituce/predstavitele-ceskeho-velkoprevorstvi/">Představitelé</a><a href="/velkoprevorsky-palac/">Velkopřevorský palác</a></p>
  </div>
- <figure class="open-figure reveal">{palace_img('Průčelí Velkopřevorského paláce na Malé Straně')}<figcaption>Velkopřevorský palác</figcaption></figure>
+ <figure class="hero-photo">{palace_img('Průčelí Velkopřevorského paláce na Malé Straně')}</figure>
 </div></section>
 
 <section class="band band-grey" id="kalendar" aria-labelledby="cal-title"><div class="wrap">
@@ -630,7 +630,7 @@ def render_foreign_home(lang):
   <h2 class="display-s official-head">{esc(t['officialTexts'])}</h2>
   <ul class="plain-links">{official}</ul>
  </div>
- <figure class="open-figure reveal">{palace_img(names['entity'])}</figure>
+ <figure class="hero-photo">{palace_img(names['entity'])}</figure>
 </div></section>
 <section class="band band-grey" id="kalendar"><div class="wrap">
  <div class="section-head"><h2 class="display-m">{esc(t['calendar'])}</h2><p>{esc(t['calendarLead'])}</p></div>

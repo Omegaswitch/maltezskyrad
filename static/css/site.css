@@ -164,6 +164,17 @@ p{margin:0}
 
 /* ---------- home ---------- */
 .home-open{padding-block:clamp(var(--s7),6vw,var(--s9)) clamp(var(--s7),6vw,var(--s8))}
+/* hero: the palace photograph sits behind the intro, fading out at every edge; a soft white vignette keeps the text readable.
+   The original is 800×470, so it is never shown more than ~1.25× its size. */
+.home-open{position:relative;isolation:isolate;overflow:hidden}
+.home-open .open-grid{grid-template-columns:minmax(0,38rem)}
+.home-open .open-text{position:relative}
+.home-open .open-text::before{content:"";position:absolute;z-index:-1;inset:-5rem -9rem -5rem -7rem;background:radial-gradient(closest-side,rgba(255,255,255,.92) 62%,rgba(255,255,255,0));pointer-events:none}
+.hero-photo{position:absolute;z-index:-2;top:0;right:0;bottom:0;width:min(64%,1040px);margin:0;animation:hero-in .9s var(--ease) both}
+.hero-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 40%;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 42%,#000 88%,transparent),linear-gradient(180deg,transparent,#000 14%,#000 78%,transparent);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 42%,#000 88%,transparent),linear-gradient(180deg,transparent,#000 14%,#000 78%,transparent);mask-composite:intersect}
+@keyframes hero-in{from{opacity:0}}
 .open-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(var(--s6),5vw,72px);align-items:start}
 .open-text{display:grid;gap:var(--s4);max-width:66ch}
 .open-text .display{margin-bottom:var(--s1)}
@@ -344,6 +355,11 @@ p{margin:0}
 /* ---------- responsive ---------- */
 @media (max-width:960px){
   .open-grid,.split,.cal-grid,.page--with-side,.cal-below{grid-template-columns:minmax(0,1fr)}
+  .home-open{padding-top:0}
+  .home-open .open-grid{grid-template-columns:minmax(0,1fr)}
+  .hero-photo{position:relative;order:-1;width:auto;right:auto;bottom:auto;margin:0 calc(-1 * var(--gutter)) calc(-1 * var(--s7))}
+  .hero-photo img{height:auto;aspect-ratio:800/470;-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent);mask-image:linear-gradient(180deg,#000 55%,transparent);-webkit-mask-composite:source-over;mask-composite:add}
+  .home-open .open-text::before{inset:-2rem -1rem -1rem}
   .side-nav{position:static}
   .f-nav ul{grid-template-columns:repeat(2,minmax(0,1fr))}
   .f-red .wrap{grid-template-columns:1fr}
