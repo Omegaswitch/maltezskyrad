@@ -192,7 +192,7 @@ def gm_feed(lang, limit=3):
 
 # ---------------------------------------------------------------- layout
 
-FONTS_PRELOAD = ["asap-latin-ext-400-normal", "asap-latin-400-normal", "eb-garamond-latin-ext-400-normal"]
+FONTS_PRELOAD = ["asap-latin-ext-400-normal", "asap-latin-400-normal", "eb-garamond-latin-500-normal", "eb-garamond-latin-ext-500-normal"]
 
 
 def lang_switch(lang, url):
@@ -514,7 +514,7 @@ def render_page(p):
   {special}
   {children}
  </div>
- {f'<aside class="page-side">{side}</aside>' if side else ''}
+ {f'<div class="page-side">{side}</div>' if side else ''}
 </article>"""
     return layout(lang="cs", url=url, title=p["title"], body=html_body, description=p.get("description", ""),
                   image=lead_img, status=p.get("status"))

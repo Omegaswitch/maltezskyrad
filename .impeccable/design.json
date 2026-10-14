@@ -1,0 +1,612 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-14T19:30:00Z",
+  "title": "Design System: maltezskyrad.cz",
+  "extensions": {
+    "colorMeta": {
+      "magistry-red": {
+        "role": "primary",
+        "displayName": "Magistry Red",
+        "canonical": "#e31a18",
+        "tonalRamp": [
+          "#450807",
+          "#730d0c",
+          "#a11211",
+          "#d01816",
+          "#eb3f3d",
+          "#f17f7e",
+          "#f8bfbe",
+          "#fde8e8"
+        ]
+      },
+      "magistry-red-pressed": {
+        "role": "primary",
+        "displayName": "Pressed Red",
+        "canonical": "#c41513",
+        "tonalRamp": [
+          "#460707",
+          "#740c0b",
+          "#a31110",
+          "#d11614",
+          "#ec3e3c",
+          "#f27e7d",
+          "#f9bfbe",
+          "#fde8e8"
+        ]
+      },
+      "magistry-red-text": {
+        "role": "primary",
+        "displayName": "Text Red",
+        "canonical": "#c80e00",
+        "tonalRamp": [
+          "#4c0500",
+          "#800900",
+          "#b20c00",
+          "#e61000",
+          "#ff3829",
+          "#ff7a70",
+          "#ffbdb8",
+          "#ffe7e5"
+        ]
+      },
+      "menu-graphite": {
+        "role": "neutral",
+        "displayName": "Menu Graphite",
+        "canonical": "#454545",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#949494",
+          "#b8b8b8",
+          "#dbdbdb",
+          "#f2f2f2"
+        ]
+      },
+      "menu-graphite-hover": {
+        "role": "neutral",
+        "displayName": "Menu Graphite Hover",
+        "canonical": "#383838",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#949494",
+          "#b8b8b8",
+          "#dbdbdb",
+          "#f2f2f2"
+        ]
+      },
+      "menu-graphite-active": {
+        "role": "neutral",
+        "displayName": "Menu Graphite Active",
+        "canonical": "#2f2f2f",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#949494",
+          "#b8b8b8",
+          "#dbdbdb",
+          "#f2f2f2"
+        ]
+      },
+      "footer-slate": {
+        "role": "neutral",
+        "displayName": "Footer Slate",
+        "canonical": "#6f6f6f",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#949494",
+          "#b8b8b8",
+          "#dbdbdb",
+          "#f2f2f2"
+        ]
+      },
+      "ink-strong": {
+        "role": "neutral",
+        "displayName": "Ink Strong",
+        "canonical": "#111111",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#949494",
+          "#b8b8b8",
+          "#dbdbdb",
+          "#f2f2f2"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#454545",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#949494",
+          "#b8b8b8",
+          "#dbdbdb",
+          "#f2f2f2"
+        ]
+      },
+      "ink-lead": {
+        "role": "neutral",
+        "displayName": "Ink Lead",
+        "canonical": "#333333",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#949494",
+          "#b8b8b8",
+          "#dbdbdb",
+          "#f2f2f2"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "#5f5f5f",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#949494",
+          "#b8b8b8",
+          "#dbdbdb",
+          "#f2f2f2"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#949494",
+          "#b8b8b8",
+          "#dbdbdb",
+          "#f2f2f2"
+        ]
+      },
+      "ground-grey": {
+        "role": "neutral",
+        "displayName": "Ground Grey",
+        "canonical": "#f3f3f3",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#949494",
+          "#b8b8b8",
+          "#dbdbdb",
+          "#f2f2f2"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#c7c7c7",
+        "tonalRamp": [
+          "#262626",
+          "#404040",
+          "#595959",
+          "#737373",
+          "#949494",
+          "#b8b8b8",
+          "#dbdbdb",
+          "#f2f2f2"
+        ]
+      },
+      "banner-sky": {
+        "role": "neutral",
+        "displayName": "Banner Sky",
+        "canonical": "#a7b7d5",
+        "tonalRamp": [
+          "#192234",
+          "#293956",
+          "#3a5079",
+          "#4a669b",
+          "#6e88ba",
+          "#9eb0d1",
+          "#cfd7e8",
+          "#eef1f7"
+        ]
+      },
+      "banner-sky-left": {
+        "role": "neutral",
+        "displayName": "Banner Sky Left",
+        "canonical": "#9baed0",
+        "tonalRamp": [
+          "#182234",
+          "#293957",
+          "#395079",
+          "#49679c",
+          "#6d89bb",
+          "#9eb0d1",
+          "#ced8e8",
+          "#eef1f7"
+        ]
+      },
+      "status-existing-bg": {
+        "role": "status",
+        "displayName": "Status Existing Bg",
+        "canonical": "#fbf3d9",
+        "tonalRamp": [
+          "#453707",
+          "#735b0c",
+          "#a27f11",
+          "#d0a416",
+          "#ebc23d",
+          "#f1d67e",
+          "#f8ebbe",
+          "#fdf8e8"
+        ]
+      },
+      "status-existing-text": {
+        "role": "status",
+        "displayName": "Status Existing Text",
+        "canonical": "#5b4700",
+        "tonalRamp": [
+          "#4c3c00",
+          "#806300",
+          "#b28b00",
+          "#e6b300",
+          "#ffd029",
+          "#ffe070",
+          "#ffefb8",
+          "#fff9e5"
+        ]
+      },
+      "status-new-bg": {
+        "role": "status",
+        "displayName": "Status New Bg",
+        "canonical": "#e8eef7",
+        "tonalRamp": [
+          "#142339",
+          "#213a5f",
+          "#2e5184",
+          "#3b68aa",
+          "#608ac8",
+          "#95b1da",
+          "#cad8ed",
+          "#ecf1f8"
+        ]
+      },
+      "status-new-text": {
+        "role": "status",
+        "displayName": "Status New Text",
+        "canonical": "#1f3a63",
+        "tonalRamp": [
+          "#12223a",
+          "#1e3961",
+          "#2b5088",
+          "#3766af",
+          "#5c88cc",
+          "#92b0dd",
+          "#c9d7ee",
+          "#ecf1f9"
+        ]
+      },
+      "status-approval-bg": {
+        "role": "status",
+        "displayName": "Status Approval Bg",
+        "canonical": "#fde4e2",
+        "tonalRamp": [
+          "#480a05",
+          "#771008",
+          "#a7170c",
+          "#d71e0f",
+          "#f14437",
+          "#f68379",
+          "#fac1bc",
+          "#fde9e7"
+        ]
+      },
+      "status-approval-text": {
+        "role": "status",
+        "displayName": "Status Approval Text",
+        "canonical": "#7a1410",
+        "tonalRamp": [
+          "#440b09",
+          "#71120f",
+          "#9e1a15",
+          "#cb211b",
+          "#e64842",
+          "#ee8581",
+          "#f7c2c0",
+          "#fce9e8"
+        ]
+      },
+      "status-verified-bg": {
+        "role": "status",
+        "displayName": "Status Verified Bg",
+        "canonical": "#e5f2e8",
+        "tonalRamp": [
+          "#1a331f",
+          "#2b5534",
+          "#3c7749",
+          "#4d995e",
+          "#70b881",
+          "#a0cfab",
+          "#cfe7d5",
+          "#eef6f0"
+        ]
+      },
+      "status-verified-text": {
+        "role": "status",
+        "displayName": "Status Verified Text",
+        "canonical": "#1d4d2b",
+        "tonalRamp": [
+          "#15381f",
+          "#235d34",
+          "#318248",
+          "#3fa75d",
+          "#63c480",
+          "#97d8aa",
+          "#cbebd5",
+          "#ecf8f0"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The single page H1."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Home section heads; prose H2 and year heads at 1.6rem."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Garamond row titles in works, index lists and downloads."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Opening paragraph under the H1."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text, 68ch max."
+      },
+      "subhead": {
+        "displayName": "Subhead",
+        "purpose": "Prose H3."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Navigational section labels only (side-nav heading)."
+      },
+      "nav": {
+        "displayName": "Nav",
+        "purpose": "Main menu items."
+      }
+    },
+    "shadows": [
+      {
+        "name": "dropdown",
+        "value": "0 10px 30px rgba(0,0,0,.14)",
+        "purpose": "Desktop submenu panel only."
+      },
+      {
+        "name": "active-underline",
+        "value": "inset 0 -3px 0 #e31a18",
+        "purpose": "Current main-menu item (state rule, not elevation)."
+      },
+      {
+        "name": "current-rule",
+        "value": "inset 2px 0 0 #e31a18",
+        "purpose": "Current side-nav item (state rule, not elevation)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.22,.61,.36,1)",
+        "purpose": "All transitions and animations."
+      },
+      {
+        "name": "fast",
+        "value": "160ms",
+        "purpose": "Hover/colour/state changes."
+      },
+      {
+        "name": "med",
+        "value": "280ms",
+        "purpose": "Disclosure, row indent, image fade-in."
+      },
+      {
+        "name": "view-transition",
+        "value": "out 180ms, in 260ms, 4-6px vertical drift",
+        "purpose": "Cross-document page transitions; header and footer persist."
+      },
+      {
+        "name": "settle",
+        "value": "500ms from translateY(8px), starts visible, +80ms stagger",
+        "purpose": "Page-head arrival."
+      },
+      {
+        "name": "shimmer",
+        "value": "1.4s ease-in-out infinite",
+        "purpose": "Skeleton placeholders."
+      },
+      {
+        "name": "opening-trace",
+        "value": "visible 1.45s, fade 0.45s, once per session",
+        "purpose": "Client-approved emblem outline trace behind openingTrace switch; disabled under reduced motion."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "all animation/transition ~0, view transitions off",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "stack",
+        "value": "640px"
+      },
+      {
+        "name": "collapse",
+        "value": "960px"
+      },
+      {
+        "name": "desktop-hover",
+        "value": "961px"
+      },
+      {
+        "name": "wrap",
+        "value": "1180px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single filled action on a surface (calendar subscription).",
+      "html": "<a class=\"ds-btn\" href=\"#\">Odebírat kalendář</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;min-height:44px;padding:0 24px;background:#e31a18;color:#fff;font:600 1.0625rem 'Asap','Segoe UI',Arial,sans-serif;text-decoration:none;border-radius:2px;transition:background 160ms cubic-bezier(.22,.61,.36,1),transform 160ms cubic-bezier(.22,.61,.36,1)}.ds-btn:hover{background:#c41513}.ds-btn:active{transform:translateY(1px)}.ds-btn:focus-visible{outline:2px solid #e31a18;outline-offset:3px}"
+    },
+    {
+      "name": "Text Link",
+      "kind": "custom",
+      "refersTo": "magistry-red",
+      "description": "Default action: bold red text link, underline on hover; Text Red on grey bands.",
+      "html": "<div class=\"ds-links\"><a href=\"#\">Historie velkopřevorství</a><a href=\"#\">Představitelé</a></div><div class=\"ds-links ds-grey\"><a href=\"#\">Všechny aktuality</a></div>",
+      "css": ".ds-links{display:flex;gap:8px 24px;padding:12px;font:1.0625rem 'Asap',Arial,sans-serif}.ds-links a{color:#e31a18;font-weight:600;text-decoration:none}.ds-links a:hover{text-decoration:underline}.ds-links a:focus-visible{outline:2px solid #e31a18;outline-offset:3px}.ds-grey{background:#f3f3f3}.ds-grey a{color:#c80e00}"
+    },
+    {
+      "name": "Fact Rows",
+      "kind": "custom",
+      "refersTo": "hairline",
+      "description": "Signature record pattern: hairline-ruled label/value rows.",
+      "html": "<dl class=\"ds-facts\"><div><dt>Kníže-velkopřevor</dt><dd>Fra' Pierre de Bizemont</dd></div><div><dt>Sídlo</dt><dd>Velkopřevorský palác</dd></div></dl>",
+      "css": ".ds-facts{margin:0;border-top:1px solid #c7c7c7;font:.97rem/1.65 'Asap',Arial,sans-serif}.ds-facts div{display:grid;grid-template-columns:11em 1fr;gap:16px;padding:10px 0;border-bottom:1px solid #c7c7c7}.ds-facts dt{color:#5f5f5f}.ds-facts dd{margin:0;color:#111;font-weight:500}"
+    },
+    {
+      "name": "Linked Record Row",
+      "kind": "custom",
+      "refersTo": "title",
+      "description": "Works / index rows: Garamond title, grey wash and indent on hover.",
+      "html": "<ul class=\"ds-works\"><li><a href=\"#\"><b>Maltézská pomoc, o.p.s.</b><span>Sociální služby a dobrovolnické programy.</span></a></li><li><a href=\"#\"><b>Pouť do Lurd</b><span>Každoroční řádová pouť.</span></a></li></ul>",
+      "css": ".ds-works{list-style:none;margin:0;padding:0;border-top:1px solid #c7c7c7;font:1rem/1.6 'Asap',Arial,sans-serif}.ds-works a{display:grid;grid-template-columns:15em 1fr;gap:16px;padding:15px 0;border-bottom:1px solid #c7c7c7;text-decoration:none;color:#454545;transition:background 160ms,padding 280ms cubic-bezier(.22,.61,.36,1)}.ds-works a:hover,.ds-works a:focus-visible{background:linear-gradient(90deg,#f3f3f3,rgba(243,243,243,0));padding-left:12px;outline:none}.ds-works b{font:500 1.15rem/1.3 'EB Garamond',Garamond,serif;color:#111}.ds-works a:hover b{color:#c80e00}"
+    },
+    {
+      "name": "Main Menu",
+      "kind": "nav",
+      "refersTo": "mainnav",
+      "description": "Grand Magistry graphite menu bar with red active underline.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Maltézský řád</a><a href=\"#\" aria-current=\"page\">Kalendář</a><a href=\"#\">Aktuality</a><a href=\"#\">Kontakt</a></nav>",
+      "css": ".ds-nav{display:flex;background:#454545}.ds-nav a{flex:1 1 auto;text-align:center;padding:13px 10px;color:#fff;text-decoration:none;font:.8rem 'Asap',Arial,sans-serif;letter-spacing:.07em;text-transform:uppercase;border-right:1px solid rgba(255,255,255,.13);transition:background 160ms}.ds-nav a:last-child{border-right:0}.ds-nav a:hover,.ds-nav a:focus-visible{background:#383838;outline:none}.ds-nav a[aria-current]{background:#2f2f2f;box-shadow:inset 0 -3px 0 #e31a18}"
+    },
+    {
+      "name": "Top Bar",
+      "kind": "nav",
+      "refersTo": "topbar",
+      "description": "Grand Magistry red top bar with language chips.",
+      "html": "<div class=\"ds-top\"><a href=\"#\"><b>Maltézský řád · České velkopřevorství</b></a><span class=\"ds-lang\"><a aria-current=\"true\" href=\"#\">CS</a><a href=\"#\">EN</a><a href=\"#\">FR</a></span></div>",
+      "css": ".ds-top{display:flex;align-items:center;gap:4px 24px;min-height:36px;padding:0 16px;background:#e31a18;color:#fff;font:.8rem 'Asap',Arial,sans-serif}.ds-top a{color:#fff;text-decoration:none}.ds-lang{display:flex;gap:2px;margin-left:auto}.ds-lang a{display:inline-grid;place-items:center;min-width:32px;min-height:28px;padding:0 6px;border-radius:2px;font-weight:500}.ds-lang a:hover{background:rgba(255,255,255,.18)}.ds-lang a[aria-current]{background:#fff;color:#e31a18;font-weight:700}"
+    },
+    {
+      "name": "Archive Tabs",
+      "kind": "chip",
+      "refersTo": "tab",
+      "description": "Outlined category tabs; current filled graphite.",
+      "html": "<div class=\"ds-tabs\"><a href=\"#\" aria-current=\"page\">Vše <span>193</span></a><a href=\"#\">Koncerty <span>40</span></a><a href=\"#\">Bohoslužby <span>62</span></a></div>",
+      "css": ".ds-tabs{display:flex;flex-wrap:wrap;gap:8px;font:.9rem 'Asap',Arial,sans-serif}.ds-tabs a{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 14px;border:1px solid #c7c7c7;border-radius:2px;color:#454545;text-decoration:none;transition:border-color 160ms,background 160ms}.ds-tabs a:hover{border-color:#454545}.ds-tabs a:focus-visible{outline:2px solid #e31a18;outline-offset:3px}.ds-tabs a[aria-current]{background:#454545;border-color:#454545;color:#fff}.ds-tabs span{font-size:.75rem;opacity:.7}"
+    },
+    {
+      "name": "Side Navigation",
+      "kind": "nav",
+      "refersTo": "label",
+      "description": "Sticky section navigation with red top rule and current-item inset rule.",
+      "html": "<nav class=\"ds-side\"><p>Maltézský řád</p><a href=\"#\">Poslání</a><a href=\"#\" aria-current=\"page\">Historie</a><a href=\"#\">Velmistr</a></nav>",
+      "css": ".ds-side{max-width:270px;border-top:3px solid #e31a18;padding-top:12px;font:.94rem 'Asap',Arial,sans-serif}.ds-side p{margin:0 0 8px;font:600 .8rem/1.3 'Asap',Arial,sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#5f5f5f}.ds-side a{display:block;padding:6px 0;color:#454545;text-decoration:none;border-bottom:1px solid #f3f3f3;transition:color 160ms,padding 280ms}.ds-side a:hover{color:#c80e00;padding-left:4px}.ds-side a[aria-current]{color:#111;font-weight:600;box-shadow:inset 2px 0 0 #e31a18;padding-left:12px}"
+    },
+    {
+      "name": "Skeleton",
+      "kind": "custom",
+      "refersTo": "ground-grey",
+      "description": "Shimmer placeholder for images and the calendar widget.",
+      "html": "<div class=\"ds-skel\"><span style=\"width:45%;height:28px\"></span><span></span><span></span></div>",
+      "css": ".ds-skel{display:grid;gap:14px;padding:24px;border:1px solid #c7c7c7;background:#fff}.ds-skel span{display:block;height:44px;border-radius:2px;background:linear-gradient(90deg,#ececec 0%,#f7f7f7 40%,#ececec 80%);background-size:300% 100%;animation:ds-sh 1.4s ease-in-out infinite}@keyframes ds-sh{from{background-position:100% 0}to{background-position:-100% 0}}@media (prefers-reduced-motion:reduce){.ds-skel span{animation:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Priory Register",
+    "overview": "**Creative North Star: \"The Priory Register\"**\n\nThe site is a quiet institutional register set inside a mandatory frame. The frame (red top bar, the official flag banner photograph with the full Czech name in white capitals, the graphite menu bar, and the grey / white / red footer) is the Grand Magistry \"Entities Theme\": it is brand, not a design choice, and it is reproduced, never reinterpreted. Inside the frame the Grand Priory speaks plainly: white and pale-grey bands, hairline-ruled definition lists, EB Garamond headings and Asap text, real photographs at the Order's 800×470 basic image ratio.\n\nInformation is set as records rather than cards: facts, service times, works, news and downloads are all rows between 1px hairlines, with a label column and a value column. Density is moderate and generous to older readers (17px body, 1.65 leading, 44px targets). Red is the Order's colour and is kept scarce inside the frame: links, the single filled button, the active-state underline and focus rings.\n\nThe system rejects the charity-landing vocabulary (hero slogan, donate button, card grid) and any ornament standing in for the Order's identity. Dignity comes from structure, type and authentic photography.",
+    "keyCharacteristics": [
+      "Mandatory Grand Magistry frame, reproduced exactly on every page.",
+      "White / #f3f3f3 alternating bands, flat, separated only by tone and hairlines.",
+      "Rows, not cards: two-column definition lists between hairline rules.",
+      "EB Garamond for headings and row titles; Asap for everything functional.",
+      "Red reserved for frame, links, the one filled button, active state and focus.",
+      "Motion is short, settling and fully suppressed under reduced motion."
+    ],
+    "rules": [
+      {
+        "name": "The Red Is Signal Rule",
+        "body": "Inside the frame, red appears only as link text, the single filled button per page, an active-state underline or rule, and focus. Never as a band, a card fill or a heading colour.",
+        "section": "colors"
+      },
+      {
+        "name": "The Grey Ground Rule",
+        "body": "On a #f3f3f3 band, every red text link switches to Text Red. Magistry Red text on grey fails AA.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Voices Rule",
+        "body": "Garamond speaks for the Priory (headings, row titles, the calendar years, pull quotes in italic). Asap carries everything a visitor operates or scans: menus, dates, times, labels, buttons, tables. Never set Garamond in uppercase or in UI chrome.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Times Rule",
+        "body": "Service times, dates and table numbers use tabular figures.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hairline, Not Shadow Rule",
+        "body": "Separate content with 1px #c7c7c7 rules and band tone. Cards, raised panels and hover lifts are not part of this system.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** reproduce the Grand Magistry frame (top bar, official banner photograph with full Czech name, graphite menu, grey / white / red footer) unchanged on every page.",
+      "**Do** set lists of facts, times, works and news as hairline-ruled rows with a muted label column.",
+      "**Do** switch red link text to Text Red on #f3f3f3 bands.",
+      "**Do** use EB Garamond 500 for headings and row titles and Asap for all UI, data and body text.",
+      "**Do** use real photographs at the 800×470 basic image ratio, with a muted 0.8rem caption.",
+      "**Do** keep targets at least 44px for primary actions and 32px for inline file links.",
+      "**Do** show skeleton shimmer for images and the calendar, and respect reduced motion everywhere."
+    ],
+    "donts": [
+      "**Don't** create, redraw, approximate or restyle any emblem. Only the two official emblems (armorial bearing, red shield for activities) may appear, from approved originals; until supplied, use labelled placeholders. check.py fails the build for any file under /img/ outside the approved brand set (armorial-bearing 420/840, coa-trace.svg, the official banner, favicons).",
+      "**Don't** extend the opening trace exception: no other animated, outlined or stylised use of the emblem.",
+      "**Don't** build the charity-landing pattern: hero slogan over a photo, donate button, card grids.",
+      "**Don't** use red as a band, card fill or heading colour inside the frame.",
+      "**Don't** add cards, raised panels, hover lifts or shadows beyond the desktop dropdown.",
+      "**Don't** put kicker or eyebrow labels above headings; uppercase labels are for navigation only.",
+      "**Don't** treat the content-status tints or the AddCal widget colours as palette colours.",
+      "**Don't** use the acronym SMOM or \"Malta\" alone in text; check.py flags the acronym."
+    ]
+  }
+}
