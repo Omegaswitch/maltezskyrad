@@ -103,7 +103,7 @@ p{margin:0}
 .lang a:hover{background:rgba(255,255,255,.18);text-decoration:none}
 .lang a[aria-current]{background:#fff;color:var(--red);font-weight:700}
 /* the official 2546×218 banner, centred at native height as in the Grand Magistry theme: its lockup lands on the content column */
-.banner{position:relative;background-color:var(--sky);background-image:linear-gradient(90deg,rgba(14,28,46,0) 45%,rgba(14,28,46,.42) 100%),url(/img/banner/banner-order-of-malta.webp),linear-gradient(90deg,var(--sky-left) 50%,var(--sky) 50%);background-repeat:no-repeat;background-size:100% 100%,2546px 218px,100% 100%;background-position:0 0,max(-653px,calc(50vw - 1273px)) 0,0 0}
+.banner{position:relative;background-color:var(--sky);background-image:linear-gradient(90deg,rgba(14,28,46,0) 38%,rgba(14,28,46,.5) 62%,rgba(14,28,46,.6) 100%),url(/img/banner/banner-order-of-malta.webp),linear-gradient(90deg,var(--sky-left) 50%,var(--sky) 50%);background-repeat:no-repeat;background-size:100% 100%,2546px 218px,100% 100%;background-position:0 0,max(-653px,calc(50vw - 1273px)) 0,0 0}
 .banner .wrap{display:flex;align-items:center;justify-content:flex-end;min-height:218px;padding-block:var(--s4);position:relative}
 .banner-home{position:absolute;left:0;top:0;bottom:0;width:min(42%,340px)}
 .fullname{color:#fff;text-align:right;font:600 clamp(.74rem,1.2vw,1rem)/1.32 var(--ui);letter-spacing:.035em;text-transform:uppercase;max-width:31em;text-shadow:0 1px 2px rgba(0,0,0,.45),0 0 14px rgba(14,28,46,.5)}
@@ -164,17 +164,27 @@ p{margin:0}
 
 /* ---------- home ---------- */
 .home-open{padding-block:clamp(var(--s7),6vw,var(--s9)) clamp(var(--s7),6vw,var(--s8))}
-/* hero: the palace photograph sits behind the intro, fading out at every edge; a soft white vignette keeps the text readable.
-   The original is 800×470, so it is never shown more than ~1.25× its size. */
-.home-open{position:relative;isolation:isolate;overflow:hidden}
-.home-open .open-grid{grid-template-columns:minmax(0,38rem)}
-.home-open .open-text{position:relative}
-.home-open .open-text::before{content:"";position:absolute;z-index:-1;inset:-5rem -9rem -5rem -7rem;background:radial-gradient(closest-side,rgba(255,255,255,.92) 62%,rgba(255,255,255,0));pointer-events:none}
-.hero-photo{position:absolute;z-index:-2;top:0;right:0;bottom:0;width:min(64%,1040px);margin:0;animation:hero-in .9s var(--ease) both}
-.hero-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 40%;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 42%,#000 88%,transparent),linear-gradient(180deg,transparent,#000 14%,#000 78%,transparent);-webkit-mask-composite:source-in;
-  mask-image:linear-gradient(90deg,transparent,#000 42%,#000 88%,transparent),linear-gradient(180deg,transparent,#000 14%,#000 78%,transparent);mask-composite:intersect}
+/* hero (critique 2026-10-14, layout A): text on plain white; the palace photograph fills the right of the band to the
+   screen edge with clean top/right/bottom edges and one short fade facing the text. The 800×470 original is cropped on the
+   building's axis and capped at 1.2× (564px tall) at desktop sizes; below 1200px it stacks above the text at its true shape. */
+.home-open{position:relative;overflow:hidden;padding-block:var(--s7) var(--s8)}
+.home-open .open-grid{grid-template-columns:minmax(0,36rem)}
+.hero-photo{position:absolute;top:0;right:0;left:calc(max(0px,(100% - var(--wrap)) / 2) + var(--gutter) + 36rem + 72px);margin:0;animation:hero-in .6s var(--ease) both}
+.hero-photo img{width:100%;height:564px;object-fit:cover;object-position:45% 62%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%);mask-image:linear-gradient(90deg,transparent,#000 14%)}
+.hero-photo figcaption{padding:var(--s2) var(--gutter) var(--s3) 14%;font-size:.8rem;color:var(--muted)}
 @keyframes hero-in{from{opacity:0}}
+@media (max-width:1199px){
+  .home-open{padding-top:0}
+  .home-open .open-grid{grid-template-columns:minmax(0,1fr)}
+  .hero-photo{position:static;order:-1;margin:0 calc(-1 * var(--gutter)) var(--s3);animation:none}
+  .hero-photo img{height:auto;aspect-ratio:800/470;-webkit-mask-image:none;mask-image:none}
+  .hero-photo figcaption{padding:var(--s2) var(--gutter) 0}
+}
+@media (min-width:860px) and (max-width:1199px){
+  .home-open{padding-top:var(--s6)}
+  .hero-photo{margin-inline:0;max-width:800px}
+  .hero-photo figcaption{padding-inline:0}
+}
 .open-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(var(--s6),5vw,72px);align-items:start}
 .open-text{display:grid;gap:var(--s4);max-width:66ch}
 .open-text .display{margin-bottom:var(--s1)}
@@ -355,11 +365,6 @@ p{margin:0}
 /* ---------- responsive ---------- */
 @media (max-width:960px){
   .open-grid,.split,.cal-grid,.page--with-side,.cal-below{grid-template-columns:minmax(0,1fr)}
-  .home-open{padding-top:0}
-  .home-open .open-grid{grid-template-columns:minmax(0,1fr)}
-  .hero-photo{position:relative;order:-1;width:auto;right:auto;bottom:auto;margin:0 calc(-1 * var(--gutter)) calc(-1 * var(--s7))}
-  .hero-photo img{height:auto;aspect-ratio:800/470;-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent);mask-image:linear-gradient(180deg,#000 55%,transparent);-webkit-mask-composite:source-over;mask-composite:add}
-  .home-open .open-text::before{inset:-2rem -1rem -1rem}
   .side-nav{position:static}
   .f-nav ul{grid-template-columns:repeat(2,minmax(0,1fr))}
   .f-red .wrap{grid-template-columns:1fr}

@@ -394,7 +394,7 @@ def render_home():
   </dl>
   <p class="text-links"><a href="/rad-a-jeho-instituce/historie-ceskeho-velkoprevorstvi/">Historie velkopřevorství</a><a href="/rad-a-jeho-instituce/predstavitele-ceskeho-velkoprevorstvi/">Představitelé</a><a href="/velkoprevorsky-palac/">Velkopřevorský palác</a></p>
  </div>
- <figure class="hero-photo">{palace_img('Průčelí Velkopřevorského paláce na Malé Straně')}</figure>
+ <figure class="hero-photo">{palace_img('Průčelí Velkopřevorského paláce na Malé Straně')}<figcaption>Velkopřevorský palác</figcaption></figure>
 </div></section>
 
 <section class="band band-grey" id="kalendar" aria-labelledby="cal-title"><div class="wrap">
