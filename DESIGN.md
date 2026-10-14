@@ -202,7 +202,7 @@ A white-and-grey institutional palette framed by the Order's red and a graphite 
 
 ## Layout
 
-A single centred column (max 1180px) with a fluid gutter (16–32px, safe-area aware). Pages are stacks of full-bleed bands alternating white and #f3f3f3, each padded 48–96px vertically (clamped to 7vw). Within a band, content sits in asymmetric two-column grids: the home opening is a 36rem text column on white with the palace photograph filling the band's right side to the screen edge (clean top, right and bottom edges, one 14% fade facing the text, never under text, capped at 1.2× its 800×470 source, muted caption below); below 1200px the photograph stacks above the text at its true 800:470 shape; section bands are 0.8fr heading column / 1.2fr record column; inner pages are a fluid main column with a 270px sticky side navigation. Readable measure is capped at 65–68ch.
+A single centred column (max 1180px) with a fluid gutter (16–32px, safe-area aware). Pages are stacks of full-bleed bands alternating white and #f3f3f3, each padded 48–96px vertically (clamped to 7vw). Within a band, content sits in asymmetric two-column grids: the home opening is a 36rem text column on white with the palace photograph filling the band's right side to the screen edge (clean edges all round, no fades, never under text, capped at 1.2× its 800×470 source, muted caption below); below 1200px the photograph stacks above the text at its true 800:470 shape; section bands are 0.8fr heading column / 1.2fr record column; inner pages are a fluid main column with a 270px sticky side navigation. Readable measure is capped at 65–68ch.
 
 Spacing follows a 4px-based scale (4, 8, 12, 16, 24, 32, 48, 64, 96). Rows are padded 10–16px vertically.
 

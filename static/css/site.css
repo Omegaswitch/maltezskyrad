@@ -165,19 +165,19 @@ p{margin:0}
 /* ---------- home ---------- */
 .home-open{padding-block:clamp(var(--s7),6vw,var(--s9)) clamp(var(--s7),6vw,var(--s8))}
 /* hero (critique 2026-10-14, layout A): text on plain white; the palace photograph fills the right of the band to the
-   screen edge with clean top/right/bottom edges and one short fade facing the text. The 800×470 original is cropped on the
+   screen edge with clean edges all round, like the Grand Magistry and sister-association sites (no fades, never under text). The 800×470 original is cropped on the
    building's axis and capped at 1.2× (564px tall) at desktop sizes; below 1200px it stacks above the text at its true shape. */
 .home-open{position:relative;overflow:hidden;padding-block:var(--s7) var(--s8)}
 .home-open .open-grid{grid-template-columns:minmax(0,36rem)}
 .hero-photo{position:absolute;top:0;right:0;left:calc(max(0px,(100% - var(--wrap)) / 2) + var(--gutter) + 36rem + 72px);margin:0;animation:hero-in .6s var(--ease) both}
-.hero-photo img{width:100%;height:564px;object-fit:cover;object-position:45% 62%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%);mask-image:linear-gradient(90deg,transparent,#000 14%)}
-.hero-photo figcaption{padding:var(--s2) var(--gutter) var(--s3) 14%;font-size:.8rem;color:var(--muted)}
+.hero-photo img{width:100%;height:564px;object-fit:cover;object-position:45% 62%}
+.hero-photo figcaption{padding:var(--s2) var(--gutter) var(--s3) 0;font-size:.8rem;color:var(--muted)}
 @keyframes hero-in{from{opacity:0}}
 @media (max-width:1199px){
   .home-open{padding-top:0}
   .home-open .open-grid{grid-template-columns:minmax(0,1fr)}
   .hero-photo{position:static;order:-1;margin:0 calc(-1 * var(--gutter)) var(--s3);animation:none}
-  .hero-photo img{height:auto;aspect-ratio:800/470;-webkit-mask-image:none;mask-image:none}
+  .hero-photo img{height:auto;aspect-ratio:800/470}
   .hero-photo figcaption{padding:var(--s2) var(--gutter) 0}
 }
 @media (min-width:860px) and (max-width:1199px){
