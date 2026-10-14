@@ -34,6 +34,7 @@ The only official Czech presence of a sovereign, 900-year-old lay religious orde
 - Czech full name (user decision, 2026-10-14): "Suverénní vojenský špitální řád svatého Jana Jeruzalémského, z Rhodu a z Malty" (form used in the Grand Priory's corrected 2026 Honours booklet). Other forms found in existing materials are not used for new site text; legacy texts keep their wording until editorial review.
 - Official names: full name in the first instance and in the top banner; thereafter "Suverénní maltézský řád" (institution/diplomacy) or "Maltézský řád" (activities). Never "Malta" alone; no acronyms (SMOM, etc.).
 - Two emblems only (institutional armorial bearing; red shield for activities). No emblem may be created, redrawn or approximated; labelled placeholders until approved originals are supplied.
+- Client-approved exception (user decision, 2026-10-14): a minimal outline trace of the armorial bearing's silhouette plays once per session as the opening animation, knowingly outside the Grand Magistry guidelines; it is switched by `openingTrace` in content/site.json and is removed if the Grand Magistry objects.
 - Official texts (mission, spirituality, governance, history, Grand Master, FAQ, contacts) must use Grand Magistry texts or link to them.
 - Apolitical, neutral; no political opinion. No invented facts, statistics, quotations or endorsements.
 - Must link to www.orderofmalta.int in the footer; top banner, colour scheme and general layout follow the Grand Magistry website.

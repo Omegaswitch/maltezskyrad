@@ -31,7 +31,8 @@ esc = lambda s: html.escape(str(s or ""), quote=True)
 def read_doc(path):
     text = path.read_text(encoding="utf-8")
     _, meta, body = text.split("---\n", 2)
-    return json.loads(meta), body.strip()
+    fix = lambda v: v.replace("Fra´", "Fra’") if isinstance(v, str) else v  # legacy texts use the acute accent
+    return {k: fix(v) for k, v in json.loads(meta).items()}, fix(body.strip())
 
 
 def load_pages():
@@ -320,7 +321,7 @@ def calendar_widget(lang, view="month"):
     t = I18N[lang]
     return f"""<div class="cal-widget" data-state="loading">
  <div class="skeleton cal-skeleton" aria-hidden="true">{''.join('<span></span>' for _ in range(7))}</div>
- <addcal-calendar class="addcal-host" data-calendar-uid="{a['calendarUid']}" data-lang="{lang}" data-initial-view="{view}" data-first-day="1" data-timezone="Europe/Prague" data-theme="light" data-accent-color="#e31a18"></addcal-calendar>
+ <addcal-calendar class="addcal-host" data-calendar-uid="{a['calendarUid']}" data-lang="{lang}" data-initial-view="{view}" data-first-day="1" data-timezone="Europe/Prague" data-theme="light" data-accent-color="#e31a18" data-time-format="24"></addcal-calendar>
  <p class="cal-loading" role="status">{esc(t['calendarLoading'])}</p>
  <p class="cal-fallback">{esc(t['calendarFallback'])} <a href="{a['publicUrl']}">{a['publicUrl'].replace('https://', '')}</a></p>
 </div>"""
@@ -379,7 +380,6 @@ def render_home():
     body = f"""
 <section class="home-open" aria-labelledby="home-title"><div class="wrap open-grid">
  <div class="open-text reveal">
-  <p class="meta">Velkopřevorský palác · Praha 1 – Malá Strana</p>
   <h1 id="home-title" class="display">České velkopřevorství</h1>
   <p class="lead">{esc(SITE['names']['cs']['order'])} je v českých zemích přítomen od poloviny 12. století, kdy kníže Vladislav II. svěřil johanitům území u Juditina mostu. Po potlačení komunisty v roce 1950 přežilo velkopřevorství v exilu; v Praze bylo obnoveno 20. dubna 1990.</p>
   <p>Členové velkopřevorství, jeho dobrovolníci a organizace, které založilo, slouží nemocným, seniorům a lidem v nouzi v duchu hesla Řádu <i lang="la">Tuitio fidei et obsequium pauperum</i> – ochrana víry a služba chudým a nemocným.</p>
@@ -396,14 +396,14 @@ def render_home():
  <div class="section-head"><h2 id="cal-title" class="display-m">Kalendář velkopřevorství</h2><p>{esc(t['calendarLead'])}</p></div>
  <div class="cal-grid">
   <div class="cal-side">
-   <h3 class="label">{esc(t['regularServices'])}</h3>
+   <h3 class="display-s">{esc(t['regularServices'])}</h3>
    <p class="small">{esc(t['churchPlace'])}</p>
    {services_list()}
    <p><a class="link-strong" href="/kalendar/">Celý kalendář a odběr do telefonu</a></p>
   </div>
   {calendar_widget('cs', 'schedule')}
  </div>
- <div class="dl-block"><h3 class="label">{esc(t['calendar2027'])}</h3>{downloads_list()}</div>
+ <div class="dl-block"><h3 class="display-s">{esc(t['calendar2027'])}</h3>{downloads_list()}</div>
 </div></section>
 
 <section class="band" aria-labelledby="works-title"><div class="wrap split">
@@ -416,9 +416,9 @@ def render_home():
  <ol class="news-list">{news}</ol>
 </div></section>
 
-<section class="band" aria-labelledby="order-title"><div class="wrap split">
+<section class="band" aria-labelledby="order-title"><div class="wrap{' split' if feed_html else ''}">
  <div class="split-head"><h2 id="order-title" class="display-m">{esc(t['oneOrder'])}</h2><p>{esc(t['oneOrderText'])}</p><p><a class="link-strong" href="https://www.orderofmalta.int/">{esc(t['gmLink'])}</a></p></div>
- <div>{('<h3 class="label">' + esc(t['gmNews']) + '</h3>' + feed_html) if feed_html else ''}</div>
+ <div>{('<h3 class="display-s">' + esc(t['gmNews']) + '</h3>' + feed_html) if feed_html else ''}</div>
 </div></section>
 """
     alts = {l: ("/" if l == "cs" else f"/{l}/") for l in SITE["languages"]}
@@ -538,8 +538,8 @@ def render_article(n, prev_n, next_n):
 <div class="wrap">{crumbs_html('/aktuality/', [(n['title'], n['url'])])}</div>
 <article class="wrap page page--article">
  <header class="page-head reveal">
-  <p class="meta"><time datetime="{n['date'][:10]}">{fmt_date(n['date'])}</time>{(' · ' + cat_links) if cat_links else ''}</p>
   <h1 class="display">{esc(n['title'])}</h1>
+  <p class="byline"><time datetime="{n['date'][:10]}">{fmt_date(n['date'])}</time>{(' · ' + cat_links) if cat_links else ''}</p>
  </header>
  <div class="page-main">
   {figure}
@@ -610,20 +610,19 @@ def render_foreign_home(lang):
     feed = gm_feed(lang)
     feed_html = ""
     if feed:
-        feed_html = f'<h3 class="label">{esc(t["gmNews"])}</h3><ul class="gm-feed">' + "".join(
+        feed_html = f'<h3 class="display-s">{esc(t["gmNews"])}</h3><ul class="gm-feed">' + "".join(
             f'<li><time datetime="{f["date"]}">{short_date(f["date"]) if f["date"] else ""}</time><a href="{esc(f["link"])}">{esc(f["title"])}</a></li>' for f in feed) + "</ul>"
     downloads = ""
     if lang == "en":
         en_files = "".join(f'<li><a href="{f}">{esc(label)} <span class="file-meta">PDF</span></a></li>' for d in SITE["calendarFiles"] for label, f in d["files"] if "English" in label)
-        downloads = f'<div class="dl-block"><h3 class="label">{esc(t["calendar2027"])}</h3><ul class="plain-links">{en_files}</ul></div>'
+        downloads = f'<div class="dl-block"><h3 class="display-s">{esc(t["calendar2027"])}</h3><ul class="plain-links">{en_files}</ul></div>'
     body = f"""
 <section class="home-open"><div class="wrap open-grid">
  <div class="open-text reveal">
-  <p class="meta">Prague 1 – Malá Strana</p>
   <h1 class="display">{esc(names['entity'])}</h1>
   <p class="lead">{esc(names['order'])}</p>
   <p class="notice">{esc(t['pendingTranslation'])}</p>
-  <h2 class="label">{esc(t['officialTexts'])}</h2>
+  <h2 class="display-s official-head">{esc(t['officialTexts'])}</h2>
   <ul class="plain-links">{official}</ul>
  </div>
  <figure class="open-figure reveal">{img('/media/2018/07/velkoprevorstvi.jpg', names['entity'], eager=True)}</figure>
@@ -721,7 +720,7 @@ def build():
 
 
 PRIVACY = """<p>Tento web neužívá analytické ani reklamní cookies a nesleduje návštěvníky. Písma a obrázky se načítají přímo z tohoto webu.</p>
-<p>Na úvodní stránce a na stránce Kalendář se zobrazuje kalendář služby AddCal (addcal.co). Při jeho načtení prohlížeč odesílá službě AddCal technické údaje nutné k zobrazení (IP adresu a údaje o prohlížeči). Kalendář si můžete prohlédnout také přímo na adrese <a href="https://addcal.co/c/calendarGPB">addcal.co/c/calendarGPB</a>.</p>
+<p>Na úvodní stránce, na stránce Kalendář a na úvodních stránkách cizojazyčných verzí se zobrazuje kalendář služby AddCal (addcal.co). Při jeho načtení prohlížeč odesílá službě AddCal technické údaje nutné k zobrazení (IP adresu a údaje o prohlížeči). Kalendář si můžete prohlédnout také přímo na adrese <a href="https://addcal.co/c/calendarGPB">addcal.co/c/calendarGPB</a>.</p>
 <p>Správcem osobních údajů je České velkopřevorství, Velkopřevorské náměstí 4, 118 00 Praha 1. Dotazy k ochraně osobních údajů posílejte na <a href="mailto:gpb@smom.cz">gpb@smom.cz</a>.</p>"""
 
 
