@@ -156,7 +156,7 @@ The system rejects the charity-landing vocabulary (hero slogan, donate button, c
 A white-and-grey institutional palette framed by the Order's red and a graphite menu, with red used as signal rather than surface inside the frame.
 
 ### Primary
-- **Magistry Red** (`magistry-red`): Grand Magistry web red (theme CSS value; the spec sheet lists #e31818). Fills only: top bar, red footer band, primary button, active-menu underline, side-nav top rule, submenu top border, focus ring, selection. Links on white use it too (4.7:1 on white).
+- **Magistry Red** (`magistry-red`): Grand Magistry web red (theme CSS value; the spec sheet lists #e31818). Fills only: top bar, red footer band, primary button, active-menu underline, side-nav top rule, focus ring, selection. Links on white use it too (4.7:1 on white).
 - **Pressed Red** (`magistry-red-pressed`): hover fill of the primary button.
 - **Text Red** (`magistry-red-text`): the darker theme red for text on the grey ground and for hover colour of dark links and row titles. Required wherever red text sits on #f3f3f3, where Magistry Red falls below AA.
 
@@ -220,7 +220,7 @@ Flat. Depth is carried by tone (white against #f3f3f3 bands, graphite menu again
 
 ## Shapes
 
-Square. Corners are 0 except a 2px softening on the few bounded controls (button, language chips, tabs, file badges, skeleton bars, focus ring). Accent geometry is linear: a 3px red top rule on the side navigation and dropdown, a 3px inset red underline for the active menu item, a 2px inset red left rule for the current side-nav item, and a 1px red left rule on pull quotes. Photographs are unrounded and unframed.
+Square. Corners are 0 except a 2px softening on the few bounded controls (button, language chips, tabs, file badges, skeleton bars, focus ring). Accent geometry is linear: a 3px red top rule on the side navigation, a 3px inset red underline for the active, hovered or open menu item (always exactly the item's width; the dropdown has no red rule of its own), a 2px inset red left rule for the current side-nav item, and a 1px red left rule on pull quotes. Photographs are unrounded and unframed.
 
 ## Components
 
