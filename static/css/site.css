@@ -80,14 +80,11 @@ p{margin:0}
 /* the transition name makes the header its own stacking context; lift it so dropdowns sit above animated page content */
 .site-header{view-transition-name:site-header;position:relative;z-index:30}
 .site-footer{view-transition-name:site-footer}
-/* the Magistry frame holds still: header and footer take their new place at once and only cross-fade */
-::view-transition-group(site-header),::view-transition-group(site-footer){animation:none}
-::view-transition-old(site-header),::view-transition-new(site-header),::view-transition-old(site-footer),::view-transition-new(site-footer){animation-duration:240ms;animation-timing-function:var(--ease)}
-/* the page beneath is exchanged in an overlapping cross-fade, no movement */
-::view-transition-old(root){animation:vt-fade-out 200ms ease-out both}
-::view-transition-new(root){animation:vt-fade-in 360ms var(--ease) 60ms both}
-@keyframes vt-fade-out{to{opacity:0}}
-@keyframes vt-fade-in{from{opacity:0}}
+/* the Magistry frame holds still: the new header and footer are shown at once (the old ones, which may carry an open mobile menu, are dropped) */
+::view-transition-group(site-header),::view-transition-group(site-footer),::view-transition-new(site-header),::view-transition-new(site-footer){animation:none}
+::view-transition-old(site-header),::view-transition-old(site-footer){display:none}
+/* the page beneath: the browser's own balanced cross-fade (no dip to white), slowed a little, no movement */
+::view-transition-old(root),::view-transition-new(root){animation-duration:300ms;animation-timing-function:var(--ease)}
 
 
 /* ---------- header (Grand Magistry frame) ---------- */
@@ -235,6 +232,9 @@ p{margin:0}
 .n-item time{font-size:.86rem;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
 .n-item a{font-weight:500;color:var(--ink-strong);text-decoration:none}
 .n-item a:hover{color:var(--red-text);text-decoration:underline}
+/* the whole news row is the tap target, not just the title line */
+.n-item{position:relative}
+.n-item a::after{content:"";position:absolute;inset:0}
 .band-grey .n-item a{color:var(--ink-strong)}
 .n-excerpt{font-size:.93rem;color:var(--muted);margin-top:3px;max-width:70ch}
 .dated-list{list-style:none;margin:var(--s3) 0 0;padding:0;border-top:1px solid var(--rule)}
@@ -341,6 +341,15 @@ p{margin:0}
 .f-red{background:var(--red);color:#fff;font-size:.85rem}
 .f-red .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3) var(--s6);padding-block:var(--s5)}
 .f-red a{color:#fff}
+
+/* ---------- touch: standalone links get a finger-sized target (44px) without changing desktop ---------- */
+@media (pointer:coarse){
+  .crumbs a,.link-strong,.f-nav a,.f-red a,.contact-card a,.facts dd a{display:inline-block;padding-block:12px}
+  .crumbs{padding-top:var(--s2)}
+  .crumbs ol{gap:0}
+  .f-nav ul{row-gap:0}
+  .f-red .wrap{row-gap:0}
+}
 
 /* ---------- loading: skeletons and image placeholders ---------- */
 .skeleton span{display:block;border-radius:2px;background:rgba(0,0,0,.05);animation:breathe 2.4s ease-in-out infinite alternate}
