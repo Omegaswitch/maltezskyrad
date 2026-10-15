@@ -31,11 +31,13 @@
     }
   });
 
-  // ---- images: skeleton until loaded, then a short fade
+  // ---- images still downloading develop out of the paper tone once they arrive (see .is-loading)
   document.querySelectorAll("img.ph-img").forEach(function (img) {
-    var done = function () { img.classList.add("is-loaded"); };
-    if (img.complete) done();
-    else { img.addEventListener("load", done, { once: true }); img.addEventListener("error", done, { once: true }); }
+    if (img.complete || img.naturalWidth) return;  // already shown (or progressively painting): leave it alone
+    img.classList.add("is-loading");
+    var done = function () { img.classList.remove("is-loading"); };
+    img.addEventListener("load", done, { once: true });
+    img.addEventListener("error", done, { once: true });
   });
 
   // ---- AddCal calendar: load the vendor script only when a calendar is near the viewport

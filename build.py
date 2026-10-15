@@ -481,12 +481,12 @@ def render_home(lang="cs"):
 </div></section>"""
     body = f"""
 <section class="home-open" aria-labelledby="home-title"><div class="wrap home-intro">
- <div class="home-intro-main reveal">
+ <div class="home-intro-main">
   <h1 id="home-title" class="display">{esc(names['entity'])}</h1>
   <p class="lead">{esc(t['homeLead'])}</p>
   <p>{t['homeText']}</p>
  </div>
- <div class="home-intro-facts reveal">
+ <div class="home-intro-facts">
   <dl class="facts">{officers}
    <div><dt>{esc(t['seat'])}</dt><dd>{esc(t['seatValue'])}</dd></div>
    <div><dt>{esc(t['orderChurch'])}</dt><dd><a href="{localized('/radovy-kostel-panny-marie-pod-retezem/o-kostele/', lang)}">{esc(t['orderChurchValue'])}</a></dd></div>
@@ -619,7 +619,7 @@ def render_page(p, lang="cs"):
     html_body = f"""
 <div class="wrap">{crumbs_html(url, lang=lang)}</div>
 <article class="wrap page{' page--with-side' if side else ''}">
- <header class="page-head reveal">
+ <header class="page-head">
   {emblem}
   <h1 class="display">{esc(p['title'])}</h1>
  </header>
@@ -652,7 +652,7 @@ def render_article(n, prev_n, next_n):
     body = f"""
 <div class="wrap">{crumbs_html('/aktuality/', [(n['title'], n['url'])])}</div>
 <article class="wrap page page--article">
- <header class="page-head reveal">
+ <header class="page-head">
   <h1 class="display">{esc(n['title'])}</h1>
   <p class="byline"><time datetime="{n['date'][:10]}">{fmt_date(n['date'])}</time>{(' · ' + cat_links) if cat_links else ''}</p>
  </header>
@@ -692,7 +692,7 @@ def render_news_index(items, active="", year=None, url="/aktuality/"):
     body = f"""
 <div class="wrap">{crumbs_html('/aktuality/', [(title, url)] if url != '/aktuality/' else None)}</div>
 <div class="wrap page page--news">
- <header class="page-head reveal"><h1 class="display">{esc(title)}</h1>
+ <header class="page-head"><h1 class="display">{esc(title)}</h1>
   <p class="lead-s">Zprávy o činnosti Českého velkopřevorství, provozu řádového kostela a koncertech. Zprávy Řádu z celého světa najdete na <a href="https://www.orderofmalta.int/news/">orderofmalta.int</a>.</p></header>
  <nav class="tabs" aria-label="{esc(I18N['cs']['category'])}">{''.join(tabs)}</nav>
  <nav class="years" aria-label="{esc(I18N['cs']['year'])}">{year_links}</nav>
@@ -708,7 +708,7 @@ def render_calendar_page(lang="cs"):
     body = f"""
 <div class="wrap">{crumbs_html(e['url'], lang=lang)}</div>
 <div class="wrap page page--calendar">
- <header class="page-head reveal"><h1 class="display">{esc(e['title'])}</h1><p class="lead-s">{esc(t['calendarLead'])}</p></header>
+ <header class="page-head"><h1 class="display">{esc(e['title'])}</h1><p class="lead-s">{esc(t['calendarLead'])}</p></header>
  {calendar_widget(lang, 'month')}
  <p class="subscribe"><a class="btn" href="{SITE['addcal']['publicUrl']}">{esc(t['subscribe'])}</a><span class="small">{esc(t['subscribeNote'])}</span></p>
  <div class="cal-below">

@@ -65,7 +65,7 @@ Fixed during QA:
 - On mobile, the menu button toggles `aria-expanded` and opens the menu.
 
 **Motion:**
-- Under `prefers-reduced-motion` view transitions, the skeleton shimmer and the reveal animation are disabled.
+- Under `prefers-reduced-motion` view transitions, the image develop transition and the calendar skeleton animation are disabled.
 
 ## Performance
 

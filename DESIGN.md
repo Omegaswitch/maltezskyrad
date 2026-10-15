@@ -149,7 +149,7 @@ The system rejects the charity-landing vocabulary (hero slogan, donate button, c
 - Rows, not cards: two-column definition lists between hairline rules.
 - EB Garamond for headings and row titles; Asap for everything functional.
 - Red reserved for frame, links, the one filled button, active state and focus.
-- Motion is short, settling and fully suppressed under reduced motion.
+- Motion is calm: the frame never moves, content cross-fades, photographs develop; all of it is suppressed under reduced motion.
 
 ## Colors
 
@@ -253,13 +253,13 @@ Three stacked bands from the Grand Magistry theme: Footer Slate navigation (four
 A hairline-framed white panel (min 420px; 360px on small screens) hosting the AddCal embed, loaded only near the viewport. While loading it shows skeleton bars and a muted status line; on failure it falls back to plain links. The vendor widget's own internal colours belong to AddCal and are not system colours.
 
 ### Loading
-Images and the calendar show a soft grey shimmer (#ececec to #f7f7f7, 1.4s) until loaded, then fade in over 280ms. Skeletons are the only placeholder treatment; spinners are not used.
+Images reserve their exact box (width and height) on a 5% black tint. A photograph still downloading when the page opens "develops" from a pale, grey, low-contrast state into full colour over 900ms (`filter` transition, `cubic-bezier(.16,1,.3,1)`); cached or already-painting images appear at once. Calendar skeleton bars breathe slowly (opacity, 2.4s) instead of a sweeping shimmer. Spinners are not used.
 
 ### Content-status bar (preview only)
 A thin full-width tinted bar under the menu stating the page's editorial state in 0.8rem Asap 500. Preview tooling, not a design element.
 
 ### Motion
-Easing `cubic-bezier(.22,.61,.36,1)`; 160ms for state changes, 280ms for disclosure and fades. Cross-document view transitions (180ms out, 260ms in, 4–6px drift) with the header and footer held in place. Page heads settle in from 8px over 0.5s, starting visible. `prefers-reduced-motion` collapses all animation and transition.
+Easing `cubic-bezier(.22,.61,.36,1)`; 160ms for state changes, 280ms for disclosure and fades. **The frame holds still:** on navigation the header and footer view-transition groups do not animate their geometry (they take their new place at once and only cross-fade, 240ms), while the page beneath is exchanged in an overlapping cross-fade (out 200ms, in 360ms from 60ms) with no movement; the same transition serves a change of language. No entrance choreography on page load. Linked rows glide 12px by transform on hover (pointer devices only); nothing animates padding or other layout properties. `prefers-reduced-motion` collapses all animation and transition.
 
 ## Do's and Don'ts
 
@@ -270,7 +270,7 @@ Easing `cubic-bezier(.22,.61,.36,1)`; 160ms for state changes, 280ms for disclos
 - **Do** use EB Garamond 500 for headings and row titles and Asap for all UI, data and body text.
 - **Do** use real photographs at the 800×470 basic image ratio, with a muted 0.8rem caption.
 - **Do** keep targets at least 44px for primary actions and 32px for inline file links.
-- **Do** show skeleton shimmer for images and the calendar, and respect reduced motion everywhere.
+- **Do** reserve image boxes, let photographs develop calmly, and respect reduced motion everywhere.
 
 ### Don't:
 - **Don't** create, redraw, approximate or restyle any emblem. Only the two official emblems (armorial bearing, red shield for activities) may appear, from approved originals; until supplied, use labelled placeholders. check.py fails the build for any file under /img/ outside the approved brand set (armorial-bearing 420/840, the official banner, favicons).
