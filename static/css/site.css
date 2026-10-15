@@ -252,7 +252,7 @@ p{margin:0}
 
 /* ---------- inner pages ---------- */
 .crumbs{padding-top:var(--s5)}
-.crumbs ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px 0;font-size:.82rem;color:var(--muted)}
+.crumbs ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 0;font-size:.82rem;color:var(--muted)}
 .crumbs li:not(:last-child)::after{content:"/";margin:0 .55em;color:var(--rule)}
 .crumbs a{color:var(--muted);text-decoration:none}
 .crumbs a:hover{color:var(--red-text);text-decoration:underline}
@@ -344,7 +344,7 @@ p{margin:0}
 
 /* ---------- touch: standalone links get a finger-sized target (44px) without changing desktop ---------- */
 @media (pointer:coarse){
-  .crumbs a,.link-strong,.f-nav a,.f-red a,.contact-card a,.facts dd a{display:inline-block;padding-block:12px}
+  .crumbs li>*,.link-strong,.f-nav a,.f-red a,.contact-card a,.facts dd a{display:inline-block;padding-block:12px}
   .crumbs{padding-top:var(--s2)}
   .crumbs ol{gap:0}
   .f-nav ul{row-gap:0}
