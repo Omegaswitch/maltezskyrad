@@ -305,7 +305,7 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(full_title)}</title>
-<meta name="description" content="{esc(description or plain(body, 160))}">
+<meta name="description" content="{esc(plain(description or body, 160))}">
 {robots}
 <link rel="canonical" href="{canonical}">
 {alt_links}
@@ -754,7 +754,7 @@ def rss():
 
 VERCEL = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))  # headers and redirects live here; other hosts get _headers and _redirects
 HEADERS = "".join(h["source"].replace("(.*)", "*") + "\n" + "".join(f"  {x['key']}: {x['value']}\n" for x in h["headers"]) for h in VERCEL["headers"])
-REDIRECTS = [(r["source"].replace(":path*", "*"), r["destination"].replace(":path*", ":splat")) for r in VERCEL["redirects"]]
+REDIRECTS = [(r["source"].replace(":path*", "*").replace("(.*)", "*"), r["destination"].replace(":path*", ":splat")) for r in VERCEL["redirects"]]
 
 
 def build():

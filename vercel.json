@@ -136,7 +136,7 @@
       "permanent": true
     },
     {
-      "source": "/category/:path*",
+      "source": "/category/(.*)",
       "destination": "/aktuality/",
       "permanent": true
     },
