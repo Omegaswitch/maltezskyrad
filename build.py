@@ -231,7 +231,7 @@ def gm_feed(lang, limit=3):
 
 # ---------------------------------------------------------------- layout
 
-FONTS_PRELOAD = ["asap-latin-ext-400-normal", "asap-latin-400-normal", "eb-garamond-latin-500-normal", "eb-garamond-latin-ext-500-normal"]
+FONTS_PRELOAD = ["asap-latin-400-normal", "eb-garamond-latin-500-normal"]  # first-screen body and heading; latin-ext loads on demand by unicode-range
 
 
 def home_url(lang):
@@ -280,7 +280,7 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
     robots = "" if PRODUCTION else '<meta name="robots" content="noindex, nofollow">'
     alternates = alternates or ({**ALT[url], "x-default": ALT[url]["cs"]} if url in ALT else None)
     alt_links = "".join(f'<link rel="alternate" hreflang="{l}" href="{SITE["baseUrl"]}{u}">' for l, u in (alternates or {}).items())
-    preload = "".join(f'<link rel="preload" href="/fonts/{f}.woff2" as="font" type="font/woff2" crossorigin>' for f in FONTS_PRELOAD)
+    preload = "".join(f'<link rel="preload" href="/fonts/{f}.woff2" as="font" type="font/woff2" crossorigin>' for f in FONTS_PRELOAD) + '<link rel="preload" href="/img/banner/banner-photo.webp" as="image" fetchpriority="high">' 
     ld = ""
     if url == home_url(lang):  # who we are, for search engines (data only, not executed)
         c = SITE["contact"]
