@@ -34,11 +34,11 @@
   {"date": "2027-09-28", "place": "Stará Boleslav",
    "title": {"cs": "Národní svatováclavská pouť a mše svatá", "en": "National St Wenceslas Pilgrimage and Mass", "fr": "Pèlerinage national de saint Venceslas et messe", "it": "Pellegrinaggio nazionale di San Venceslao e Messa", "de": "Nationalwallfahrt zum hl. Wenzel und heilige Messe"}},
   {"date": "2027-10-23", "place": "České Budějovice",
-   "title": {"cs": "Výročí založení Komendy (20 let) a ČMP", "en": "20th Anniversary of the Commandery and of ČMP", "fr": "20e anniversaire de la Commanderie et de ČMP", "it": "20° anniversario della Commenda e di ČMP", "de": "20 Jahre Komturei und ČMP"}},
+   "title": {"cs": "20. výročí založení komendy a ČMP", "en": "20th Anniversary of the Commandery and of ČMP", "fr": "20e anniversaire de la Commanderie et de ČMP", "it": "20° anniversario della Commenda e di ČMP", "de": "20 Jahre Komturei und ČMP"}},
   {"date": "2027-11-02", "place": "Strakonice",
    "title": {"cs": "Pietní vzpomínka na hřbitově", "en": "Commemoration at the Cemetery", "fr": "Commémoration au cimetière", "it": "Commemorazione al cimitero", "de": "Gedenkfeier auf dem Friedhof"}},
   {"date": "2027-11-19", "time": "17:30–19:00", "place": "church",
-   "title": {"cs": "Všichni svatí maltézského řádu", "en": "All Saints of the Order of Malta", "fr": "Tous les saints de l'Ordre de Malte", "it": "Tutti i Santi dell'Ordine di Malta", "de": "Alle Heiligen des Malteserordens"}},
+   "title": {"cs": "Všichni svatí Maltézského řádu", "en": "All Saints of the Order of Malta", "fr": "Tous les saints de l'Ordre de Malte", "it": "Tutti i Santi dell'Ordine di Malta", "de": "Alle Heiligen des Malteserordens"}},
   {"date": "2027-11-27", "end": "2027-12-19", "place": "church",
    "note": {"cs": "27.–28. 11., 4.–5. 12., 11.–12. 12. a 18.–19. 12.; výtěžek podporuje charitativní činnost Řádu", "en": "27–28 Nov, 4–5, 11–12 and 18–19 Dec; proceeds support the Order's charitable work", "fr": "27–28 nov., 4–5, 11–12 et 18–19 déc. ; les recettes soutiennent les œuvres caritatives de l'Ordre", "it": "27–28 nov., 4–5, 11–12 e 18–19 dic.; il ricavato sostiene le opere caritative dell'Ordine", "de": "27.–28. Nov., 4.–5., 11.–12. und 18.–19. Dez.; der Erlös unterstützt die karitative Arbeit des Ordens"},
    "title": {"cs": "Prodej charitativního punče", "en": "Charity Punch Sale", "fr": "Vente de punch caritatif", "it": "Vendita di punch di beneficenza", "de": "Verkauf von Charity-Punsch"}}
@@ -66,10 +66,10 @@
   ["10-05", {"cs": "Blahoslavený Petr Pattarini z Imoly", "en": "Blessed Peter Pattarini of Imola", "fr": "Bienheureux Pierre Pattarini d'Imola", "it": "Beato Pietro Pattarini da Imola", "de": "Seliger Petrus Pattarini von Imola"}],
   ["10-08", {"cs": "Svatý Hugo, řeholník", "en": "Saint Hugh, religious", "fr": "Saint Hugues, religieux", "it": "Sant'Ugo, religioso", "de": "Heiliger Hugo, Ordensmann"}],
   ["10-11", {"cs": "Svatý Jan XXIII., papež", "en": "Saint John XXIII, pope", "fr": "Saint Jean XXIII, pape", "it": "San Giovanni XXIII, papa", "de": "Heiliger Johannes XXIII., Papst"}],
-  ["10-13", {"cs": "Blahoslavený Gerard, zakladatel maltézského řádu", "en": "Blessed Gerard, Founder of the Order of Malta", "fr": "Bienheureux Gérard, fondateur de l'Ordre de Malte", "it": "Beato Gerardo, fondatore dell'Ordine di Malta", "de": "Seliger Gerhard, Gründer des Malteserordens"}, "main"],
+  ["10-13", {"cs": "Blahoslavený Gerard, zakladatel Maltézského řádu", "en": "Blessed Gerard, Founder of the Order of Malta", "fr": "Bienheureux Gérard, fondateur de l'Ordre de Malte", "it": "Beato Gerardo, fondatore dell'Ordine di Malta", "de": "Seliger Gerhard, Gründer des Malteserordens"}, "main"],
   ["10-21", {"cs": "Blahoslavený císař Karel Rakouský", "en": "Blessed Emperor Charles of Austria", "fr": "Bienheureux empereur Charles d'Autriche", "it": "Beato imperatore Carlo d'Austria", "de": "Seliger Kaiser Karl von Österreich"}],
-  ["11-19", {"cs": "Všichni svatí maltézského řádu", "en": "All Saints of the Order of Malta", "fr": "Tous les saints de l'Ordre de Malte", "it": "Tutti i Santi dell'Ordine di Malta", "de": "Alle Heiligen des Malteserordens"}, "main"],
-  ["11-20", {"cs": "Vzpomínka na všechny zemřelé členy řádu", "en": "Commemoration of all deceased members of the Order", "fr": "Commémoration de tous les membres défunts de l'Ordre", "it": "Commemorazione di tutti i membri defunti dell'Ordine", "de": "Gedenken an alle verstorbenen Mitglieder des Ordens"}],
+  ["11-19", {"cs": "Všichni svatí Maltézského řádu", "en": "All Saints of the Order of Malta", "fr": "Tous les saints de l'Ordre de Malte", "it": "Tutti i Santi dell'Ordine di Malta", "de": "Alle Heiligen des Malteserordens"}, "main"],
+  ["11-20", {"cs": "Vzpomínka na všechny zemřelé členy Řádu", "en": "Commemoration of all deceased members of the Order", "fr": "Commémoration de tous les membres défunts de l'Ordre", "it": "Commemorazione di tutti i membri defunti dell'Ordine", "de": "Gedenken an alle verstorbenen Mitglieder des Ordens"}],
   ["12-02", {"cs": "Panna Maria, Příčina naší radosti (Panna Maria z Liesse)", "en": "Our Lady, Cause of Our Joy (Our Lady of Liesse)", "fr": "Notre-Dame, Cause de notre joie (Notre-Dame de Liesse)", "it": "Beata Vergine Maria, Causa della nostra gioia (Madonna di Liesse)", "de": "Unsere Liebe Frau, Ursache unserer Freude (Unsere Liebe Frau von Liesse)"}]
  ]
 }
