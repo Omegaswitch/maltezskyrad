@@ -78,29 +78,89 @@
  ],
  "services": [
   {
-   "day": "Neděle",
    "time": "9:30",
-   "what": "Modlitba svatého růžence"
+   "day": {
+    "cs": "Neděle",
+    "en": "Sunday",
+    "fr": "Dimanche",
+    "it": "Domenica",
+    "de": "Sonntag"
+   },
+   "what": {
+    "cs": "Modlitba svatého růžence",
+    "en": "Holy Rosary",
+    "fr": "Saint Rosaire",
+    "it": "Santo Rosario",
+    "de": "Rosenkranzgebet"
+   }
   },
   {
-   "day": "Neděle",
    "time": "10:00",
-   "what": "Nedělní mše svatá"
+   "day": {
+    "cs": "Neděle",
+    "en": "Sunday",
+    "fr": "Dimanche",
+    "it": "Domenica",
+    "de": "Sonntag"
+   },
+   "what": {
+    "cs": "Nedělní mše svatá",
+    "en": "Sunday Holy Mass",
+    "fr": "Messe dominicale",
+    "it": "Santa Messa domenicale",
+    "de": "Sonntagsmesse"
+   }
   },
   {
-   "day": "Úterý",
    "time": "17:30",
-   "what": "Mše svatá"
+   "day": {
+    "cs": "Úterý",
+    "en": "Tuesday",
+    "fr": "Mardi",
+    "it": "Martedì",
+    "de": "Dienstag"
+   },
+   "what": {
+    "cs": "Mše svatá",
+    "en": "Holy Mass",
+    "fr": "Messe",
+    "it": "Santa Messa",
+    "de": "Heilige Messe"
+   }
   },
   {
-   "day": "3. neděle v měsíci",
    "time": "17:00",
-   "what": "Nedělní latinská mše"
+   "day": {
+    "cs": "3. neděle v měsíci",
+    "en": "3rd Sunday of the month",
+    "fr": "3e dimanche du mois",
+    "it": "3ª domenica del mese",
+    "de": "3. Sonntag im Monat"
+   },
+   "what": {
+    "cs": "Nedělní latinská mše",
+    "en": "Sunday Latin Mass",
+    "fr": "Messe latine dominicale",
+    "it": "Messa domenicale in latino",
+    "de": "Sonntagsmesse auf Latein"
+   }
   },
   {
-   "day": "První pátek v měsíci",
    "time": "17:30",
-   "what": "Mše s prvopáteční adorací"
+   "day": {
+    "cs": "První pátek v měsíci",
+    "en": "First Friday of the month",
+    "fr": "Premier vendredi du mois",
+    "it": "Primo venerdì del mese",
+    "de": "Erster Freitag im Monat"
+   },
+   "what": {
+    "cs": "Mše s prvopáteční adorací",
+    "en": "First Friday Mass with Adoration",
+    "fr": "Messe du premier vendredi avec adoration",
+    "it": "Messa del primo venerdì con adorazione",
+    "de": "Herz-Jesu-Freitagsmesse mit Anbetung"
+   }
   }
  ],
  "officers": [

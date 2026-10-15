@@ -233,6 +233,13 @@ p{margin:0}
 .n-item a:hover{color:var(--red-text);text-decoration:underline}
 .band-grey .n-item a{color:var(--ink-strong)}
 .n-excerpt{font-size:.93rem;color:var(--muted);margin-top:3px;max-width:70ch}
+.dated-list{list-style:none;margin:var(--s3) 0 0;padding:0;border-top:1px solid var(--rule)}
+.dated-list li{display:grid;grid-template-columns:9.5em minmax(0,1fr);gap:var(--s4);padding:10px 0;border-bottom:1px solid var(--rule)}
+.dated-list time{color:var(--muted);font-variant-numeric:tabular-nums}
+.dated-list b{font-weight:500;color:var(--ink-strong)}
+.dated-list strong{font-weight:700;color:var(--ink-strong)}
+.dated-list span{display:block;font-size:.9rem;color:var(--muted)}
+.cal-year{margin-top:var(--s7);max-width:52rem}
 .gm-feed{list-style:none;margin:var(--s3) 0 0;padding:0;border-top:1px solid var(--rule)}
 .gm-feed li{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:var(--s4);padding:12px 0;border-bottom:1px solid var(--rule)}
 .gm-feed time{font-size:.86rem;color:var(--muted)}
@@ -353,7 +360,7 @@ p{margin:0}
 }
 @media (max-width:640px){
   body{font-size:1rem}
-  .facts div,.contact-card div,.works a,.n-item,.gm-feed li{grid-template-columns:minmax(0,1fr);gap:2px}
+  .facts div,.contact-card div,.works a,.n-item,.gm-feed li,.dated-list li{grid-template-columns:minmax(0,1fr);gap:2px}
   .downloads{grid-template-columns:1fr}
   .year-group{grid-template-columns:1fr;gap:0}
   .pager{grid-template-columns:1fr}

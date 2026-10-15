@@ -21,6 +21,7 @@ CONTENT, STATIC, DIST = ROOT / "content", ROOT / "static", ROOT / "dist"
 PRODUCTION = "--production" in sys.argv
 SITE = json.loads((CONTENT / "site.json").read_text(encoding="utf-8"))
 I18N = json.loads((CONTENT / "i18n.json").read_text(encoding="utf-8"))
+CAL = json.loads((CONTENT / "calendar.json").read_text(encoding="utf-8"))
 ASSET_VERSION = datetime.now().strftime("%Y%m%d%H%M")
 esc = lambda s: html.escape(str(s or ""), quote=True)
 
@@ -324,9 +325,54 @@ def calendar_widget(lang, view="month"):
 </div>"""
 
 
-def services_list():
-    rows = "".join(f'<div><dt>{esc(s["day"])}<span>{esc(s["what"])}</span></dt><dd>{esc(s["time"])}</dd></div>' for s in SITE["services"])
-    return f'<dl class="services">{rows}</dl>'
+def services_list(lang="cs", lent=False):
+    rows = [(s["day"][lang], s["what"][lang], s["time"]) for s in SITE["services"]]
+    if lent:
+        rows += [(CAL["lentDay"][lang], x["title"][lang], x["time"]) for x in CAL["lent"]]
+    return '<dl class="services">' + "".join(f'<div><dt>{esc(d)}<span>{esc(w)}</span></dt><dd>{esc(t)}</dd></div>' for d, w, t in rows) + "</dl>"
+
+
+def day_month(iso, lang):
+    """'11. ledna', '11 January', '11 janvier', '11 gennaio', '11. Januar'."""
+    d = datetime.fromisoformat(iso)
+    m = I18N[lang]["months"][d.month - 1]
+    return f"{d.day}. {m}" if lang in ("cs", "de") else f"{d.day} {m}"
+
+
+def date_span(start, end, lang):
+    if not end:
+        return day_month(start, lang)
+    a, b = datetime.fromisoformat(start), datetime.fromisoformat(end)
+    if a.month == b.month:
+        return f"{a.day}.–{day_month(end, lang)}" if lang in ("cs", "de") else f"{a.day}–{day_month(end, lang)}"
+    return f"{day_month(start, lang)} – {day_month(end, lang)}"
+
+
+def dated_list(rows):
+    """rows: (iso date, label html, detail text)"""
+    return '<ul class="dated-list">' + "".join(
+        f'<li><time datetime="{d}">{lbl}</time><div><b>{title}</b>{f"<span>{esc(det)}</span>" if det else ""}</div></li>' for d, lbl, title, det in rows) + "</ul>"
+
+
+def year_events(lang):
+    rows = []
+    for e in CAL["events"]:
+        place = e.get("place")
+        place = CAL["church"][lang] if place == "church" else (place.get(lang) if isinstance(place, dict) else place)
+        detail = " · ".join(x for x in (place, e.get("time"), (e.get("note") or {}).get(lang)) if x)
+        rows.append((e["date"], esc(date_span(e["date"], e.get("end"), lang)), esc(e["title"][lang]), detail))
+    return dated_list(rows)
+
+
+def order_feasts(lang):
+    y = CAL["year"]
+    return dated_list([(f"{y}-{md}", esc(day_month(f"{y}-{md}", lang)),
+                        (f"<strong>{esc(t[lang])}</strong>" if len(f) > 2 else esc(t[lang])), "") for f in CAL["feasts"] for md, t in [f[:2]]])
+
+
+def concerts(lang):
+    c = CAL["concerts"]
+    return dated_list([(d, esc(day_month(d, lang)), esc(c["title"][lang]), f'{CAL["church"][lang]} · {c["time"]}') for d in c["dates"]])
 
 
 def downloads_list():
@@ -497,7 +543,10 @@ def render_page(p):
     if url == "/kontakt/":
         special = contact_card("cs") + '<p class="small">Velvyslanectví Suverénního maltézského řádu v České republice: <a href="/diplomaticke-vztahy/velvyslanectvi-radu-v-ceske-republice/">kontakt</a>.</p>'
     if url == "/radovy-kostel-panny-marie-pod-retezem/bohosluzby/":
-        special = f'<h2>{esc(I18N["cs"]["regularServices"])}</h2>' + services_list() + '<p><a class="link-strong" href="/kalendar/">Aktuální kalendář bohoslužeb a svátků</a></p>'
+        special = (f'<h2>{esc(I18N["cs"]["regularServices"])}</h2>' + services_list("cs", lent=True) + '<p><a class="link-strong" href="/kalendar/">Aktuální kalendář bohoslužeb a svátků</a></p>'
+                   + f'<h2>{esc(I18N["cs"]["feasts"])}</h2><p class="small">{esc(I18N["cs"]["feastsLead"])}</p>' + order_feasts("cs"))
+    if url == "/koncerty/":
+        special = f'<h2>{esc(I18N["cs"]["concerts"])}</h2><p class="small">{esc(I18N["cs"]["concertsLead"])}</p>' + concerts("cs")
     side = side_nav(url)
     html_body = f"""
 <div class="wrap">{crumbs_html(url)}</div>
@@ -594,9 +643,10 @@ def render_calendar_page():
  {calendar_widget('cs', 'month')}
  <p class="subscribe"><a class="btn" href="{SITE['addcal']['publicUrl']}">{esc(t['subscribe'])}</a><span class="small">Google, Apple, Outlook a další kalendáře; termíny se aktualizují samy.</span></p>
  <div class="cal-below">
-  <section aria-labelledby="svc"><h2 id="svc" class="display-s">{esc(t['regularServices'])}</h2><p class="small">{esc(t['churchPlace'])}</p>{services_list()}</section>
+  <section aria-labelledby="svc"><h2 id="svc" class="display-s">{esc(t['regularServices'])}</h2><p class="small">{esc(t['churchPlace'])}</p>{services_list('cs', lent=True)}</section>
   <section aria-labelledby="dl"><h2 id="dl" class="display-s">{esc(t['calendar2027'])}</h2>{downloads_list()}</section>
  </div>
+ <section class="cal-year" aria-labelledby="yr"><h2 id="yr" class="display-s">{esc(t['yearEvents'])}</h2><p class="small">{esc(t['yearEventsLead'])}</p>{year_events('cs')}</section>
 </div>"""
     return layout(lang="cs", url="/kalendar/", title="Kalendář", body=body, status="new",
                   description="Kalendář bohoslužeb, svátků a akcí Českého velkopřevorství Maltézského řádu; Kalendář 2027 ke stažení.")
