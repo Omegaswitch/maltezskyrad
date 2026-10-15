@@ -355,8 +355,8 @@ p{margin:0}
   .f-red .wrap{row-gap:0}
 }
 
-/* long pages: off-screen year groups and tables are laid out only when scrolled near */
-.year-group,.table-wrap{content-visibility:auto;contain-intrinsic-size:auto 600px}
+/* long tables (Grand Masters, heads of the Grand Priory) are laid out only when scrolled near */
+.table-wrap{content-visibility:auto;contain-intrinsic-size:auto 600px}
 
 /* ---------- loading: skeletons and image placeholders ---------- */
 .skeleton span{display:block;border-radius:2px;background:rgba(0,0,0,.05);animation:breathe 2.4s ease-in-out infinite alternate}
