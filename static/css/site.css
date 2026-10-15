@@ -84,7 +84,7 @@ p{margin:0}
 ::view-transition-group(site-header),::view-transition-group(site-footer),::view-transition-new(site-header),::view-transition-new(site-footer){animation:none}
 ::view-transition-old(site-header),::view-transition-old(site-footer){display:none}
 /* the page beneath: the browser's own balanced cross-fade (no dip to white), slowed a little, no movement */
-::view-transition-old(root),::view-transition-new(root){animation-duration:300ms;animation-timing-function:var(--ease)}
+::view-transition-old(root),::view-transition-new(root){animation-duration:550ms;animation-timing-function:cubic-bezier(.4,0,.2,1)}
 
 
 /* ---------- header (Grand Magistry frame) ---------- */
