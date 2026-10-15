@@ -11,35 +11,40 @@
    "orderShort": "Suverénní maltézský řád",
    "orderActivities": "Maltézský řád",
    "entity": "České velkopřevorství",
-   "site": "Maltézský řád – České velkopřevorství"
+   "site": "Maltézský řád – České velkopřevorství",
+   "lockup": "Maltézský řád – Česká republika"
   },
   "en": {
    "order": "Sovereign Military Hospitaller Order of St. John of Jerusalem of Rhodes and of Malta",
    "orderShort": "Sovereign Order of Malta",
    "orderActivities": "Order of Malta",
    "entity": "Grand Priory of Bohemia",
-   "site": "Order of Malta – Grand Priory of Bohemia"
+   "site": "Order of Malta – Grand Priory of Bohemia",
+   "lockup": "Order of Malta – Czech Republic"
   },
   "fr": {
    "order": "Ordre Souverain Militaire et Hospitalier de Saint-Jean de Jérusalem de Rhodes et de Malte",
    "orderShort": "Ordre souverain de Malte",
    "orderActivities": "Ordre de Malte",
    "entity": "Grand Prieuré de Bohême",
-   "site": "Ordre de Malte – Grand Prieuré de Bohême"
+   "site": "Ordre de Malte – Grand Prieuré de Bohême",
+   "lockup": "Ordre de Malte – République tchèque"
   },
   "it": {
    "order": "Sovrano Militare Ordine Ospedaliero di San Giovanni di Gerusalemme di Rodi e di Malta",
    "orderShort": "Sovrano Ordine di Malta",
    "orderActivities": "Ordine di Malta",
    "entity": "Gran Priorato di Boemia",
-   "site": "Ordine di Malta – Gran Priorato di Boemia"
+   "site": "Ordine di Malta – Gran Priorato di Boemia",
+   "lockup": "Ordine di Malta – Repubblica Ceca"
   },
   "de": {
    "order": "Souveräner Ritter- und Hospitalorden vom Heiligen Johannes von Jerusalem von Rhodos und von Malta",
    "orderShort": "Souveräner Malteserorden",
    "orderActivities": "Malteserorden",
    "entity": "Großpriorat Böhmen",
-   "site": "Malteserorden – Großpriorat Böhmen"
+   "site": "Malteserorden – Großpriorat Böhmen",
+   "lockup": "Der Malteserorden – Tschechische Republik"
   }
  },
  "languages": [

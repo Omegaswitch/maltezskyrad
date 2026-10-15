@@ -264,6 +264,14 @@ def nav_html(lang, current_url):
     return f'<ul class="nav-list">{"".join(lis)}</ul>'
 
 
+def lockup(lang):
+    """The personalised banner lockup (shield, Order name, country) in the page language.
+    The shield is sized by CSS (--shield); --h and --t carry each SVG's height and its accents above the shield top."""
+    vb = [float(v) for v in re.search(r'viewBox="([^"]+)"', (STATIC / "img" / "lockup" / f"{lang}.svg").read_text()).group(1).split()]
+    return (f'<img class="lockup" src="/img/lockup/{lang}.svg" alt="{esc(SITE["names"][lang]["lockup"])}" width="{vb[2]:.0f}" height="{vb[3]:.0f}"'
+            f' style="--h:{vb[3] / 126:.4f};--t:{vb[1] / 126:.4f}">')
+
+
 def layout(*, lang, url, title, body, description="", image=None, status=None, alternates=None, main_class=""):
     t, names = I18N[lang], SITE["names"][lang]
     full_title = f"{title} | {names['site']}" if title != names["site"] else title
@@ -330,7 +338,7 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
   <nav class="lang" aria-label="{esc(t['langLabel'])}">{lang_switch(lang, url)}</nav>
  </div></div>
  <div class="banner"><div class="wrap">
-  <a class="banner-home" href="{home_url(lang)}"><span class="visually-hidden">{esc(names['site'])}</span></a>
+  <a class="banner-home" href="{home_url(lang)}">{lockup(lang)}</a>
   <p class="fullname">{esc(names['order'])}<span>{esc(names['entity'])}</span></p>
  </div></div>
  <nav class="mainnav" aria-label="{esc(t['menu'])}"><div class="wrap">

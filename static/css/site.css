@@ -98,10 +98,13 @@ p{margin:0}
 .lang a{display:inline-grid;place-items:center;min-width:32px;min-height:28px;padding:0 6px;border-radius:2px;font-weight:500;transition:background var(--fast) var(--ease),color var(--fast) var(--ease)}
 .lang a:hover{background:rgba(255,255,255,.18);text-decoration:none}
 .lang a[aria-current]{background:#fff;color:var(--red);font-weight:700}
-/* the official 2546×218 banner, centred at native height as in the Grand Magistry theme: its lockup lands on the content column */
-.banner{position:relative;background-color:var(--sky);background-image:linear-gradient(90deg,rgba(14,28,46,0) 38%,rgba(14,28,46,.5) 62%,rgba(14,28,46,.6) 100%),url(/img/banner/banner-order-of-malta.webp),linear-gradient(90deg,var(--sky-left) 50%,var(--sky) 50%);background-repeat:no-repeat;background-size:100% 100%,2546px 218px,100% 100%;background-position:0 0,max(-653px,calc(50vw - 1273px)) 0,0 0}
+/* the official 2546×218 banner photograph, centred at native height as in the Grand Magistry theme; the personalised lockup sits on it */
+.banner{position:relative;background-color:var(--sky);background-image:linear-gradient(90deg,rgba(14,28,46,0) 38%,rgba(14,28,46,.5) 62%,rgba(14,28,46,.6) 100%),url(/img/banner/banner-photo.webp),linear-gradient(90deg,var(--sky-left) 50%,var(--sky) 50%);background-repeat:no-repeat;background-size:100% 100%,2546px 218px,100% 100%;background-position:0 0,max(-653px,calc(50vw - 1273px)) 0,0 0}
 .banner .wrap{display:flex;align-items:center;justify-content:flex-end;min-height:218px;padding-block:var(--s4);position:relative}
-.banner-home{position:absolute;left:0;top:0;bottom:0;width:min(42%,340px)}
+.banner{--shield:107px}
+/* lockup: the shield keeps the Grand Magistry web size and top; accents may rise above it (--t), clear space Y = .077 × shield */
+.banner-home{position:absolute;left:max(var(--gutter),env(safe-area-inset-left,0px));top:30px;line-height:0}
+.lockup{display:block;width:auto;height:calc(var(--shield)*var(--h));margin-top:calc(var(--shield)*var(--t))}
 .fullname{color:#fff;text-align:right;font:600 clamp(.74rem,1.2vw,1rem)/1.32 var(--ui);letter-spacing:.035em;text-transform:uppercase;max-width:31em;text-shadow:0 1px 2px rgba(0,0,0,.45),0 0 14px rgba(14,28,46,.5)}
 .fullname span{display:block;margin-top:5px;font-size:.86em;letter-spacing:.09em}
 .mainnav{background:var(--ink)}
@@ -128,10 +131,11 @@ p{margin:0}
 @media (max-width:960px){
   .topbar-social{display:none}
   /* photo pinned to a fixed height so the lockup never meets the name; it fades into the menu grey below */
-  .banner{background-color:var(--ink);background-image:linear-gradient(180deg,rgba(69,69,69,0) 60px,var(--ink) 124px),url(/img/banner/banner-order-of-malta.webp);background-size:100% 100%,auto 128px;background-position:0 0,-383px 0}
+  .banner{background-color:var(--ink);background-image:linear-gradient(180deg,rgba(69,69,69,0) 60px,var(--ink) 124px),url(/img/banner/banner-photo.webp);background-size:100% 100%,auto 128px;background-position:0 0,-383px 0}
   .banner .wrap{justify-content:flex-start;align-items:flex-end;min-height:0;padding-top:104px;padding-bottom:var(--s3)}
   .fullname{text-align:left;font-size:.72rem}
-  .banner-home{width:60%;bottom:auto;height:80px}
+  .banner{--shield:60px}
+  .banner-home{top:16px}
   .mainnav .wrap{padding-left:0;padding-right:0}
   .mainnav{border-top:1px solid rgba(255,255,255,.12)}
   .menu-toggle{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:0 max(var(--gutter),env(safe-area-inset-left,0px));background:none;border:0;color:#fff;font:600 .85rem var(--ui);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
@@ -384,6 +388,6 @@ p{margin:0}
 }
 @media print{
   .topbar,.mainnav,.site-footer .f-nav,.f-red,.cal-widget,.side-nav,.content-status{display:none!important}
-  .banner{background:none!important}.fullname{color:#000;text-shadow:none;text-align:left}
+  .banner{background:none!important}.fullname{color:#000;text-shadow:none;text-align:left}.lockup{display:none}
   a{color:#000}
 }
