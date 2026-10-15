@@ -37,7 +37,7 @@ Date: 14 October 2026. Scope: the live site (read-only observation; nothing was 
 | `Cross-Origin-Opener-Policy` | `same-origin` |
 | `X-Frame-Options` | `DENY` |
 
-- `style-src` allows `'unsafe-inline'` because the AddCal web component injects styles. No inline scripts are used.
+- `style-src` allows `'unsafe-inline'` because the AddCal web component injects styles. No inline scripts are used; the only `<script>` without `src` is the JSON-LD data block on the home pages (`application/ld+json`, never executed).
 - Preview builds add `X-Robots-Tag: noindex, nofollow` and a `Disallow: /` robots.txt.
 
 **Third parties**
@@ -48,7 +48,8 @@ Date: 14 October 2026. Scope: the live site (read-only observation; nothing was 
 
 **Privacy**
 - No cookies and no analytics.
-- The privacy notice (`/ochrana-osobnich-udaju/`) states that there are no analytics or advertising cookies and no tracking, and names AddCal and what it receives. It is marked "approval" and needs sign-off by the Grand Priory.
+- The privacy notice (`/ochrana-osobnich-udaju/`, all five languages) was rewritten on 15 Oct 2026 against Art. 13 GDPR, using the Grand Magistry's notice as a model. It covers: the controller (full legal name, IČO 00569623, seat), no cookies or tracking, hosting logs at Vercel Inc. (EU–U.S. Data Privacy Framework), the AddCal calendar (AddCal Pty Ltd, Australia; standard contractual clauses), email and telephone, plain links to social networks, data-subject rights and the right to complain to ÚOOÚ. It is marked "approval" and needs sign-off by the Grand Priory.
+- The AddCal widget stores a time-zone list in `localStorage` (no personal data, no cookies; checked in a browser on 15 Oct 2026). The notice says so.
 
 **Secrets**
 - The repository and build contain no credentials, keys or tokens.

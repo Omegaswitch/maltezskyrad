@@ -23,7 +23,7 @@ Any static host works. Security headers and legacy redirects are defined once, i
 |---|---|---|---|
 | Netlify | ✅ native | ✅ native | Build `python3 build.py --production`, publish `dist`. |
 | Cloudflare Pages | ✅ native | ✅ native | Same. |
-| Vercel (`vercel.json`) | ✅ from `vercel.json` | ✅ from `vercel.json` | The build command is `python3 build.py --offline` (a preview build: `noindex` meta and a `Disallow: /` robots.txt). For production change it to `python3 build.py --production`. |
+| Vercel (`vercel.json`) | ✅ from `vercel.json` | ✅ from `vercel.json` | The build command is `python3 build.py --production --offline`: indexable pages, `Allow: /` robots.txt with the sitemap, canonical URLs on `https://www.maltezskyrad.cz`. `--offline` keeps the Grand Magistry headlines off. |
 | nginx / Apache (own server) | translate | translate | See below. |
 
 ### nginx translation

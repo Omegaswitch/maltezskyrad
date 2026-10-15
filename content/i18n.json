@@ -114,7 +114,8 @@
   "calYear": "Celoroční přehled 2027 na jedné stránce",
   "pdfEnglish": "v angličtině",
   "subscribeNote": "Google, Apple, Outlook a další kalendáře; termíny se aktualizují samy.",
-  "homeDescription": "Oficiální web Českého velkopřevorství Suverénního maltézského řádu: historie, představitelé, kalendář bohoslužeb v kostele Panny Marie pod řetězem, činnosti a aktuality."
+  "homeDescription": "Oficiální web Českého velkopřevorství Suverénního maltézského řádu: historie, představitelé, kalendář bohoslužeb v kostele Panny Marie pod řetězem, činnosti a aktuality.",
+  "ico": "IČO"
  },
  "en": {
   "langName": "English",
@@ -231,7 +232,8 @@
   "calYear": "Year at a glance 2027 (A4 or A3)",
   "pdfEnglish": "in English",
   "subscribeNote": "Google, Apple, Outlook and other calendars; dates update automatically.",
-  "homeDescription": "Official website of the Grand Priory of Bohemia of the Sovereign Order of Malta in Prague: history, officers, services in the Church of Our Lady beneath the Chain, works and calendar."
+  "homeDescription": "Official website of the Grand Priory of Bohemia of the Sovereign Order of Malta in Prague: history, officers, services in the Church of Our Lady beneath the Chain, works and calendar.",
+  "ico": "Reg. no. (IČO)"
  },
  "fr": {
   "langName": "Français",
@@ -348,7 +350,8 @@
   "calYear": "L'année 2027 en un coup d'œil (A4 ou A3)",
   "pdfEnglish": "en anglais",
   "subscribeNote": "Google, Apple, Outlook et autres agendas ; les dates se mettent à jour automatiquement.",
-  "homeDescription": "Site officiel du Grand Prieuré de Bohême de l'Ordre souverain de Malte à Prague : histoire, dignitaires, offices en l'église Notre-Dame-sous-la-Chaîne, œuvres et calendrier."
+  "homeDescription": "Site officiel du Grand Prieuré de Bohême de l'Ordre souverain de Malte à Prague : histoire, dignitaires, offices en l'église Notre-Dame-sous-la-Chaîne, œuvres et calendrier.",
+  "ico": "N° d'identification (IČO)"
  },
  "it": {
   "langName": "Italiano",
@@ -465,7 +468,8 @@
   "calYear": "Il 2027 in un colpo d'occhio (A4 o A3)",
   "pdfEnglish": "in inglese",
   "subscribeNote": "Google, Apple, Outlook e altri calendari; le date si aggiornano automaticamente.",
-  "homeDescription": "Sito ufficiale del Gran Priorato di Boemia del Sovrano Ordine di Malta a Praga: storia, dignitari, funzioni nella chiesa di Santa Maria sotto la Catena, opere e calendario."
+  "homeDescription": "Sito ufficiale del Gran Priorato di Boemia del Sovrano Ordine di Malta a Praga: storia, dignitari, funzioni nella chiesa di Santa Maria sotto la Catena, opere e calendario.",
+  "ico": "N. identificativo (IČO)"
  },
  "de": {
   "langName": "Deutsch",
@@ -582,6 +586,7 @@
   "calYear": "Das Jahr 2027 auf einen Blick (A4 oder A3)",
   "pdfEnglish": "auf Englisch",
   "subscribeNote": "Google, Apple, Outlook und andere Kalender; Termine aktualisieren sich automatisch.",
-  "homeDescription": "Offizielle Website des Großpriorats Böhmen des Souveränen Malteserordens in Prag: Geschichte, Amtsträger, Gottesdienste in der Kirche Maria unter der Kette, Werke und Kalender."
+  "homeDescription": "Offizielle Website des Großpriorats Böhmen des Souveränen Malteserordens in Prag: Geschichte, Amtsträger, Gottesdienste in der Kirche Maria unter der Kette, Werke und Kalender.",
+  "ico": "Identifikationsnummer (IČO)"
  }
 }

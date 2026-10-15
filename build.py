@@ -273,6 +273,17 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
     alternates = alternates or ({**ALT[url], "x-default": ALT[url]["cs"]} if url in ALT else None)
     alt_links = "".join(f'<link rel="alternate" hreflang="{l}" href="{SITE["baseUrl"]}{u}">' for l, u in (alternates or {}).items())
     preload = "".join(f'<link rel="preload" href="/fonts/{f}.woff2" as="font" type="font/woff2" crossorigin>' for f in FONTS_PRELOAD)
+    ld = ""
+    if url == home_url(lang):  # who we are, for search engines (data only, not executed)
+        c = SITE["contact"]
+        ld = '<script type="application/ld+json">' + json.dumps({
+            "@context": "https://schema.org", "@type": "Organization",
+            "name": f"{names['order']} – {names['entity']}", "url": canonical, "email": c["email"], "telephone": c["phones"][0],
+            "identifier": {"@type": "PropertyValue", "propertyID": "IČO", "value": c["ico"]},
+            "address": {"@type": "PostalAddress", "streetAddress": "Velkopřevorské náměstí 485/4", "postalCode": "118 00", "addressLocality": "Praha 1", "addressCountry": "CZ"},
+            "sameAs": [s["url"] for s in SITE["social"] if s["owner"] == "České velkopřevorství"],
+            "parentOrganization": {"@type": "Organization", "name": names["order"], "url": SITE["gm"][lang]["home"]},
+        }, ensure_ascii=False).replace("</", "<\\/") + "</script>"
     status_bar = ""
     if status and not PRODUCTION:
         status_bar = f'<p class="content-status content-status--{esc(status)}"><span>{esc(t["status"].get(status, status))}</span></p>'
@@ -297,6 +308,8 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
 <meta property="og:url" content="{canonical}">
 <meta property="og:image" content="{og_image}">
 <meta property="og:locale" content="{ {'cs': 'cs_CZ', 'en': 'en_GB', 'fr': 'fr_FR', 'it': 'it_IT', 'de': 'de_DE'}[lang] }">
+<meta name="twitter:card" content="summary_large_image">
+{ld}
 <meta name="theme-color" content="#e31a18">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
@@ -333,7 +346,7 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
  <div class="f-nav"><div class="wrap"><ul>{footer_nav}</ul></div></div>
  <div class="f-id"><div class="wrap">
   <p class="f-name">{esc(names['order'])} – {esc(names['entity'])}</p>
-  <p>{esc(address)} · <a href="mailto:{c['email']}">{c['email']}</a> · {' · '.join(c['phones'])}</p>
+  <p>{esc(address)} · {esc(t['ico'])} {c['ico']} · <a href="mailto:{c['email']}">{c['email']}</a> · {' · '.join(c['phones'])}</p>
  </div></div>
  <div class="f-red"><div class="wrap">
   <p>{esc(names['orderShort'])}: <a href="{SITE['gm'].get(lang, SITE['gm']['en'])['home']}">www.orderofmalta.int</a></p>
@@ -763,7 +776,7 @@ def build():
     write("/ochrana-osobnich-udaju/", render_simple("/ochrana-osobnich-udaju/", "Ochrana osobních údajů", PRIVACY, status="approval"))
     write("/404.html", render_simple("/404.html", I18N["cs"]["notFound"],
                                      f'<p>{esc(I18N["cs"]["notFoundText"])}</p><p><a class="link-strong" href="/">Úvodní stránka</a> · <a class="link-strong" href="/aktuality/">Aktuality</a> · <a class="link-strong" href="/kalendar/">Kalendář</a></p>'))
-    urls = ["/", "/kalendar/", "/aktuality/"] + [f"/{l}/" for l in LANGS[1:]] + list(PAGES) + [n["url"] for n in NEWS] + \
+    urls = ["/", "/kalendar/", "/aktuality/", "/ochrana-osobnich-udaju/"] + [f"/{l}/" for l in LANGS[1:]] + list(PAGES) + [n["url"] for n in NEWS] + \
         [e["url"] for entries in TR.values() for e in entries.values()]
     (DIST / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
                                       "".join(f"<url><loc>{SITE['baseUrl']}{u}</loc></url>" for u in urls) + "</urlset>", encoding="utf-8")
@@ -775,9 +788,21 @@ def build():
     print(f"built {len(PAGES)} pages, {len(NEWS)} news, translations {', '.join(f'{l} {len(e)}' for l, e in TR.items())}, {'production' if PRODUCTION else 'preview'} → {DIST}")
 
 
-PRIVACY = """<p>Tento web neužívá analytické ani reklamní cookies a nesleduje návštěvníky. Písma a obrázky se načítají přímo z tohoto webu.</p>
-<p>Na úvodních stránkách a stránkách Kalendáře ve všech jazykových verzích se zobrazuje kalendář služby AddCal (addcal.co). Při jeho načtení prohlížeč odesílá službě AddCal technické údaje nutné k zobrazení (IP adresu a údaje o prohlížeči). Kalendář si můžete prohlédnout také přímo na adrese <a href="https://addcal.co/c/calendarGPB">addcal.co/c/calendarGPB</a>.</p>
-<p>Správcem osobních údajů je České velkopřevorství, Velkopřevorské náměstí 4, 118 00 Praha 1. Dotazy k ochraně osobních údajů posílejte na <a href="mailto:gpb@smom.cz">gpb@smom.cz</a>.</p>"""
+PRIVACY = """<h2>Správce</h2>
+<p>Správcem osobních údajů je Suverénní řád maltézských rytířů – České velkopřevorství, IČO 00569623, se sídlem Velkopřevorské náměstí 485/4, 118 00 Praha 1 – Malá Strana. Dotazy a žádosti týkající se osobních údajů posílejte na <a href="mailto:gpb@smom.cz">gpb@smom.cz</a> nebo na uvedenou adresu.</p>
+<h2>Cookies a měření návštěvnosti</h2>
+<p>Tento web nepoužívá cookies ani analytické a reklamní nástroje a nesleduje návštěvníky. Písma a obrázky se načítají přímo z tohoto webu.</p>
+<h2>Provoz webu</h2>
+<p>Web běží na serverech společnosti Vercel Inc. (USA). Při každé návštěvě zpracují údaje nutné k doručení stránky a k ochraně webu před zneužitím (IP adresa, čas a adresa požadavku, údaje o prohlížeči). Právním základem je náš oprávněný zájem na bezpečném provozu webu (čl. 6 odst. 1 písm. f) GDPR). Záznamy se uchovávají jen krátce, nejsou-li potřeba k vyřešení bezpečnostního incidentu. Předání do USA se řídí rámcem EU–USA pro ochranu osobních údajů (Data Privacy Framework). Více v <a href="https://vercel.com/legal/privacy-notice">zásadách ochrany soukromí Vercel</a>.</p>
+<h2>Kalendář AddCal</h2>
+<p>Na úvodních stránkách a stránkách Kalendáře ve všech jazykových verzích se zobrazuje kalendář služby AddCal (AddCal Pty Ltd, Austrálie). Načte se, až když k němu na stránce dojdete. Prohlížeč přitom odešle službě AddCal technické údaje nutné k zobrazení (IP adresu a údaje o prohlížeči). Kalendář si do úložiště prohlížeče uloží seznam časových pásem, aby se příště načetl rychleji; tento seznam neobsahuje osobní údaje. Právním základem je náš oprávněný zájem na zveřejnění programu Velkopřevorství. Pro předání údajů mimo EU používá AddCal standardní smluvní doložky. Více v <a href="https://addcal.co/privacy-policy">zásadách ochrany soukromí AddCal</a>. Kalendář si můžete prohlédnout také přímo na adrese <a href="https://addcal.co/c/calendarGPB">addcal.co/c/calendarGPB</a>.</p>
+<h2>E-mail a telefon</h2>
+<p>Napíšete-li nám nebo zavoláte-li, použijeme vaše údaje jen k vyřízení vaší zprávy a uchováme je po dobu, kterou to vyžaduje. Právním základem je náš oprávněný zájem odpovídat na dotazy.</p>
+<h2>Odkazy na jiné weby</h2>
+<p>Odkazy na Facebook, YouTube, LinkedIn a další weby jsou obyčejné odkazy: dokud na ně neklepnete, těmto službám se nic nepředává. Poté platí jejich zásady ochrany soukromí.</p>
+<h2>Vaše práva</h2>
+<p>Máte právo na přístup ke svým osobním údajům, na jejich opravu nebo výmaz, na omezení zpracování a na přenositelnost údajů a právo vznést námitku proti zpracování založenému na oprávněném zájmu. Máte také právo podat stížnost u Úřadu pro ochranu osobních údajů, Pplk. Sochora 27, 170 00 Praha 7, <a href="https://uoou.gov.cz/">uoou.gov.cz</a>.</p>
+<p>Poslední aktualizace: 15. října 2026.</p>"""
 
 
 # ---------------------------------------------------------------- local preview server
