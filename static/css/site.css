@@ -85,6 +85,18 @@ p{margin:0}
 ::view-transition-new(root){animation:vt-in 260ms var(--ease) both}
 @keyframes vt-out{to{opacity:0;transform:translateY(-4px)}}
 @keyframes vt-in{from{opacity:0;transform:translateY(6px)}}
+/* language switch: the page content fades out fully before the new language fades in, without drift;
+   header and footer cross-fade in place, so the red bar and banner photograph stay put and only their text changes */
+html:active-view-transition-type(lang)::view-transition-old(root){animation:vt-fade-out 200ms ease-out both}
+html:active-view-transition-type(lang)::view-transition-new(root){animation:vt-fade-in 340ms var(--ease) 150ms both}
+html:active-view-transition-type(lang)::view-transition-group(site-header),
+html:active-view-transition-type(lang)::view-transition-group(site-footer),
+html:active-view-transition-type(lang)::view-transition-old(site-header),
+html:active-view-transition-type(lang)::view-transition-new(site-header),
+html:active-view-transition-type(lang)::view-transition-old(site-footer),
+html:active-view-transition-type(lang)::view-transition-new(site-footer){animation-duration:420ms;animation-timing-function:var(--ease)}
+@keyframes vt-fade-out{to{opacity:0}}
+@keyframes vt-fade-in{from{opacity:0}}
 
 
 /* ---------- header (Grand Magistry frame) ---------- */
