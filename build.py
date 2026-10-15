@@ -346,7 +346,7 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
  <div class="f-nav"><div class="wrap"><ul>{footer_nav}</ul></div></div>
  <div class="f-id"><div class="wrap">
   <p class="f-name">{esc(names['order'])} – {esc(names['entity'])}</p>
-  <p>{esc(address)} · {esc(t['ico'])} {c['ico']} · <a href="mailto:{c['email']}">{c['email']}</a> · {' · '.join(c['phones'])}</p>
+  <p>{esc(c['legalName'])}, {esc(t['ico'])} {c['ico']} · {esc(address)} · <a href="mailto:{c['email']}">{c['email']}</a> · {' · '.join(c['phones'])}</p>
  </div></div>
  <div class="f-red"><div class="wrap">
   <p>{esc(names['orderShort'])}: <a href="{SITE['gm'].get(lang, SITE['gm']['en'])['home']}">www.orderofmalta.int</a></p>
