@@ -29,11 +29,14 @@ esc = lambda s: html.escape(str(s or ""), quote=True)
 # ---------------------------------------------------------------- content
 
 
+def _fix(v):
+    return v.replace("Fra´", "Fra’") if isinstance(v, str) else v  # legacy texts use the acute accent
+
+
 def read_doc(path):
     text = path.read_text(encoding="utf-8")
     _, meta, body = text.split("---\n", 2)
-    fix = lambda v: v.replace("Fra´", "Fra’") if isinstance(v, str) else v  # legacy texts use the acute accent
-    return {k: fix(v) for k, v in json.loads(meta).items()}, fix(body.strip())
+    return {k: _fix(v) for k, v in json.loads(meta).items()}, _fix(body.strip())
 
 
 def load_pages():
@@ -53,6 +56,21 @@ def load_news():
 
 
 PAGES, NEWS = load_pages(), load_news()
+LANGS = SITE["languages"]
+# translations: content/translations/<lang>.json maps a Czech URL to {url, title, description, body}
+TR = {l: json.loads((CONTENT / "translations" / f"{l}.json").read_text(encoding="utf-8")) for l in LANGS[1:]}
+for _l, _entries in TR.items():
+    for _src, _e in _entries.items():
+        _e["source"] = _src
+        _e["body"] = _fix(_e.get("body", ""))
+# url -> {lang: url} for the language switch and hreflang
+ALT = {}
+for _l, _entries in TR.items():
+    for _src, _e in _entries.items():
+        ALT.setdefault(_src, {"cs": _src})[_l] = _e["url"]
+for _src in list(ALT):
+    for _u in ALT[_src].values():
+        ALT[_u] = ALT[_src]
 
 
 def page_title(url):
@@ -60,25 +78,56 @@ def page_title(url):
     return p["title"] if p else url
 
 
-# navigation tree: url -> (node, parent_url)
-NAV_INDEX = {}
+ORDER_SECTION = "/rad-a-jeho-instituce/"   # Order-wide topics: other languages link to the Grand Magistry's official texts
+NO_TRANSLATION_IN_NAV = {"/radovy-kostel-panny-marie-pod-retezem/kulturni-akce/"}
 
 
-def _index(nodes, parent=None, top=None):
+def localized_nav(lang):
+    """The Czech menu tree with each node replaced by its translation; untranslated pages drop out."""
+    if lang == "cs":
+        return SITE["nav"]
+    tr, t, gm = TR[lang], I18N[lang], SITE["gm"][lang]
+    def walk(nodes):
+        out = []
+        for n in nodes:
+            e = tr.get(n["url"])
+            if e and n["url"] not in NO_TRANSLATION_IN_NAV:
+                out.append({"url": e["url"], "title": e.get("navTitle") or e["title"], "children": walk(n.get("children", []))})
+        return out
+    nav = []
+    for n in SITE["nav"]:
+        if n["url"] == ORDER_SECTION:
+            kids = [{"url": gm[k], "title": label} for k, label in t["links"].items() if k in gm and k != "contacts"]
+            emb = tr.get("/diplomaticke-vztahy/velvyslanectvi-radu-v-ceske-republice/")
+            kids += [{"url": emb["url"], "title": emb["title"]}] if emb else []
+            nav.append({"url": gm["home"], "title": SITE["names"][lang]["orderActivities"], "children": kids})
+        elif n["url"] == "/aktuality/":
+            nav.append({"url": "/aktuality/", "title": t["newsCzech"]})
+        elif n["url"] in tr:
+            e = tr[n["url"]]
+            nav.append({"url": e["url"], "title": e.get("navTitle") or e["title"], "children": walk(n.get("children", []))})
+    return nav
+
+
+# navigation index per language: url -> {node, parent, top}
+def _index(index, nodes, parent=None, top=None):
     for n in nodes:
         n.setdefault("title", page_title(n["url"]))
-        NAV_INDEX[n["url"]] = {"node": n, "parent": parent, "top": top or n["url"]}
-        _index(n.get("children", []), n["url"], top or n["url"])
+        index[n["url"]] = {"node": n, "parent": parent, "top": top or n["url"]}
+        _index(index, n.get("children", []), n["url"], top or n["url"])
 
 
-_index(SITE["nav"])
+NAVS = {l: localized_nav(l) for l in LANGS}
+NAV_INDEX = {l: {} for l in LANGS}
+for _l in LANGS:
+    _index(NAV_INDEX[_l], NAVS[_l])
 
 
-def breadcrumbs(url):
-    trail = []
-    while url in NAV_INDEX:
-        trail.insert(0, (NAV_INDEX[url]["node"]["title"], url))
-        url = NAV_INDEX[url]["parent"]
+def breadcrumbs(url, lang="cs"):
+    trail, idx = [], NAV_INDEX[lang]
+    while url in idx:
+        trail.insert(0, (idx[url]["node"]["title"], url))
+        url = idx[url]["parent"]
     return trail
 
 
@@ -197,33 +246,31 @@ def gm_feed(lang, limit=3):
 FONTS_PRELOAD = ["asap-latin-ext-400-normal", "asap-latin-400-normal", "eb-garamond-latin-500-normal", "eb-garamond-latin-ext-500-normal"]
 
 
+def home_url(lang):
+    return "/" if lang == "cs" else f"/{lang}/"
+
+
 def lang_switch(lang, url):
     out = []
-    for l in SITE["languages"]:
-        href = "/" if l == "cs" else f"/{l}/"
-        if l == "cs" and lang == "cs":
-            href = url
+    for l in LANGS:
+        href = ALT.get(url, {}).get(l) or (url if l == lang else home_url(l))
         cur = ' aria-current="true"' if l == lang else ""
         out.append(f'<a href="{href}" lang="{l}" hreflang="{l}"{cur} title="{esc(I18N[l]["langName"])}">{l.upper()}</a>')
     return "".join(out)
 
 
 def nav_html(lang, current_url):
-    if lang != "cs":
-        items = [(I18N[lang]["home"], f"/{lang}/"), (I18N[lang]["calendar"], f"/{lang}/#kalendar"), (I18N[lang]["contact"], f"/{lang}/#kontakt")]
-        lis = "".join(f'<li><a href="{u}">{esc(t)}</a></li>' for t, u in items)
-        return f'<ul class="nav-list">{lis}</ul>'
-    top = NAV_INDEX.get(current_url, {}).get("top")
+    top = NAV_INDEX[lang].get(current_url, {}).get("top")
     if current_url.startswith("/aktuality/") or re.match(r"^/\d{4}/", current_url):
         top = "/aktuality/"
     lis = []
-    for n in SITE["nav"]:
+    for n in NAVS[lang]:
         cur = ' aria-current="page"' if n["url"] == current_url else (' class="is-active"' if n["url"] == top else "")
         kids = n.get("children", [])
         sub = ""
         if kids:
             sub_items = "".join(f'<li><a href="{c["url"]}">{esc(c["title"])}</a></li>' for c in kids)
-            sub = (f'<button class="sub-toggle" type="button" aria-expanded="false" aria-label="{esc(n["title"])}: další stránky">'
+            sub = (f'<button class="sub-toggle" type="button" aria-expanded="false" aria-label="{esc(n["title"])}: {esc(I18N[lang]["morePages"])}">'
                    f'<span aria-hidden="true"></span></button><ul class="sub">{sub_items}</ul>')
         lis.append(f'<li class="{"has-sub" if kids else ""}"><a href="{n["url"]}"{cur}>{esc(n["title"])}</a>{sub}</li>')
     return f'<ul class="nav-list">{"".join(lis)}</ul>'
@@ -235,14 +282,14 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
     canonical = SITE["baseUrl"] + url
     og_image = SITE["baseUrl"] + (image or "/media/2018/07/velkoprevorstvi.jpg")
     robots = "" if PRODUCTION else '<meta name="robots" content="noindex, nofollow">'
+    alternates = alternates or ({**ALT[url], "x-default": ALT[url]["cs"]} if url in ALT else None)
     alt_links = "".join(f'<link rel="alternate" hreflang="{l}" href="{SITE["baseUrl"]}{u}">' for l, u in (alternates or {}).items())
     preload = "".join(f'<link rel="preload" href="/fonts/{f}.woff2" as="font" type="font/woff2" crossorigin>' for f in FONTS_PRELOAD)
     status_bar = ""
     if status and not PRODUCTION:
         status_bar = f'<p class="content-status content-status--{esc(status)}"><span>{esc(t["status"].get(status, status))}</span></p>'
     social = "".join(f'<a href="{esc(s["url"])}" rel="noopener">{esc(s["label"])}</a>' for s in SITE["social"])
-    footer_nav = "".join(f'<li><a href="{n["url"]}">{esc(n["title"])}</a></li>' for n in SITE["nav"]) if lang == "cs" else \
-        f'<li><a href="/{lang}/">{esc(t["home"])}</a></li><li><a href="/">Čeština</a></li>'
+    footer_nav = "".join(f'<li><a href="{n["url"]}">{esc(n["title"])}</a></li>' for n in NAVS[lang])
     c = SITE["contact"]
     address = c["address"] if lang == "cs" else c["addressIntl"]
     return f"""<!doctype html>
@@ -277,12 +324,12 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
 <a class="skip" href="#main">{esc(t['skip'])}</a>
 <header class="site-header">
  <div class="topbar"><div class="wrap">
-  <a class="topbar-home" href="{'/' if lang == 'cs' else f'/{lang}/'}">{esc(names['orderActivities'])} · {esc(names['entity'])}</a>
+  <a class="topbar-home" href="{home_url(lang)}">{esc(names['orderActivities'])} · {esc(names['entity'])}</a>
   <span class="topbar-social">{social}</span>
   <nav class="lang" aria-label="{esc(t['langLabel'])}">{lang_switch(lang, url)}</nav>
  </div></div>
  <div class="banner"><div class="wrap">
-  <a class="banner-home" href="{'/' if lang == 'cs' else f'/{lang}/'}"><span class="visually-hidden">{esc(names['site'])}</span></a>
+  <a class="banner-home" href="{home_url(lang)}"><span class="visually-hidden">{esc(names['site'])}</span></a>
   <p class="fullname">{esc(names['order'])}<span>{esc(names['entity'])}</span></p>
  </div></div>
  <nav class="mainnav" aria-label="{esc(t['menu'])}"><div class="wrap">
@@ -303,7 +350,7 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
  <div class="f-red"><div class="wrap">
   <p>{esc(names['orderShort'])}: <a href="{SITE['gm'].get(lang, SITE['gm']['en'])['home']}">www.orderofmalta.int</a></p>
   <p>Maltézská pomoc: <a href="https://maltezskapomoc.cz/">www.maltezskapomoc.cz</a></p>
-  <p><a href="/ostatni/zasady-prijimani-daru/">{'Zásady přijímání darů' if lang == 'cs' else 'Gift acceptance policy (CZ)'}</a> · <a href="/ochrana-osobnich-udaju/">{esc(t['privacy'])}</a></p>
+  <p><a href="/ostatni/zasady-prijimani-daru/">{esc(t['giftPolicy'])}</a> · <a href="{ALT.get('/ochrana-osobnich-udaju/', {}).get(lang, '/ochrana-osobnich-udaju/')}">{esc(t['privacy'])}</a></p>
  </div></div>
 </footer>
 </body>
@@ -375,11 +422,13 @@ def concerts(lang):
     return dated_list([(d, esc(day_month(d, lang)), esc(c["title"][lang]), f'{CAL["church"][lang]} · {c["time"]}') for d in c["dates"]])
 
 
-def downloads_list():
+def downloads_list(lang="cs"):
     items = []
-    for d in SITE["calendarFiles"]:
-        files = "".join(f'<a href="{f}">{esc(label)} <span class="file-meta">PDF</span></a>' for label, f in d["files"])
-        items.append(f'<li><b>{esc(d["title"])}</b><span class="dl-note">{esc(d["note"])}</span><span class="dl-files">{files}</span></li>')
+    for d, key in zip(SITE["calendarFiles"], ("calMonthly", "calYear")):
+        pairs = d["files"] if lang == "cs" else [(lbl, f) for lbl, f in d["files"] if "English" in lbl]
+        files = "".join(f'<a href="{f}">{esc(label)} <span class="file-meta">PDF</span></a>' for label, f in pairs)
+        note = d["note"] if lang == "cs" else I18N[lang]["pdfEnglish"]
+        items.append(f'<li><b>{esc(I18N[lang][key])}</b><span class="dl-note">{esc(note)}</span><span class="dl-files">{files}</span></li>')
     return f'<ul class="downloads">{"".join(items)}</ul>'
 
 
@@ -403,91 +452,104 @@ def news_item(n, lang="cs", compact=False):
 # ---------------------------------------------------------------- pages
 
 
-def render_home():
-    t = I18N["cs"]
-    officers = "".join(f'<div><dt>{esc(o["role"])}</dt><dd>{esc(o["name"])}</dd></div>' for o in SITE["officers"])
-    news = "".join(news_item(n, compact=True) for n in NEWS[:5])
-    feed = gm_feed("cs")
+def localized(url, lang):
+    """Link target for a Czech URL in another language (falls back to the Czech page)."""
+    return url if url.startswith("http") else ALT.get(url, {}).get(lang, url)
+
+
+def render_home(lang="cs"):
+    t, names = I18N[lang], SITE["names"][lang]
+    officers = "".join(f'<div><dt>{esc(t["princeGrandPrior"])}</dt><dd>{esc(o["name"])}</dd></div>' for o in SITE["officers"])
+    links = zip(t["homeLinks"], ("/rad-a-jeho-instituce/historie-ceskeho-velkoprevorstvi/", "/rad-a-jeho-instituce/predstavitele-ceskeho-velkoprevorstvi/", "/velkoprevorsky-palac/"))
+    links_html = "".join(f'<a href="{localized(u, lang)}">{esc(label)}</a>' for label, u in links)
+    feed = gm_feed(lang)
     feed_html = ""
     if feed:
         feed_html = '<ul class="gm-feed">' + "".join(
-            f'<li><time datetime="{f["date"]}">{short_date(f["date"]) if f["date"] else ""}</time><a href="{esc(f["link"])}" lang="en">{esc(f["title"])}</a></li>' for f in feed) + "</ul>"
-    works = [
-        ("Maltézská pomoc, o.p.s.", "Sociální služby a dobrovolnické programy pro seniory a lidi v nouzi, založena roku 2002.", "https://maltezskapomoc.cz/"),
-        ("Pomoc seniorům a potřebným", "Jak velkopřevorství pomáhá seniorům, lidem se zdravotním postižením a lidem bez domova.", "/cinnosti-maltezskeho-radu-v-ceske-republice/pomoc-seniorum/"),
-        ("Školy", "Vyšší odborná škola zdravotnická v Praze 3, Základní škola Maltézských rytířů v Kladně, gymnázium ve Skutči.", "/cinnosti-maltezskeho-radu-v-ceske-republice/skolstvi/"),
-        ("Pouť do Lurd", "Každoroční řádová pouť s nemocnými poutníky, jejich zdravotníky a dobrovolníky.", "/cinnosti-maltezskeho-radu-v-ceske-republice/pout-do-lurd/"),
-        ("Česká maltézská mládež a další aktivity", "Volnočasové a dobročinné aktivity pro mladé lidi s postižením, katedrální služba.", "/cinnosti-maltezskeho-radu-v-ceske-republice/dalsi-aktivity/"),
-    ]
-    works_html = "".join(f'<li><a href="{u}"><b>{esc(a)}</b><span>{esc(b)}</span></a></li>' for a, b, u in works)
+            f'<li><time datetime="{f["date"]}">{short_date(f["date"]) if f["date"] else ""}</time><a href="{esc(f["link"])}"{" lang=" + chr(34) + "en" + chr(34) if lang == "cs" else ""}>{esc(f["title"])}</a></li>' for f in feed) + "</ul>"
+    works_html = "".join(f'<li><a href="{localized(u, lang)}"><b>{esc(a)}</b><span>{esc(b)}</span></a></li>' for a, b, u in t["works"])
+    cal_url, act_url = localized("/kalendar/", lang), localized("/cinnosti-maltezskeho-radu-v-ceske-republice/", lang)
+    if lang == "cs":
+        news_band = f"""<section class="band band-grey" aria-labelledby="news-title"><div class="wrap split">
+ <div class="split-head"><h2 id="news-title" class="display-m">{esc(t['news'])}</h2><p><a class="link-strong" href="/aktuality/">{esc(t['allNews'])}</a></p></div>
+ <ol class="news-list">{"".join(news_item(n, compact=True) for n in NEWS[:5])}</ol>
+</div></section>"""
+    else:
+        news_band = f"""<section class="band band-grey" aria-labelledby="news-title"><div class="wrap">
+ <div class="split-head"><h2 id="news-title" class="display-m">{esc(t['news'])}</h2><p>{esc(t['newsInCzech'])} <a class="link-strong" href="/aktuality/" hreflang="cs">{esc(t['newsCzech'])}</a></p></div>
+</div></section>"""
     body = f"""
 <section class="home-open" aria-labelledby="home-title"><div class="wrap home-intro">
  <div class="home-intro-main reveal">
-  <h1 id="home-title" class="display">České velkopřevorství</h1>
-  <p class="lead">{esc(SITE['names']['cs']['order'])} je v českých zemích přítomen od druhé poloviny 12. století, kdy kníže Vladislav II. daroval johanitům území u paty Juditina mostu. Po potlačení komunisty přežilo velkopřevorství v exilu; v Praze obnovilo činnost 1. dubna 1990.</p>
-  <p>Členové velkopřevorství, jeho dobrovolníci a organizace, které založilo, slouží nemocným, seniorům a lidem v nouzi v duchu hesla Řádu <i lang="la">Tuitio fidei et obsequium pauperum</i> – ochrana víry a služba chudým a nemocným.</p>
+  <h1 id="home-title" class="display">{esc(names['entity'])}</h1>
+  <p class="lead">{esc(t['homeLead'])}</p>
+  <p>{t['homeText']}</p>
  </div>
  <div class="home-intro-facts reveal">
   <dl class="facts">{officers}
-   <div><dt>Sídlo</dt><dd>Velkopřevorský palác, Velkopřevorské náměstí 4</dd></div>
-   <div><dt>Řádový kostel</dt><dd><a href="/radovy-kostel-panny-marie-pod-retezem/o-kostele/">Panna Maria pod řetězem, Lázeňská ulice</a></dd></div>
+   <div><dt>{esc(t['seat'])}</dt><dd>{esc(t['seatValue'])}</dd></div>
+   <div><dt>{esc(t['orderChurch'])}</dt><dd><a href="{localized('/radovy-kostel-panny-marie-pod-retezem/o-kostele/', lang)}">{esc(t['orderChurchValue'])}</a></dd></div>
   </dl>
-  <p class="text-links"><a href="/rad-a-jeho-instituce/historie-ceskeho-velkoprevorstvi/">Historie velkopřevorství</a><a href="/rad-a-jeho-instituce/predstavitele-ceskeho-velkoprevorstvi/">Představitelé</a><a href="/velkoprevorsky-palac/">Velkopřevorský palác</a></p>
+  <p class="text-links">{links_html}</p>
  </div>
 </div></section>
 
 <section class="band band-grey" id="kalendar" aria-labelledby="cal-title"><div class="wrap">
- <div class="section-head"><h2 id="cal-title" class="display-m">Kalendář velkopřevorství</h2><p>{esc(t['calendarLead'])}</p></div>
+ <div class="section-head"><h2 id="cal-title" class="display-m">{esc(t['calendarTitle'])}</h2><p>{esc(t['calendarLead'])}</p></div>
  <div class="cal-grid">
   <div class="cal-side">
    <h3 class="display-s">{esc(t['regularServices'])}</h3>
    <p class="small">{esc(t['churchPlace'])}</p>
-   {services_list()}
-   <p><a class="link-strong" href="/kalendar/">Celý kalendář a odběr do telefonu</a></p>
+   {services_list(lang)}
+   <p><a class="link-strong" href="{cal_url}">{esc(t['fullCalendar'])}</a></p>
   </div>
-  {calendar_widget('cs', 'schedule')}
+  {calendar_widget(lang, 'schedule')}
  </div>
- <div class="dl-block"><h3 class="display-s">{esc(t['calendar2027'])}</h3>{downloads_list()}</div>
+ <div class="dl-block"><h3 class="display-s">{esc(t['calendar2027'])}</h3>{downloads_list(lang)}</div>
 </div></section>
 
 <section class="band" aria-labelledby="works-title"><div class="wrap split">
- <div class="split-head"><h2 id="works-title" class="display-m">{esc(t['service'])}</h2><p>{esc(t['serviceText'])}</p><p><a class="link-strong" href="/cinnosti-maltezskeho-radu-v-ceske-republice/">Všechny činnosti</a></p></div>
+ <div class="split-head"><h2 id="works-title" class="display-m">{esc(t['service'])}</h2><p>{esc(t['serviceText'])}</p><p><a class="link-strong" href="{act_url}">{esc(t['allActivities'])}</a></p></div>
  <ul class="works">{works_html}</ul>
 </div></section>
 
-<section class="band band-grey" aria-labelledby="news-title"><div class="wrap split">
- <div class="split-head"><h2 id="news-title" class="display-m">{esc(t['news'])}</h2><p><a class="link-strong" href="/aktuality/">{esc(t['allNews'])}</a></p></div>
- <ol class="news-list">{news}</ol>
-</div></section>
+{news_band}
 
 <section class="band" aria-labelledby="order-title"><div class="wrap{' split' if feed_html else ''}">
- <div class="split-head"><h2 id="order-title" class="display-m">{esc(t['oneOrder'])}</h2><p>{esc(t['oneOrderText'])}</p><p><a class="link-strong" href="https://www.orderofmalta.int/">{esc(t['gmLink'])}</a></p></div>
+ <div class="split-head"><h2 id="order-title" class="display-m">{esc(t['oneOrder'])}</h2><p>{esc(t['oneOrderText'])}</p><p><a class="link-strong" href="{SITE['gm'][lang]['home']}">{esc(t['gmLink'])}</a></p></div>
  <div>{('<h3 class="display-s">' + esc(t['gmNews']) + '</h3>' + feed_html) if feed_html else ''}</div>
 </div></section>
 """
-    alts = {l: ("/" if l == "cs" else f"/{l}/") for l in SITE["languages"]}
+    alts = {l: home_url(l) for l in LANGS}
     alts["x-default"] = "/"
-    return layout(lang="cs", url="/", title=SITE["names"]["cs"]["site"], body=body, alternates=alts, status="new",
-                  description="Oficiální web Českého velkopřevorství Suverénního maltézského řádu: historie, představitelé, kalendář bohoslužeb v kostele Panny Marie pod řetězem, činnosti a aktuality.")
+    return layout(lang=lang, url=home_url(lang), title=names["site"], body=body, alternates=alts, status="new" if lang == "cs" else "translation",
+                  description=t.get("homeDescription") or f"{names['entity']} – {names['order']}.")
 
 
-def section_children_html(url):
-    kids = NAV_INDEX.get(url, {}).get("node", {}).get("children", [])
+def page_for(url, lang):
+    """The page record behind a URL in a language (a translation entry or a Czech page)."""
+    if lang == "cs":
+        return PAGES.get(url, {})
+    return next((e for e in TR[lang].values() if e["url"] == url), {})
+
+
+def section_children_html(url, lang="cs"):
+    kids = NAV_INDEX[lang].get(url, {}).get("node", {}).get("children", [])
     if not kids:
         return ""
     items = []
     for k in kids:
-        p = PAGES.get(k["url"], {})
+        p = page_for(k["url"], lang)
         desc = p.get("description") or plain(p.get("body", ""), 150)
         items.append(f'<li><a href="{k["url"]}"><b>{esc(k["title"])}</b>{f"<span>{esc(desc)}</span>" if desc else ""}</a></li>')
     return f'<ul class="index-list">{"".join(items)}</ul>'
 
 
-def side_nav(url):
-    info = NAV_INDEX.get(url)
+def side_nav(url, lang="cs"):
+    info = NAV_INDEX[lang].get(url)
     if not info:
         return ""
-    top = NAV_INDEX[info["top"]]["node"]
+    top = NAV_INDEX[lang][info["top"]]["node"]
     def walk(nodes, depth=0):
         out = []
         for n in nodes:
@@ -499,7 +561,7 @@ def side_nav(url):
         return f'<ul>{"".join(out)}</ul>'
     if not top.get("children") or info["top"] == url:  # a section's own page already lists its children
         return ""
-    return (f'<nav class="side-nav" aria-label="{esc(I18N["cs"]["inSection"])}"><p class="label">'
+    return (f'<nav class="side-nav" aria-label="{esc(I18N[lang]["inSection"])}"><p class="label">'
             f'<a href="{top["url"]}">{esc(top["title"])}</a></p>{walk(top["children"])}</nav>')
 
 
@@ -511,45 +573,50 @@ def _descendants(node):
     return out
 
 
-def crumbs_html(url, extra=None):
-    trail = [("Úvod", "/")] + breadcrumbs(url) + (extra or [])
+def crumbs_html(url, extra=None, lang="cs"):
+    trail = [(I18N[lang]["home"], home_url(lang))] + breadcrumbs(url, lang) + (extra or [])
     if len(trail) < 2:
         return ""
     items = []
     for i, (t, u) in enumerate(trail):
         last = i == len(trail) - 1
         items.append(f'<li>{"<span aria-current=" + chr(34) + "page" + chr(34) + ">" + esc(t) + "</span>" if last else f"<a href={chr(34)}{u}{chr(34)}>{esc(t)}</a>"}</li>')
-    return f'<nav class="crumbs" aria-label="Drobečková navigace"><ol>{"".join(items)}</ol></nav>'
+    return f'<nav class="crumbs" aria-label="{esc(I18N[lang]["breadcrumb"])}"><ol>{"".join(items)}</ol></nav>'
 
 
 EMBLEM_BLOCKS = {
-    "armorial-bearing": lambda: (
+    "armorial-bearing": lambda lang: (
         '<figure class="emblem"><picture><source type="image/webp" srcset="/img/emblems/armorial-bearing-420.webp 420w, /img/emblems/armorial-bearing-840.webp 840w" sizes="(max-width: 700px) 50vw, 210px">'
-        + img("/img/emblems/armorial-bearing-420.webp", "Znak Suverénního vojenského špitálního řádu svatého Jana Jeruzalémského, z Rhodu a z Malty") + "</picture></figure>"),
+        + img("/img/emblems/armorial-bearing-420.webp", I18N[lang]["armsAlt"]) + "</picture></figure>"),
 }
 
 
-def render_page(p):
-    url = p["url"]
-    is_section = p.get("section") or bool(NAV_INDEX.get(url, {}).get("node", {}).get("children"))
-    lead_img = p.get("image")
+def render_page(p, lang="cs"):
+    url, src, t = p["url"], p.get("source", p["url"]), I18N[lang]
+    cs = PAGES.get(src, {})
+    is_section = cs.get("section") or bool(NAV_INDEX[lang].get(url, {}).get("node", {}).get("children"))
+    lead_img = p.get("image", cs.get("image"))
     figure = ""
     if lead_img:
         figure = f'<figure class="page-figure">{img(lead_img, p.get("imageAlt") or p["title"], eager=True)}</figure>'
-    emblem = EMBLEM_BLOCKS[p["emblem"]]() if p.get("emblem") in EMBLEM_BLOCKS else ""
+    emblem_key = cs.get("emblem")
+    emblem = EMBLEM_BLOCKS[emblem_key](lang) if emblem_key in EMBLEM_BLOCKS else ""
     body = enhance_body(p["body"])
-    children = section_children_html(url) if is_section else ""
+    children = section_children_html(url, lang) if is_section else ""
+    cal_url = ALT.get("/kalendar/", {}).get(lang, "/kalendar/")
     special = ""
-    if url == "/kontakt/":
-        special = contact_card("cs") + '<p class="small">Velvyslanectví Suverénního maltézského řádu v České republice: <a href="/diplomaticke-vztahy/velvyslanectvi-radu-v-ceske-republice/">kontakt</a>.</p>'
-    if url == "/radovy-kostel-panny-marie-pod-retezem/bohosluzby/":
-        special = (f'<h2>{esc(I18N["cs"]["regularServices"])}</h2>' + services_list("cs", lent=True) + '<p><a class="link-strong" href="/kalendar/">Aktuální kalendář bohoslužeb a svátků</a></p>'
-                   + f'<h2>{esc(I18N["cs"]["feasts"])}</h2><p class="small">{esc(I18N["cs"]["feastsLead"])}</p>' + order_feasts("cs"))
-    if url == "/koncerty/":
-        special = f'<h2>{esc(I18N["cs"]["concerts"])}</h2><p class="small">{esc(I18N["cs"]["concertsLead"])}</p>' + concerts("cs")
-    side = side_nav(url)
+    if src == "/kontakt/":
+        emb = ALT.get("/diplomaticke-vztahy/velvyslanectvi-radu-v-ceske-republice/", {}).get(lang, "/diplomaticke-vztahy/velvyslanectvi-radu-v-ceske-republice/")
+        special = contact_card(lang) + f'<p class="small">{esc(t["embassyNote"])} <a href="{emb}">{esc(t["contact"])}</a>.</p>'
+    if src == "/radovy-kostel-panny-marie-pod-retezem/bohosluzby/":
+        special = (f'<h2>{esc(t["regularServices"])}</h2><p class="small">{esc(t["churchPlace"])}</p>' + services_list(lang, lent=True)
+                   + f'<p><a class="link-strong" href="{cal_url}">{esc(t["fullCalendar"])}</a></p>'
+                   + f'<h2>{esc(t["feasts"])}</h2><p class="small">{esc(t["feastsLead"])}</p>' + order_feasts(lang))
+    if src == "/koncerty/":
+        special = f'<h2>{esc(t["concerts"])}</h2><p class="small">{esc(t["concertsLead"])}</p>' + concerts(lang)
+    side = side_nav(url, lang)
     html_body = f"""
-<div class="wrap">{crumbs_html(url)}</div>
+<div class="wrap">{crumbs_html(url, lang=lang)}</div>
 <article class="wrap page{' page--with-side' if side else ''}">
  <header class="page-head reveal">
   {emblem}
@@ -563,8 +630,8 @@ def render_page(p):
  </div>
  {f'<div class="page-side">{side}</div>' if side else ''}
 </article>"""
-    return layout(lang="cs", url=url, title=p["title"], body=html_body, description=p.get("description", ""),
-                  image=lead_img, status=p.get("status"))
+    return layout(lang=lang, url=url, title=p["title"], body=html_body, description=p.get("description", ""),
+                  image=lead_img, status=p.get("status", "translation" if lang != "cs" else None))
 
 
 GENERIC_IMAGES = {"/media/2018/06/koncert.jpg", "/media/2018/06/ob%C4%8Dasn%C3%ADk.png", "/media/2018/06/občasník.png"}
@@ -634,59 +701,22 @@ def render_news_index(items, active="", year=None, url="/aktuality/"):
                   description="Aktuality Českého velkopřevorství Maltézského řádu: zprávy, koncerty a provoz řádového kostela.")
 
 
-def render_calendar_page():
-    t = I18N["cs"]
+def render_calendar_page(lang="cs"):
+    t = I18N[lang]
+    e = TR[lang]["/kalendar/"] if lang != "cs" else {"url": "/kalendar/", "title": "Kalendář", "description": "Kalendář bohoslužeb, svátků a akcí Českého velkopřevorství Maltézského řádu; Kalendář 2027 ke stažení."}
     body = f"""
-<div class="wrap">{crumbs_html('/kalendar/')}</div>
+<div class="wrap">{crumbs_html(e['url'], lang=lang)}</div>
 <div class="wrap page page--calendar">
- <header class="page-head reveal"><h1 class="display">Kalendář</h1><p class="lead-s">{esc(t['calendarLead'])}</p></header>
- {calendar_widget('cs', 'month')}
- <p class="subscribe"><a class="btn" href="{SITE['addcal']['publicUrl']}">{esc(t['subscribe'])}</a><span class="small">Google, Apple, Outlook a další kalendáře; termíny se aktualizují samy.</span></p>
+ <header class="page-head reveal"><h1 class="display">{esc(e['title'])}</h1><p class="lead-s">{esc(t['calendarLead'])}</p></header>
+ {calendar_widget(lang, 'month')}
+ <p class="subscribe"><a class="btn" href="{SITE['addcal']['publicUrl']}">{esc(t['subscribe'])}</a><span class="small">{esc(t['subscribeNote'])}</span></p>
  <div class="cal-below">
-  <section aria-labelledby="svc"><h2 id="svc" class="display-s">{esc(t['regularServices'])}</h2><p class="small">{esc(t['churchPlace'])}</p>{services_list('cs', lent=True)}</section>
-  <section aria-labelledby="dl"><h2 id="dl" class="display-s">{esc(t['calendar2027'])}</h2>{downloads_list()}</section>
+  <section aria-labelledby="svc"><h2 id="svc" class="display-s">{esc(t['regularServices'])}</h2><p class="small">{esc(t['churchPlace'])}</p>{services_list(lang, lent=True)}</section>
+  <section aria-labelledby="dl"><h2 id="dl" class="display-s">{esc(t['calendar2027'])}</h2>{downloads_list(lang)}</section>
  </div>
- <section class="cal-year" aria-labelledby="yr"><h2 id="yr" class="display-s">{esc(t['yearEvents'])}</h2><p class="small">{esc(t['yearEventsLead'])}</p>{year_events('cs')}</section>
+ <section class="cal-year" aria-labelledby="yr"><h2 id="yr" class="display-s">{esc(t['yearEvents'])}</h2><p class="small">{esc(t['yearEventsLead'])}</p>{year_events(lang)}</section>
 </div>"""
-    return layout(lang="cs", url="/kalendar/", title="Kalendář", body=body, status="new",
-                  description="Kalendář bohoslužeb, svátků a akcí Českého velkopřevorství Maltézského řádu; Kalendář 2027 ke stažení.")
-
-
-def render_foreign_home(lang):
-    t, names, gm = I18N[lang], SITE["names"][lang], SITE["gm"][lang]
-    official = "".join(f'<li><a href="{gm[k]}">{esc(label)}</a></li>' for k, label in t["links"].items() if k in gm)
-    feed = gm_feed(lang)
-    feed_html = ""
-    if feed:
-        feed_html = f'<h3 class="display-s">{esc(t["gmNews"])}</h3><ul class="gm-feed">' + "".join(
-            f'<li><time datetime="{f["date"]}">{short_date(f["date"]) if f["date"] else ""}</time><a href="{esc(f["link"])}">{esc(f["title"])}</a></li>' for f in feed) + "</ul>"
-    downloads = ""
-    if lang == "en":
-        en_files = "".join(f'<li><a href="{f}">{esc(label)} <span class="file-meta">PDF</span></a></li>' for d in SITE["calendarFiles"] for label, f in d["files"] if "English" in label)
-        downloads = f'<div class="dl-block"><h3 class="display-s">{esc(t["calendar2027"])}</h3><ul class="plain-links">{en_files}</ul></div>'
-    body = f"""
-<section class="home-open"><div class="wrap home-intro home-intro--single">
- <div class="home-intro-main reveal">
-  <h1 class="display">{esc(names['entity'])}</h1>
-  <p class="lead">{esc(names['order'])}</p>
-  <p class="notice">{esc(t['pendingTranslation'])}</p>
-  <h2 class="display-s official-head">{esc(t['officialTexts'])}</h2>
-  <ul class="plain-links">{official}</ul>
- </div>
-</div></section>
-<section class="band band-grey" id="kalendar"><div class="wrap">
- <div class="section-head"><h2 class="display-m">{esc(t['calendar'])}</h2><p>{esc(t['calendarLead'])}</p></div>
- {calendar_widget(lang, 'schedule')}
- <p class="subscribe"><a class="btn" href="{SITE['addcal']['publicUrl']}">{esc(t['subscribe'])}</a></p>
- {downloads}
-</div></section>
-<section class="band" id="kontakt"><div class="wrap split">
- <div class="split-head"><h2 class="display-m">{esc(t['contact'])}</h2></div>
- <div>{contact_card(lang)}{feed_html}</div>
-</div></section>"""
-    alts = {l: ("/" if l == "cs" else f"/{l}/") for l in SITE["languages"]}
-    return layout(lang=lang, url=f"/{lang}/", title=names["entity"], body=body, alternates=alts, status="new",
-                  description=f"{names['entity']} – {names['order']}.")
+    return layout(lang=lang, url=e["url"], title=e["title"], body=body, status="new" if lang == "cs" else "translation", description=e["description"])
 
 
 def render_simple(url, title, inner, lang="cs", status=None):
@@ -737,9 +767,18 @@ def build():
     if DIST.exists():
         shutil.rmtree(DIST)
     shutil.copytree(STATIC, DIST)
-    write("/", render_home())
+    for lang in LANGS:
+        write(home_url(lang), render_home(lang))
+        write(TR[lang]["/kalendar/"]["url"] if lang != "cs" else "/kalendar/", render_calendar_page(lang))
     for url, p in PAGES.items():
         write(url, render_page(p))
+    for lang, entries in TR.items():
+        for src, e in entries.items():
+            if src in ("/kalendar/", "/ochrana-osobnich-udaju/"):
+                continue
+            write(e["url"], render_page(e, lang))
+        pv = entries["/ochrana-osobnich-udaju/"]
+        write(pv["url"], render_simple(pv["url"], pv["title"], pv["body"], lang=lang, status="translation"))
     for i, n in enumerate(NEWS):
         write(n["url"], render_article(n, NEWS[i + 1] if i + 1 < len(NEWS) else None, NEWS[i - 1] if i else None))
     write("/aktuality/", render_news_index(NEWS[:40]))
@@ -749,13 +788,11 @@ def build():
             write(f"/aktuality/{c}/", render_news_index(items, active=c, url=f"/aktuality/{c}/"))
     for y in sorted({n["date"][:4] for n in NEWS}):
         write(f"/aktuality/{y}/", render_news_index([n for n in NEWS if n["date"].startswith(y)], year=y, url=f"/aktuality/{y}/"))
-    write("/kalendar/", render_calendar_page())
-    for lang in SITE["languages"][1:]:
-        write(f"/{lang}/", render_foreign_home(lang))
     write("/ochrana-osobnich-udaju/", render_simple("/ochrana-osobnich-udaju/", "Ochrana osobních údajů", PRIVACY, status="approval"))
     write("/404.html", render_simple("/404.html", I18N["cs"]["notFound"],
                                      f'<p>{esc(I18N["cs"]["notFoundText"])}</p><p><a class="link-strong" href="/">Úvodní stránka</a> · <a class="link-strong" href="/aktuality/">Aktuality</a> · <a class="link-strong" href="/kalendar/">Kalendář</a></p>'))
-    urls = ["/", "/kalendar/", "/aktuality/"] + [f"/{l}/" for l in SITE["languages"][1:]] + list(PAGES) + [n["url"] for n in NEWS]
+    urls = ["/", "/kalendar/", "/aktuality/"] + [f"/{l}/" for l in LANGS[1:]] + list(PAGES) + [n["url"] for n in NEWS] + \
+        [e["url"] for entries in TR.values() for e in entries.values()]
     (DIST / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
                                       "".join(f"<url><loc>{SITE['baseUrl']}{u}</loc></url>" for u in urls) + "</urlset>", encoding="utf-8")
     (DIST / "robots.txt").write_text(("User-agent: *\nAllow: /\n\nSitemap: " + SITE["baseUrl"] + "/sitemap.xml\n") if PRODUCTION
@@ -763,11 +800,11 @@ def build():
     (DIST / "feed.xml").write_text(rss(), encoding="utf-8")
     (DIST / "_headers").write_text(HEADERS + ("" if PRODUCTION else "/*\n  X-Robots-Tag: noindex, nofollow\n"), encoding="utf-8")
     (DIST / "_redirects").write_text("".join(f"{a} {b} 301\n" for a, b in SITE["redirects"]), encoding="utf-8")
-    print(f"built {len(PAGES)} pages, {len(NEWS)} news, {'production' if PRODUCTION else 'preview'} → {DIST}")
+    print(f"built {len(PAGES)} pages, {len(NEWS)} news, translations {', '.join(f'{l} {len(e)}' for l, e in TR.items())}, {'production' if PRODUCTION else 'preview'} → {DIST}")
 
 
 PRIVACY = """<p>Tento web neužívá analytické ani reklamní cookies a nesleduje návštěvníky. Písma a obrázky se načítají přímo z tohoto webu.</p>
-<p>Na úvodní stránce, na stránce Kalendář a na úvodních stránkách cizojazyčných verzí se zobrazuje kalendář služby AddCal (addcal.co). Při jeho načtení prohlížeč odesílá službě AddCal technické údaje nutné k zobrazení (IP adresu a údaje o prohlížeči). Kalendář si můžete prohlédnout také přímo na adrese <a href="https://addcal.co/c/calendarGPB">addcal.co/c/calendarGPB</a>.</p>
+<p>Na úvodních stránkách a stránkách Kalendáře ve všech jazykových verzích se zobrazuje kalendář služby AddCal (addcal.co). Při jeho načtení prohlížeč odesílá službě AddCal technické údaje nutné k zobrazení (IP adresu a údaje o prohlížeči). Kalendář si můžete prohlédnout také přímo na adrese <a href="https://addcal.co/c/calendarGPB">addcal.co/c/calendarGPB</a>.</p>
 <p>Správcem osobních údajů je České velkopřevorství, Velkopřevorské náměstí 4, 118 00 Praha 1. Dotazy k ochraně osobních údajů posílejte na <a href="mailto:gpb@smom.cz">gpb@smom.cz</a>.</p>"""
 
 

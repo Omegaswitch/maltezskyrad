@@ -36,5 +36,5 @@ Status values: ✅ complies · ⚠️ complies with a caveat or needs a decision
 2. EB Garamond for headings, or Asap only.
 3. Shield lockup or armorial bearing in the banner of an institutional site.
 4. The personalised Czech banner lockup (`BAN-01`) and the RGB master of the armorial bearing (`EMB-01`).
-5. Native-speaker review of the FR, IT and DE interface strings (`content/i18n.json`) and of the EN entry page.
+5. Native-speaker review of the EN, FR, IT and DE translations: interface strings (`content/i18n.json`), the 21 translated pages per language (`content/translations/`) and the Italian titles in `content/calendar.json`. Order terms used (Prince Grand Prior, Pro-Receiver, Pro-Hospitaller, Knight of Magistral Grace and their FR/IT/DE equivalents) should be checked against the Grand Magistry's usage.
 6. Approval of every page marked "new", and the privacy notice (marked "approval").

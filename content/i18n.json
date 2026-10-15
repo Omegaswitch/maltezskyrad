@@ -45,7 +45,8 @@
    "verified": "Ověřený obsah",
    "existing": "Převzato ze stávajícího webu – čeká na revizi",
    "new": "Nový text – čeká na schválení",
-   "approval": "Vyžaduje institucionální schválení"
+   "approval": "Vyžaduje institucionální schválení",
+   "translation": "Překlad – čeká na kontrolu"
   },
   "months": [
    "ledna",
@@ -67,7 +68,61 @@
   "feastsLead": "Dny vlastního liturgického kalendáře Řádu (Calendarium particulare), které se slaví v kostele Panny Marie pod řetězem.",
   "concerts": "Koncerty v roce 2027",
   "concertsLead": "Koncerty v kostele Panny Marie pod řetězem, vždy v pondělí od 17:00.",
-  "lentHeading": "V postní době"
+  "lentHeading": "V postní době",
+  "newsCzech": "Aktuality",
+  "morePages": "další stránky",
+  "giftPolicy": "Zásady přijímání darů",
+  "breadcrumb": "Drobečková navigace",
+  "armsAlt": "Znak Suverénního vojenského špitálního řádu svatého Jana Jeruzalémského, z Rhodu a z Malty",
+  "embassyNote": "Velvyslanectví Suverénního maltézského řádu v České republice:",
+  "fullCalendar": "Celý kalendář a odběr do telefonu",
+  "calendarTitle": "Kalendář velkopřevorství",
+  "allActivities": "Všechny činnosti",
+  "princeGrandPrior": "Kníže-velkopřevor",
+  "seat": "Sídlo",
+  "seatValue": "Velkopřevorský palác, Velkopřevorské náměstí 4",
+  "orderChurch": "Řádový kostel",
+  "orderChurchValue": "Panna Maria pod řetězem, Lázeňská ulice",
+  "homeLead": "Suverénní vojenský špitální řád svatého Jana Jeruzalémského, z Rhodu a z Malty je v českých zemích přítomen od druhé poloviny 12. století, kdy kníže Vladislav II. daroval johanitům území u paty Juditina mostu. Po potlačení komunisty přežilo velkopřevorství v exilu; v Praze obnovilo činnost 1. dubna 1990.",
+  "homeText": "Členové velkopřevorství, jeho dobrovolníci a organizace, které založilo, slouží nemocným, seniorům a lidem v nouzi v duchu hesla Řádu <i lang=\"la\">Tuitio fidei et obsequium pauperum</i> – ochrana víry a služba chudým a nemocným.",
+  "homeLinks": [
+   "Historie velkopřevorství",
+   "Představitelé",
+   "Velkopřevorský palác"
+  ],
+  "works": [
+   [
+    "Maltézská pomoc, o.p.s.",
+    "Sociální služby a dobrovolnické programy pro seniory a lidi v nouzi, založena roku 2002.",
+    "https://maltezskapomoc.cz/"
+   ],
+   [
+    "Pomoc seniorům a potřebným",
+    "Jak velkopřevorství pomáhá seniorům, lidem se zdravotním postižením a lidem bez domova.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/pomoc-seniorum/"
+   ],
+   [
+    "Školy",
+    "Vyšší odborná škola zdravotnická v Praze 3, Základní škola Maltézských rytířů v Kladně, gymnázium ve Skutči.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/skolstvi/"
+   ],
+   [
+    "Pouť do Lurd",
+    "Každoroční řádová pouť s nemocnými poutníky, jejich zdravotníky a dobrovolníky.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/pout-do-lurd/"
+   ],
+   [
+    "Česká maltézská mládež a další aktivity",
+    "Volnočasové a dobročinné aktivity pro mladé lidi s postižením, katedrální služba.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/dalsi-aktivity/"
+   ]
+  ],
+  "newsInCzech": "",
+  "calMonthly": "Měsíční přehled bohoslužeb a událostí 2027",
+  "calYear": "Celoroční přehled 2027 na jedné stránce",
+  "pdfEnglish": "v angličtině",
+  "subscribeNote": "Google, Apple, Outlook a další kalendáře; termíny se aktualizují samy.",
+  "homeDescription": "Oficiální web Českého velkopřevorství Suverénního maltézského řádu: historie, představitelé, kalendář bohoslužeb v kostele Panny Marie pod řetězem, činnosti a aktuality."
  },
  "en": {
   "langName": "English",
@@ -100,7 +155,7 @@
   "gmLink": "The Grand Master, mission and history of the Order on orderofmalta.int",
   "gmNews": "News from the Grand Magistry",
   "service": "Service",
-  "serviceText": "",
+  "serviceText": "The Grand Priory founds and supports the works that carry its mission today. Each has its own management and its own website (mostly in Czech).",
   "footerLinks": "Related websites",
   "privacy": "Privacy",
   "notFound": "Page not found",
@@ -115,7 +170,8 @@
    "verified": "Verified",
    "existing": "Existing content – awaiting review",
    "new": "New text – awaiting approval",
-   "approval": "Requires institutional approval"
+   "approval": "Requires institutional approval",
+   "translation": "Translation – awaiting review"
   },
   "months": [
    "January",
@@ -145,7 +201,61 @@
   "feastsLead": "Days of the Order's own liturgical calendar (Calendarium particulare), celebrated in the Church of Our Lady beneath the Chain.",
   "concerts": "Concerts in 2027",
   "concertsLead": "Concerts in the Church of Our Lady beneath the Chain, on Mondays at 17:00.",
-  "lentHeading": "During Lent"
+  "lentHeading": "During Lent",
+  "newsCzech": "News (in Czech)",
+  "morePages": "more pages",
+  "giftPolicy": "Gift acceptance policy (in Czech)",
+  "breadcrumb": "Breadcrumb",
+  "armsAlt": "Armorial bearing of the Sovereign Order of Malta",
+  "embassyNote": "Embassy of the Sovereign Order of Malta to the Czech Republic:",
+  "fullCalendar": "Full calendar and phone subscription",
+  "calendarTitle": "Calendar of the Grand Priory",
+  "allActivities": "All activities",
+  "princeGrandPrior": "Prince Grand Prior",
+  "seat": "Seat",
+  "seatValue": "Grand Prior's Palace, Velkopřevorské náměstí 4, Prague",
+  "orderChurch": "Church of the Order",
+  "orderChurchValue": "Our Lady beneath the Chain, Lázeňská street",
+  "homeLead": "The Sovereign Military Hospitaller Order of St. John of Jerusalem of Rhodes and of Malta has been present in the Czech lands since the second half of the 12th century, when Duke Vladislaus II gave the Knights of St John land at the foot of the Judith Bridge in Prague. After its suppression by the Communists, the Grand Priory survived in exile; it resumed its work in Prague on 1 April 1990.",
+  "homeText": "Members of the Grand Priory, its volunteers and the organisations it founded serve the sick, the elderly and people in need in the spirit of the Order's motto <i lang=\"la\">Tuitio fidei et obsequium pauperum</i> – defence of the faith and service to the poor and the sick.",
+  "homeLinks": [
+   "History of the Grand Priory",
+   "Officers",
+   "Grand Prior's Palace"
+  ],
+  "works": [
+   [
+    "Maltézská pomoc, o.p.s.",
+    "Social services and volunteer programmes for the elderly and people in need, founded in 2002.",
+    "https://maltezskapomoc.cz/"
+   ],
+   [
+    "Help for the elderly and people in need",
+    "How the Grand Priory helps the elderly, people with disabilities and the homeless.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/pomoc-seniorum/"
+   ],
+   [
+    "Schools",
+    "A nursing college in Prague 3, the Knights of Malta Primary School in Kladno and a grammar school in Skuteč.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/skolstvi/"
+   ],
+   [
+    "Pilgrimage to Lourdes",
+    "The Order's annual pilgrimage with sick pilgrims, their medical staff and volunteers.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/pout-do-lurd/"
+   ],
+   [
+    "Czech Maltese Youth and other activities",
+    "Leisure and charitable activities for young people with disabilities; cathedral service.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/dalsi-aktivity/"
+   ]
+  ],
+  "newsInCzech": "News of the Grand Priory is published in Czech.",
+  "calMonthly": "Monthly overview of services and events 2027",
+  "calYear": "Year at a glance 2027 (A4 or A3)",
+  "pdfEnglish": "in English",
+  "subscribeNote": "Google, Apple, Outlook and other calendars; dates update automatically.",
+  "homeDescription": "Official website of the Grand Priory of Bohemia of the Sovereign Order of Malta in Prague: history, officers, services in the Church of Our Lady beneath the Chain, works and calendar."
  },
  "fr": {
   "langName": "Français",
@@ -178,7 +288,7 @@
   "gmLink": "Le Grand Maître, la mission et l'histoire de l'Ordre sur orderofmalta.int",
   "gmNews": "Actualités du Grand Magistère",
   "service": "Service",
-  "serviceText": "",
+  "serviceText": "Le Grand Prieuré fonde et soutient les œuvres qui portent aujourd'hui sa mission. Chacune a sa propre direction et son propre site (le plus souvent en tchèque).",
   "footerLinks": "Sites associés",
   "privacy": "Données personnelles",
   "notFound": "Page introuvable",
@@ -193,7 +303,8 @@
    "verified": "Vérifié",
    "existing": "Contenu existant – à revoir",
    "new": "Nouveau texte – à approuver",
-   "approval": "Approbation institutionnelle requise"
+   "approval": "Approbation institutionnelle requise",
+   "translation": "Traduction – en attente de relecture"
   },
   "months": [
    "janvier",
@@ -223,7 +334,61 @@
   "feastsLead": "Jours du calendrier liturgique propre de l'Ordre (Calendarium particulare), célébrés en l'église Notre-Dame-sous-la-Chaîne.",
   "concerts": "Concerts en 2027",
   "concertsLead": "Concerts en l'église Notre-Dame-sous-la-Chaîne, le lundi à 17 h.",
-  "lentHeading": "Pendant le Carême"
+  "lentHeading": "Pendant le Carême",
+  "newsCzech": "Actualités (en tchèque)",
+  "morePages": "autres pages",
+  "giftPolicy": "Politique d'acceptation des dons (en tchèque)",
+  "breadcrumb": "Fil d'Ariane",
+  "armsAlt": "Armoiries de l'Ordre souverain de Malte",
+  "embassyNote": "Ambassade de l'Ordre souverain de Malte en République tchèque :",
+  "fullCalendar": "Calendrier complet et abonnement sur téléphone",
+  "calendarTitle": "Calendrier du Grand Prieuré",
+  "allActivities": "Toutes les activités",
+  "princeGrandPrior": "Prince Grand Prieur",
+  "seat": "Siège",
+  "seatValue": "Palais du Grand Prieur, Velkopřevorské náměstí 4, Prague",
+  "orderChurch": "Église de l'Ordre",
+  "orderChurchValue": "Notre-Dame-sous-la-Chaîne, rue Lázeňská",
+  "homeLead": "L'Ordre souverain militaire hospitalier de Saint-Jean de Jérusalem, de Rhodes et de Malte est présent dans les pays tchèques depuis la seconde moitié du XIIe siècle, lorsque le duc Vladislav II donna aux Hospitaliers de Saint-Jean un terrain au pied du pont Judith à Prague. Supprimé par les communistes, le Grand Prieuré survécut en exil ; il a repris ses activités à Prague le 1er avril 1990.",
+  "homeText": "Les membres du Grand Prieuré, ses bénévoles et les organisations qu'il a fondées servent les malades, les personnes âgées et les personnes dans le besoin dans l'esprit de la devise de l'Ordre <i lang=\"la\">Tuitio fidei et obsequium pauperum</i> – défense de la foi et service des pauvres et des malades.",
+  "homeLinks": [
+   "Histoire du Grand Prieuré",
+   "Dignitaires",
+   "Palais du Grand Prieur"
+  ],
+  "works": [
+   [
+    "Maltézská pomoc, o.p.s.",
+    "Services sociaux et programmes de bénévolat pour les personnes âgées et les personnes dans le besoin, fondée en 2002.",
+    "https://maltezskapomoc.cz/"
+   ],
+   [
+    "Aide aux personnes âgées et aux personnes dans le besoin",
+    "Comment le Grand Prieuré aide les personnes âgées, les personnes handicapées et les sans-abri.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/pomoc-seniorum/"
+   ],
+   [
+    "Écoles",
+    "Une école supérieure d'infirmières à Prague 3, l'école primaire des Chevaliers de Malte à Kladno et un lycée à Skuteč.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/skolstvi/"
+   ],
+   [
+    "Pèlerinage à Lourdes",
+    "Le pèlerinage annuel de l'Ordre avec des pèlerins malades, leur personnel soignant et des bénévoles.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/pout-do-lurd/"
+   ],
+   [
+    "Jeunesse maltaise tchèque et autres activités",
+    "Loisirs et activités caritatives pour les jeunes handicapés ; service à la cathédrale.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/dalsi-aktivity/"
+   ]
+  ],
+  "newsInCzech": "Les actualités du Grand Prieuré sont publiées en tchèque.",
+  "calMonthly": "Aperçu mensuel des offices et événements 2027",
+  "calYear": "L'année 2027 en un coup d'œil (A4 ou A3)",
+  "pdfEnglish": "en anglais",
+  "subscribeNote": "Google, Apple, Outlook et autres agendas ; les dates se mettent à jour automatiquement.",
+  "homeDescription": "Site officiel du Grand Prieuré de Bohême de l'Ordre souverain de Malte à Prague : histoire, dignitaires, offices en l'église Notre-Dame-sous-la-Chaîne, œuvres et calendrier."
  },
  "it": {
   "langName": "Italiano",
@@ -256,7 +421,7 @@
   "gmLink": "Il Gran Maestro, la missione e la storia dell'Ordine su orderofmalta.int",
   "gmNews": "Notizie dal Gran Magistero",
   "service": "Servizio",
-  "serviceText": "",
+  "serviceText": "Il Gran Priorato fonda e sostiene le opere che oggi portano avanti la sua missione. Ognuna ha la propria direzione e il proprio sito (per lo più in ceco).",
   "footerLinks": "Siti collegati",
   "privacy": "Privacy",
   "notFound": "Pagina non trovata",
@@ -271,7 +436,8 @@
    "verified": "Verificato",
    "existing": "Contenuto esistente – da rivedere",
    "new": "Nuovo testo – da approvare",
-   "approval": "Richiede approvazione istituzionale"
+   "approval": "Richiede approvazione istituzionale",
+   "translation": "Traduzione – in attesa di revisione"
   },
   "months": [
    "gennaio",
@@ -301,7 +467,61 @@
   "feastsLead": "Giorni del calendario liturgico proprio dell'Ordine (Calendarium particulare), celebrati nella chiesa di Santa Maria sotto la Catena.",
   "concerts": "Concerti nel 2027",
   "concertsLead": "Concerti nella chiesa di Santa Maria sotto la Catena, il lunedì alle 17:00.",
-  "lentHeading": "In Quaresima"
+  "lentHeading": "In Quaresima",
+  "newsCzech": "Notizie (in ceco)",
+  "morePages": "altre pagine",
+  "giftPolicy": "Criteri di accettazione delle donazioni (in ceco)",
+  "breadcrumb": "Percorso",
+  "armsAlt": "Stemma del Sovrano Ordine di Malta",
+  "embassyNote": "Ambasciata del Sovrano Ordine di Malta nella Repubblica Ceca:",
+  "fullCalendar": "Calendario completo e abbonamento sul telefono",
+  "calendarTitle": "Calendario del Gran Priorato",
+  "allActivities": "Tutte le attività",
+  "princeGrandPrior": "Principe Gran Priore",
+  "seat": "Sede",
+  "seatValue": "Palazzo del Gran Priore, Velkopřevorské náměstí 4, Praga",
+  "orderChurch": "Chiesa dell'Ordine",
+  "orderChurchValue": "Santa Maria sotto la Catena, via Lázeňská",
+  "homeLead": "Il Sovrano Militare Ordine Ospedaliero di San Giovanni di Gerusalemme, di Rodi e di Malta è presente nelle terre ceche dalla seconda metà del XII secolo, quando il duca Vladislao II donò ai Cavalieri di San Giovanni un terreno ai piedi del ponte di Giuditta a Praga. Soppresso dai comunisti, il Gran Priorato sopravvisse in esilio; ha ripreso la sua attività a Praga il 1º aprile 1990.",
+  "homeText": "I membri del Gran Priorato, i suoi volontari e le organizzazioni da esso fondate servono i malati, gli anziani e le persone nel bisogno nello spirito del motto dell'Ordine <i lang=\"la\">Tuitio fidei et obsequium pauperum</i> – difesa della fede e servizio ai poveri e ai malati.",
+  "homeLinks": [
+   "Storia del Gran Priorato",
+   "Dignitari",
+   "Palazzo del Gran Priore"
+  ],
+  "works": [
+   [
+    "Maltézská pomoc, o.p.s.",
+    "Servizi sociali e programmi di volontariato per anziani e persone nel bisogno, fondata nel 2002.",
+    "https://maltezskapomoc.cz/"
+   ],
+   [
+    "Aiuto agli anziani e alle persone nel bisogno",
+    "Come il Gran Priorato aiuta gli anziani, le persone con disabilità e i senzatetto.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/pomoc-seniorum/"
+   ],
+   [
+    "Scuole",
+    "Una scuola superiore per infermieri a Praga 3, la scuola primaria dei Cavalieri di Malta a Kladno e un liceo a Skuteč.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/skolstvi/"
+   ],
+   [
+    "Pellegrinaggio a Lourdes",
+    "Il pellegrinaggio annuale dell'Ordine con pellegrini malati, il loro personale sanitario e i volontari.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/pout-do-lurd/"
+   ],
+   [
+    "Gioventù maltese ceca e altre attività",
+    "Attività ricreative e caritative per giovani con disabilità; servizio in cattedrale.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/dalsi-aktivity/"
+   ]
+  ],
+  "newsInCzech": "Le notizie del Gran Priorato sono pubblicate in ceco.",
+  "calMonthly": "Panoramica mensile delle funzioni e degli eventi 2027",
+  "calYear": "Il 2027 in un colpo d'occhio (A4 o A3)",
+  "pdfEnglish": "in inglese",
+  "subscribeNote": "Google, Apple, Outlook e altri calendari; le date si aggiornano automaticamente.",
+  "homeDescription": "Sito ufficiale del Gran Priorato di Boemia del Sovrano Ordine di Malta a Praga: storia, dignitari, funzioni nella chiesa di Santa Maria sotto la Catena, opere e calendario."
  },
  "de": {
   "langName": "Deutsch",
@@ -334,7 +554,7 @@
   "gmLink": "Großmeister, Mission und Geschichte des Ordens auf orderofmalta.int",
   "gmNews": "Nachrichten des Großmagisteriums",
   "service": "Dienst",
-  "serviceText": "",
+  "serviceText": "Das Großpriorat gründet und unterstützt die Werke, die heute seine Sendung tragen. Jedes hat eine eigene Leitung und eine eigene Website (meist auf Tschechisch).",
   "footerLinks": "Weitere Websites",
   "privacy": "Datenschutz",
   "notFound": "Seite nicht gefunden",
@@ -349,7 +569,8 @@
    "verified": "Geprüft",
    "existing": "Bestehender Inhalt – Prüfung ausstehend",
    "new": "Neuer Text – Freigabe ausstehend",
-   "approval": "Institutionelle Freigabe erforderlich"
+   "approval": "Institutionelle Freigabe erforderlich",
+   "translation": "Übersetzung – Prüfung ausstehend"
   },
   "months": [
    "Januar",
@@ -379,6 +600,60 @@
   "feastsLead": "Tage des eigenen liturgischen Kalenders des Ordens (Calendarium particulare), gefeiert in der Kirche Maria unter der Kette.",
   "concerts": "Konzerte 2027",
   "concertsLead": "Konzerte in der Kirche Maria unter der Kette, jeweils montags um 17 Uhr.",
-  "lentHeading": "In der Fastenzeit"
+  "lentHeading": "In der Fastenzeit",
+  "newsCzech": "Aktuelles (auf Tschechisch)",
+  "morePages": "weitere Seiten",
+  "giftPolicy": "Richtlinien zur Annahme von Spenden (auf Tschechisch)",
+  "breadcrumb": "Brotkrumen-Navigation",
+  "armsAlt": "Wappen des Souveränen Malteserordens",
+  "embassyNote": "Botschaft des Souveränen Malteserordens in der Tschechischen Republik:",
+  "fullCalendar": "Vollständiger Kalender und Abo fürs Telefon",
+  "calendarTitle": "Kalender des Großpriorats",
+  "allActivities": "Alle Werke",
+  "princeGrandPrior": "Fürst-Großprior",
+  "seat": "Sitz",
+  "seatValue": "Palais des Großpriors, Velkopřevorské náměstí 4, Prag",
+  "orderChurch": "Ordenskirche",
+  "orderChurchValue": "Maria unter der Kette, Lázeňská-Straße",
+  "homeLead": "Der Souveräne Ritter- und Hospitalorden vom Heiligen Johannes von Jerusalem, von Rhodos und von Malta ist in den böhmischen Ländern seit der zweiten Hälfte des 12. Jahrhunderts präsent, als Herzog Vladislav II. den Johannitern Land am Fuß der Judithbrücke in Prag schenkte. Nach der Unterdrückung durch die Kommunisten überlebte das Großpriorat im Exil; seit dem 1. April 1990 wirkt es wieder in Prag.",
+  "homeText": "Die Mitglieder des Großpriorats, seine Freiwilligen und die von ihm gegründeten Organisationen dienen Kranken, älteren Menschen und Bedürftigen im Geist des Ordensmottos <i lang=\"la\">Tuitio fidei et obsequium pauperum</i> – Bezeugung des Glaubens und Hilfe den Bedürftigen.",
+  "homeLinks": [
+   "Geschichte des Großpriorats",
+   "Amtsträger",
+   "Palais des Großpriors"
+  ],
+  "works": [
+   [
+    "Maltézská pomoc, o.p.s.",
+    "Soziale Dienste und Freiwilligenprogramme für ältere Menschen und Bedürftige, gegründet 2002.",
+    "https://maltezskapomoc.cz/"
+   ],
+   [
+    "Hilfe für ältere Menschen und Bedürftige",
+    "Wie das Großpriorat älteren Menschen, Menschen mit Behinderung und Obdachlosen hilft.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/pomoc-seniorum/"
+   ],
+   [
+    "Schulen",
+    "Eine Höhere Fachschule für Krankenpflege in Prag 3, die Grundschule der Malteserritter in Kladno und ein Gymnasium in Skuteč.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/skolstvi/"
+   ],
+   [
+    "Wallfahrt nach Lourdes",
+    "Die jährliche Wallfahrt des Ordens mit kranken Pilgern, ihrem medizinischen Personal und Freiwilligen.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/pout-do-lurd/"
+   ],
+   [
+    "Tschechische Malteserjugend und weitere Aktivitäten",
+    "Freizeit- und karitative Angebote für junge Menschen mit Behinderung; Dienst im Dom.",
+    "/cinnosti-maltezskeho-radu-v-ceske-republice/dalsi-aktivity/"
+   ]
+  ],
+  "newsInCzech": "Die Nachrichten des Großpriorats erscheinen auf Tschechisch.",
+  "calMonthly": "Monatsübersicht der Gottesdienste und Termine 2027",
+  "calYear": "Das Jahr 2027 auf einen Blick (A4 oder A3)",
+  "pdfEnglish": "auf Englisch",
+  "subscribeNote": "Google, Apple, Outlook und andere Kalender; Termine aktualisieren sich automatisch.",
+  "homeDescription": "Offizielle Website des Großpriorats Böhmen des Souveränen Malteserordens in Prag: Geschichte, Amtsträger, Gottesdienste in der Kirche Maria unter der Kette, Werke und Kalender."
  }
 }

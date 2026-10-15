@@ -95,6 +95,6 @@ An independent reviewer checked the build against the chosen direction (G) and t
 - Real devices and Safari/Firefox engines; only Chromium was tested.
 - Screen readers (NVDA, VoiceOver) by a human.
 - Production hosting headers on the final host.
-- Native-speaker review of FR/IT/DE strings.
+- Native-speaker review of the EN/FR/IT/DE translations (346 pages in total now pass `check.py`; translated pages carry a "translation – awaiting review" label in preview builds).
 
 All of these belong before launch.

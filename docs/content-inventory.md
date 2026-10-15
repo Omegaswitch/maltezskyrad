@@ -53,6 +53,10 @@ Generated from `content/` on the redesign branch. Status values drive the previe
 
 Generated pages (not in `content/pages`): `/` (homepage), `/kalendar/`, `/aktuality/` with one index per category and per year, `/en/` `/fr/` `/it/` `/de/`, `/ochrana-osobnich-udaju/` (privacy notice, status `approval`), `404.html`, `sitemap.xml`, `feed.xml`, `robots.txt`.
 
+## Translations
+
+Each Grand Priory page has an EN, FR, IT and DE version in `content/translations/<lang>.json` (21 entries per language: Grand Priory, history, heads of the Grand Priory, officers, palace, links, activities and their six pages, church, about the church, services, concerts, contact, embassy, calendar, privacy). Order-wide pages link to orderofmalta.int in each language; news, the gift and anti-money-laundering policies and the 2020 concert archive stay in Czech. Status of every translation: awaiting native-speaker review.
+
 ## News
 
 193 posts imported from WordPress, all at their original URLs (`/YYYY/MM/DD/slug/`), status `existing`.
