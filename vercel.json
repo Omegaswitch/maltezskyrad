@@ -5,5 +5,147 @@
   "buildCommand": "python3 build.py --offline",
   "outputDirectory": "dist",
   "cleanUrls": false,
-  "trailingSlash": true
+  "trailingSlash": true,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' https://cdn.addcal.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://cdn.addcal.co https://addcal.co; font-src 'self' https://cdn.addcal.co; connect-src 'self' https://addcal.co https://cdn.addcal.co; frame-src https://addcal.co; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    },
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/css/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/js/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/media/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
+    },
+    {
+      "source": "/img/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/domu/zpravy-o-cinnosti-radu/",
+      "destination": "/aktuality/",
+      "permanent": true
+    },
+    {
+      "source": "/sekce-pro-cleny/",
+      "destination": "/kontakt/",
+      "permanent": true
+    },
+    {
+      "source": "/ostatni/",
+      "destination": "/ceske-velkoprevorstvi/",
+      "permanent": true
+    },
+    {
+      "source": "/ostatni/ke-stazeni/",
+      "destination": "/kalendar/",
+      "permanent": true
+    },
+    {
+      "source": "/rad-a-jeho-instituce/mistodrzici-velmistra/",
+      "destination": "/rad-a-jeho-instituce/velmistr/",
+      "permanent": true
+    },
+    {
+      "source": "/archiv-koncertu/:path*",
+      "destination": "/koncerty/archiv-koncertu/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/vanocni-zpevy-v-kostele-panny-marie-pod-retezem-29-12-2020/",
+      "destination": "/koncerty/archiv-koncertu/vanocni-zpevy-v-kostele-panny-marie-pod-retezem-29-12-2020/",
+      "permanent": true
+    },
+    {
+      "source": "/category/:path*",
+      "destination": "/aktuality/",
+      "permanent": true
+    },
+    {
+      "source": "/feed/",
+      "destination": "/feed.xml",
+      "permanent": true
+    },
+    {
+      "source": "/feed",
+      "destination": "/feed.xml",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/:path*",
+      "destination": "/media/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/home/",
+      "destination": "/",
+      "permanent": true
+    }
+  ]
 }

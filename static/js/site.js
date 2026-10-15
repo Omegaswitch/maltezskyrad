@@ -1,8 +1,5 @@
 // maltezskyrad.cz — progressive enhancement only; every page works without this file.
 (function () {
-  var d = document.documentElement;
-  d.classList.add("js");
-
   // ---- main menu (mobile) and submenus
   var toggle = document.querySelector(".menu-toggle");
   var menu = document.getElementById("menu");
@@ -72,12 +69,8 @@
     widgets.forEach(watch);
   }
 
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); load(); }
-    }, { rootMargin: "600px 0px" });
-    widgets.forEach(function (w) { io.observe(w); });
-  } else {
-    load();
-  }
+  var io = new IntersectionObserver(function (entries) {
+    if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); load(); }
+  }, { rootMargin: "600px 0px" });
+  widgets.forEach(function (w) { io.observe(w); });
 })();

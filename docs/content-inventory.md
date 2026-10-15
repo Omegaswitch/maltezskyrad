@@ -55,7 +55,17 @@ Generated pages (not in `content/pages`): `/` (homepage), `/kalendar/`, `/aktual
 
 ## Translations
 
-Each Grand Priory page has an EN, FR, IT and DE version in `content/translations/<lang>.json` (21 entries per language: Grand Priory, history, heads of the Grand Priory, officers, palace, links, activities and their six pages, church, about the church, services, concerts, contact, embassy, calendar, privacy). Order-wide pages link to orderofmalta.int in each language; news, the gift and anti-money-laundering policies and the 2020 concert archive stay in Czech. Status of every translation: awaiting native-speaker review.
+Every current page has an EN, FR, IT and DE version in `content/translations/<lang>.json` (34 entries per language):
+
+- Grand Priory: Grand Priory, history, heads of the Grand Priory, officers, palace, links, gift acceptance policy, anti-money-laundering policy.
+- Activities and their six pages; church, about the church, services, concerts; contact, calendar, privacy.
+- The Order (added 15 Oct 2026): section page (with links to the Grand Magistry's official texts), about the Order, spirituality, history with 1113 papal recognition, the five Orders of St. John, the ancient Tongues and the names of the Order, the Grand Master and the list of Grand Masters, diplomatic relations and the embassy.
+
+Dated figures in the Czech originals (number of centres, associations and registered names; "960 years ago") were left out of the translations rather than carried over. The Grand Master's ten-year term (Constitution of 2022) and his election on 3 May 2023 follow orderofmalta.int; the Czech page was corrected to match.
+
+Not translated, because they are out of date: the Government of the Order (pre-2022 Constitution), the page on Fra' Giacomo Dalla Torre, bilateral and multilateral relations, the medical and humanitarian pages (2018 figures), cultural events and the 2020 concert archive. News stays in Czech. The two policies are translated from the Czech version; their PDFs are Czech, and the pages say that the Grand Magistry's text is authoritative.
+
+Status of every translation: awaiting native-speaker review. The list of Grand Masters is generated from the Czech table, so names and dates match it exactly.
 
 ## News
 
@@ -85,7 +95,7 @@ Each Grand Priory page has an EN, FR, IT and DE version in `content/translations
 
 ## URL preservation
 
-Every page and post keeps its live URL. Media move from `/wp-content/uploads/` to `/media/` with the same sub-path. Retired URLs redirect (301) as follows (`content/site.json` → `dist/_redirects`):
+Every page and post keeps its live URL. Media move from `/wp-content/uploads/` to `/media/` with the same sub-path. Retired URLs redirect (301) as follows (`vercel.json` → `dist/_redirects`):
 
 | Old URL | New URL |
 |---|---|

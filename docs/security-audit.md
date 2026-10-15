@@ -6,7 +6,7 @@ Date: 14 October 2026. Scope: the live site (read-only observation; nothing was 
 
 | # | Severity | Finding | Evidence | Recommendation |
 |---|---|---|---|---|
-| L1 | **High** (availability and trust) | `https://maltezskyrad.cz/` and `https://www.maltezskyrad.cz/` answer `301 → https://cvp.maltezskyrad.cz/`, and that host's TLS certificate does not cover the name `cvp.maltezskyrad.cz`. Browsers show a certificate error after the redirect. | `curl` reports "no alternative certificate subject name matches target host name 'cvp.maltezskyrad.cz'" (re-checked 14 Oct 2026). | Fix it now, independent of the redesign: either remove the redirect to `cvp.` or issue a certificate that includes it. The new site's canonical host is `https://www.maltezskyrad.cz` (`baseUrl` in `content/site.json`). |
+| L1 | **High** (availability and trust) | `https://maltezskyrad.cz/` and `https://www.maltezskyrad.cz/` answer `301 → https://cvp.maltezskyrad.cz/`, and that host's TLS certificate does not cover the name `cvp.maltezskyrad.cz`. Browsers show a certificate error after the redirect. | `curl` reports "no alternative certificate subject name matches target host name 'cvp.maltezskyrad.cz'" (re-checked 15 Oct 2026: unchanged). | Fix it now, independent of the redesign: either remove the redirect to `cvp.` or issue a certificate that includes it. The new site's canonical host is `https://www.maltezskyrad.cz` (`baseUrl` in `content/site.json`). |
 | L2 | Medium | The WordPress REST user list (`/wp-json/wp/v2/users`) is public and exposes the administrator's login slug. | HTTP 200 with one entry. | Block the endpoint, or remove the site at launch. Use a strong password and 2FA for the account until then. |
 | L3 | Medium | The theme loads jQuery 1.10.2 (2013; known XSS issues, CVE-2015-9251 and CVE-2019-11358 family) next to WordPress's jQuery 3.7.1. | `jquery-1.10.2.min.js` is in the page source. | Becomes moot at launch. Until then, remove the theme's bundled copy. |
 | L4 | Low | No `Content-Security-Policy` or `Strict-Transport-Security` headers. | Response headers show `server: openresty` and neither header. | The new site ships both (below). |
@@ -25,7 +25,7 @@ Date: 14 October 2026. Scope: the live site (read-only observation; nothing was 
 - It removes scripts, styles, event handlers, iframes (they become plain links), `javascript:` and other unsafe URL schemes.
 - `check.py` fails the build on any `javascript:` link.
 
-**Security headers** (`dist/_headers`, applied to every path)
+**Security headers** (defined in `vercel.json`, also written to `dist/_headers`; applied to every path)
 
 | Header | Value |
 |---|---|
@@ -55,6 +55,14 @@ Date: 14 October 2026. Scope: the live site (read-only observation; nothing was 
 
 **Supply chain**
 - Zero runtime and build dependencies: Python standard library only. CI uses pinned major versions of `actions/checkout` and `actions/setup-python` with `permissions: contents: read`.
+
+## Re-check, 15 October 2026
+
+- Secrets: no credentials, keys or tokens in the tree or in git history (pattern scan for private keys, cloud and API tokens).
+- Build output (398 pages): no inline scripts, no event-handler attributes, no `javascript:` URLs, no iframes, forms or embeds. The only scripts are `/js/head.js` and `/js/site.js`; AddCal is loaded by `site.js` from `cdn.addcal.co`.
+- Translation HTML (`content/translations/*.json`, written by hand, not through the importer's sanitiser): scanned for scripts, styles, handlers and unsafe URLs: none.
+- **Fixed:** the Vercel deployment served none of the security headers or redirects, because Vercel ignores `_headers` and `_redirects`. Both now live in `vercel.json`, and the build derives `_headers` and `_redirects` from it, so every host gets the same values (the generated files are byte-identical to the previous ones).
+- Live site: L1 (certificate for `cvp.maltezskyrad.cz`) and L2 (public WordPress user list) are still open.
 
 ## Residual risks
 

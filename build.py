@@ -30,7 +30,7 @@ esc = lambda s: html.escape(str(s or ""), quote=True)
 
 
 def _fix(v):
-    return v.replace("Fra´", "Fra’") if isinstance(v, str) else v  # legacy texts use the acute accent
+    return re.sub("Fra[´‘]", "Fra’", v) if isinstance(v, str) else v  # legacy texts use the acute accent or a left quote
 
 
 def read_doc(path):
@@ -78,35 +78,23 @@ def page_title(url):
     return p["title"] if p else url
 
 
-ORDER_SECTION = "/rad-a-jeho-instituce/"   # Order-wide topics: other languages link to the Grand Magistry's official texts
-NO_TRANSLATION_IN_NAV = {"/radovy-kostel-panny-marie-pod-retezem/kulturni-akce/"}
 
 
 def localized_nav(lang):
     """The Czech menu tree with each node replaced by its translation; untranslated pages drop out."""
     if lang == "cs":
         return SITE["nav"]
-    tr, t, gm = TR[lang], I18N[lang], SITE["gm"][lang]
+    tr = TR[lang]
     def walk(nodes):
         out = []
         for n in nodes:
             e = tr.get(n["url"])
-            if e and n["url"] not in NO_TRANSLATION_IN_NAV:
+            if n["url"] == "/aktuality/":
+                out.append({"url": "/aktuality/", "title": I18N[lang]["newsCzech"]})
+            elif e:
                 out.append({"url": e["url"], "title": e.get("navTitle") or e["title"], "children": walk(n.get("children", []))})
         return out
-    nav = []
-    for n in SITE["nav"]:
-        if n["url"] == ORDER_SECTION:
-            kids = [{"url": gm[k], "title": label} for k, label in t["links"].items() if k in gm and k != "contacts"]
-            emb = tr.get("/diplomaticke-vztahy/velvyslanectvi-radu-v-ceske-republice/")
-            kids += [{"url": emb["url"], "title": emb["title"]}] if emb else []
-            nav.append({"url": gm["home"], "title": SITE["names"][lang]["orderActivities"], "children": kids})
-        elif n["url"] == "/aktuality/":
-            nav.append({"url": "/aktuality/", "title": t["newsCzech"]})
-        elif n["url"] in tr:
-            e = tr[n["url"]]
-            nav.append({"url": e["url"], "title": e.get("navTitle") or e["title"], "children": walk(n.get("children", []))})
-    return nav
+    return walk(SITE["nav"])
 
 
 # navigation index per language: url -> {node, parent, top}
@@ -350,7 +338,7 @@ def layout(*, lang, url, title, body, description="", image=None, status=None, a
  <div class="f-red"><div class="wrap">
   <p>{esc(names['orderShort'])}: <a href="{SITE['gm'].get(lang, SITE['gm']['en'])['home']}">www.orderofmalta.int</a></p>
   <p>Maltézská pomoc: <a href="https://maltezskapomoc.cz/">www.maltezskapomoc.cz</a></p>
-  <p><a href="/ostatni/zasady-prijimani-daru/">{esc(t['giftPolicy'])}</a> · <a href="{ALT.get('/ochrana-osobnich-udaju/', {}).get(lang, '/ochrana-osobnich-udaju/')}">{esc(t['privacy'])}</a></p>
+  <p><a href="{localized('/ostatni/zasady-prijimani-daru/', lang)}">{esc(t['giftPolicy'])}</a> · <a href="{localized('/ochrana-osobnich-udaju/', lang)}">{esc(t['privacy'])}</a></p>
  </div></div>
 </footer>
 </body>
@@ -742,25 +730,9 @@ def rss():
             f'<link>{SITE["baseUrl"]}/</link><description>Aktuality Českého velkopřevorství</description><language>cs</language>{items}</channel></rss>')
 
 
-HEADERS = """/*
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.addcal.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://cdn.addcal.co https://addcal.co; font-src 'self' https://cdn.addcal.co; connect-src 'self' https://addcal.co https://cdn.addcal.co; frame-src https://addcal.co; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
-  Strict-Transport-Security: max-age=31536000; includeSubDomains
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
-  Cross-Origin-Opener-Policy: same-origin
-  X-Frame-Options: DENY
-/fonts/*
-  Cache-Control: public, max-age=31536000, immutable
-/css/*
-  Cache-Control: public, max-age=31536000, immutable
-/js/*
-  Cache-Control: public, max-age=31536000, immutable
-/media/*
-  Cache-Control: public, max-age=2592000
-/img/*
-  Cache-Control: public, max-age=2592000
-"""
+VERCEL = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))  # headers and redirects live here; other hosts get _headers and _redirects
+HEADERS = "".join(h["source"].replace("(.*)", "*") + "\n" + "".join(f"  {x['key']}: {x['value']}\n" for x in h["headers"]) for h in VERCEL["headers"])
+REDIRECTS = [(r["source"].replace(":path*", "*"), r["destination"].replace(":path*", ":splat")) for r in VERCEL["redirects"]]
 
 
 def build():
@@ -799,7 +771,7 @@ def build():
                                      else "User-agent: *\nDisallow: /\n", encoding="utf-8")
     (DIST / "feed.xml").write_text(rss(), encoding="utf-8")
     (DIST / "_headers").write_text(HEADERS + ("" if PRODUCTION else "/*\n  X-Robots-Tag: noindex, nofollow\n"), encoding="utf-8")
-    (DIST / "_redirects").write_text("".join(f"{a} {b} 301\n" for a, b in SITE["redirects"]), encoding="utf-8")
+    (DIST / "_redirects").write_text("".join(f"{a} {b} 301\n" for a, b in REDIRECTS), encoding="utf-8")
     print(f"built {len(PAGES)} pages, {len(NEWS)} news, translations {', '.join(f'{l} {len(e)}' for l, e in TR.items())}, {'production' if PRODUCTION else 'preview'} → {DIST}")
 
 

@@ -17,13 +17,13 @@ The Grand Magistry news list on the homepage is fetched at build time from `orde
 
 ## Hosting
 
-Any static host works. The build writes headers and redirects in the Netlify / Cloudflare Pages format.
+Any static host works. Security headers and legacy redirects are defined once, in `vercel.json` (`headers`, `redirects`); the build also writes them as `dist/_headers` and `dist/_redirects` (Netlify / Cloudflare Pages format) for other hosts and the local preview server.
 
 | Host | `_headers` (CSP, HSTS…) | `_redirects` (legacy URLs) | Notes |
 |---|---|---|---|
 | Netlify | ✅ native | ✅ native | Build `python3 build.py --production`, publish `dist`. |
 | Cloudflare Pages | ✅ native | ✅ native | Same. |
-| Vercel (preview set up on this branch, `vercel.json`) | ❌ ignored | ❌ ignored | Vercel reads headers and redirects only from `vercel.json`. Preview builds still carry `<meta name="robots" content="noindex">` and a `Disallow: /` robots.txt, so they stay out of search engines. For production on Vercel, translate both files into `vercel.json` `headers` and `redirects`. |
+| Vercel (`vercel.json`) | ✅ from `vercel.json` | ✅ from `vercel.json` | The build command is `python3 build.py --offline` (a preview build: `noindex` meta and a `Disallow: /` robots.txt). For production change it to `python3 build.py --production`. |
 | nginx / Apache (own server) | translate | translate | See below. |
 
 ### nginx translation

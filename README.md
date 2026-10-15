@@ -21,7 +21,8 @@ Add `--offline` to skip fetching the Grand Magistry news feed. CI (`.github/work
 |---|---|
 | `content/pages/<url>/index.html` | Pages. Each file has JSON front matter between `---` lines, then HTML. |
 | `content/news/YYYY/MM/DD/slug.html` | News posts. The URL matches the old WordPress URL. |
-| `content/site.json` | Names, contact details, service times, menu, 2027 calendar files, AddCal calendar, redirects. |
+| `vercel.json` | Hosting settings, security headers (CSP, HSTS…) and legacy-URL redirects; the build copies them to `dist/_headers` and `dist/_redirects`. |
+| `content/site.json` | Names, contact details, service times, menu, 2027 calendar files, AddCal calendar. |
 | `content/i18n.json` | Interface strings in cs, en, fr, it and de. |
 | `content/translations/<lang>.json` | Translated pages (en, fr, it, de), keyed by the Czech page URL: `url`, `title`, `description`, `body`. A page without an entry is simply not in that language's menu. |
 | `content/calendar.json` | 2027 events, Order feasts, concert dates and Lent services in all five languages. |

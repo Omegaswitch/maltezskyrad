@@ -311,7 +311,7 @@ def main():
     cat_slug = {c["id"]: c["slug"] for c in cats}
 
     # retired URLs (redirected in site.json) and the generated homepage are not imported again
-    retired = {"/"} | {src for src, _ in json.loads((ROOT / "content" / "site.json").read_text(encoding="utf-8"))["redirects"]}
+    retired = {"/"} | {r["source"] for r in json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))["redirects"]}
     for p in pages:
         path = urllib.parse.urlparse(p["link"]).path
         if path in retired:
