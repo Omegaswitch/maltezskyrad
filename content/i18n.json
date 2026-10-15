@@ -115,7 +115,9 @@
   "pdfEnglish": "v angličtině",
   "subscribeNote": "Google, Apple, Outlook a další kalendáře; termíny se aktualizují samy.",
   "homeDescription": "Oficiální web Českého velkopřevorství Suverénního maltézského řádu: historie, představitelé, kalendář bohoslužeb v kostele Panny Marie pod řetězem, činnosti a aktuality.",
-  "ico": "IČO"
+  "ico": "IČO",
+  "fax": "Fax",
+  "contactPerson": "Kontaktní osoba"
  },
  "en": {
   "langName": "English",
@@ -233,7 +235,9 @@
   "pdfEnglish": "in English",
   "subscribeNote": "Google, Apple, Outlook and other calendars; dates update automatically.",
   "homeDescription": "Official website of the Grand Priory of Bohemia of the Sovereign Order of Malta in Prague: history, officers, services in the Church of Our Lady beneath the Chain, works and calendar.",
-  "ico": "Reg. no. (IČO)"
+  "ico": "Reg. no. (IČO)",
+  "fax": "Fax",
+  "contactPerson": "Contact person"
  },
  "fr": {
   "langName": "Français",
@@ -351,7 +355,9 @@
   "pdfEnglish": "en anglais",
   "subscribeNote": "Google, Apple, Outlook et autres agendas ; les dates se mettent à jour automatiquement.",
   "homeDescription": "Site officiel du Grand Prieuré de Bohême de l'Ordre souverain de Malte à Prague : histoire, dignitaires, offices en l'église Notre-Dame-sous-la-Chaîne, œuvres et calendrier.",
-  "ico": "N° d'identification (IČO)"
+  "ico": "N° d'identification (IČO)",
+  "fax": "Fax",
+  "contactPerson": "Personne de contact"
  },
  "it": {
   "langName": "Italiano",
@@ -469,7 +475,9 @@
   "pdfEnglish": "in inglese",
   "subscribeNote": "Google, Apple, Outlook e altri calendari; le date si aggiornano automaticamente.",
   "homeDescription": "Sito ufficiale del Gran Priorato di Boemia del Sovrano Ordine di Malta a Praga: storia, dignitari, funzioni nella chiesa di Santa Maria sotto la Catena, opere e calendario.",
-  "ico": "N. identificativo (IČO)"
+  "ico": "N. identificativo (IČO)",
+  "fax": "Fax",
+  "contactPerson": "Persona di contatto"
  },
  "de": {
   "langName": "Deutsch",
@@ -587,6 +595,8 @@
   "pdfEnglish": "auf Englisch",
   "subscribeNote": "Google, Apple, Outlook und andere Kalender; Termine aktualisieren sich automatisch.",
   "homeDescription": "Offizielle Website des Großpriorats Böhmen des Souveränen Malteserordens in Prag: Geschichte, Amtsträger, Gottesdienste in der Kirche Maria unter der Kette, Werke und Kalender.",
-  "ico": "Identifikationsnummer (IČO)"
+  "ico": "Identifikationsnummer (IČO)",
+  "fax": "Fax",
+  "contactPerson": "Ansprechpartnerin"
  }
 }

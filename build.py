@@ -440,7 +440,9 @@ def contact_card(lang):
     return f"""<dl class="contact-card">
  <div><dt>{esc(t['address'])}</dt><dd>{esc(addr)}<br><a href="{esc(c['mapUrl'])}">{esc(t['map'])}</a></dd></div>
  <div><dt>{esc(t['phone'])}</dt><dd>{phones}</dd></div>
+ <div><dt>{esc(t['fax'])}</dt><dd>{c['fax']}</dd></div>
  <div><dt>{esc(t['email'])}</dt><dd><a href="mailto:{c['email']}">{c['email']}</a></dd></div>
+ <div><dt>{esc(t['contactPerson'])}</dt><dd>{esc(c['person'])}</dd></div>
 </dl>"""
 
 
