@@ -44,6 +44,7 @@ Date: 14 October 2026. Scope: the live site (read-only observation; nothing was 
 - The only third party is AddCal (calendar widget). Its script loads only when a calendar scrolls near the viewport, and only on the homepage, `/kalendar/` and the language pages. It contacts `addcal.co` and `cdn.addcal.co`.
 - **Subresource Integrity is not used.** AddCal publishes a moving `v3` URL, so a hash would break on every vendor update. The CSP host allowlist is the control.
 - Fonts are self-hosted; there are no Google Fonts or analytics requests.
+- Speculation rules (`Speculation-Rules` header → `/speculation-rules.json`, same origin only): the other language versions of the current page are prefetched on load, and an internal link is pre-rendered when the visitor hovers or touches it. A pre-rendered page does not contact AddCal until it is actually shown (`document.prerendering` in `site.js`).
 - The Grand Magistry news list is fetched at build time, not in the visitor's browser. Its links are restricted to `https://www.orderofmalta.int/`.
 
 **Privacy**

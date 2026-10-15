@@ -1,0 +1,14 @@
+{
+  "prefetch": [
+    { "source": "document", "where": { "selector_matches": ".lang a:not([aria-current])" }, "eagerness": "eager" }
+  ],
+  "prerender": [
+    { "source": "document",
+      "where": { "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": ["/media/*", "/files/*", "/feed.xml"] } },
+        { "not": { "selector_matches": ".lang a" } }
+      ] },
+      "eagerness": "moderate" }
+  ]
+}

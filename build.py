@@ -821,16 +821,22 @@ def serve(port=8000):
     import http.server
     import functools
     rules = [l.split() for l in (DIST / "_redirects").read_text().splitlines() if l.strip()]
-    headers = {}
+    headers, types = {}, {}  # site-wide headers; exact-path Content-Type overrides
     block = None
     for line in (DIST / "_headers").read_text().splitlines():
         if line and not line.startswith(" "):
             block = line.strip()
-        elif line.strip() and block == "/*":
+        elif line.strip():
             k, v = line.strip().split(":", 1)
-            headers[k] = v.strip()
+            if block == "/*":
+                headers[k] = v.strip()
+            elif k == "Content-Type":
+                types[block] = v.strip()
 
     class H(http.server.SimpleHTTPRequestHandler):
+        def guess_type(self, path):
+            return types.get(self.path.split("?")[0]) or super().guess_type(path)
+
         def end_headers(self):
             for k, v in headers.items():
                 if k == "Strict-Transport-Security":

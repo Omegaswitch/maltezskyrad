@@ -71,8 +71,14 @@
     widgets.forEach(watch);
   }
 
-  var io = new IntersectionObserver(function (entries) {
-    if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); load(); }
-  }, { rootMargin: "600px 0px" });
-  widgets.forEach(function (w) { io.observe(w); });
+  // a page pre-rendered on hover must not contact AddCal until the visitor actually opens it
+  if (document.prerendering) { document.addEventListener("prerenderingchange", watchWidgets, { once: true }); return; }
+  watchWidgets();
+
+  function watchWidgets() {
+    var io = new IntersectionObserver(function (entries) {
+      if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); load(); }
+    }, { rootMargin: "600px 0px" });
+    widgets.forEach(function (w) { io.observe(w); });
+  }
 })();
