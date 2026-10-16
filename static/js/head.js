@@ -1,2 +1,8 @@
 // Marks JS as available before first paint, so the mobile menu starts closed.
 document.documentElement.classList.add("js");
+
+// A page pre-rendered on hover was laid out at the top; when it is shown, honour the link's #fragment (e.g. #main).
+addEventListener("pagereveal", function () {
+  var t = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  if (t) t.scrollIntoView();
+});
