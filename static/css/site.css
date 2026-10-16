@@ -125,7 +125,7 @@ p{margin:0}
   .nav-list>li:hover>a{box-shadow:inset 0 -3px 0 var(--red)}
   /* while the pointer is on another menu item, a menu kept open only by focus (after a click) closes */
   .nav-list:hover>.has-sub:not(:hover)>.sub{opacity:0;visibility:hidden;transition-delay:0s}
-  .nav-list:hover>li:not(:hover)>a:not(.is-active){box-shadow:none}
+  .nav-list:hover>li:not(:hover)>a:not(.is-active):not([aria-current]){box-shadow:none}
 }
 /* one red line for every state: the item's own 3px underline, as wide as the item (the dropdown carries no rule of its own) */
 @media (min-width:961px){.nav-list>li:focus-within>a,.has-sub.open>a{box-shadow:inset 0 -3px 0 var(--red)}}
