@@ -85,6 +85,15 @@ p{margin:0}
 ::view-transition-old(site-header),::view-transition-old(site-footer){display:none}
 /* the page beneath: the browser's own balanced cross-fade (no dip to white), slowed a little, no movement */
 ::view-transition-old(root),::view-transition-new(root){animation-duration:550ms;animation-timing-function:cubic-bezier(.4,0,.2,1)}
+/* within a section: the side menu stays put, the content slides in from the right */
+html:active-view-transition-type(slide) .side-nav{view-transition-name:side-nav}
+html:active-view-transition-type(slide) .page-main{view-transition-name:page-main}
+html:active-view-transition-type(slide)::view-transition-group(side-nav),html:active-view-transition-type(slide)::view-transition-new(side-nav),html:active-view-transition-type(slide)::view-transition-group(page-main){animation:none}
+html:active-view-transition-type(slide)::view-transition-old(side-nav){display:none}
+html:active-view-transition-type(slide)::view-transition-old(page-main){animation:slide-out 240ms cubic-bezier(.4,0,1,1) both}
+html:active-view-transition-type(slide)::view-transition-new(page-main){animation:slide-in 560ms cubic-bezier(.16,1,.3,1) 100ms both}
+@keyframes slide-out{to{opacity:0;transform:translateX(-28px)}}
+@keyframes slide-in{from{opacity:0;transform:translateX(48px)}}
 
 
 /* ---------- header (Grand Magistry frame) ---------- */
