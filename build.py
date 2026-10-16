@@ -551,7 +551,7 @@ def section_children_html(url, lang="cs"):
     for k in kids:
         p = page_for(k["url"], lang)
         desc = p.get("description") or plain(p.get("body", ""), 150)
-        items.append(f'<li><a href="{k["url"]}#main"><b>{esc(k["title"])}</b>{f"<span>{esc(desc)}</span>" if desc else ""}</a></li>')
+        items.append(f'<li><a href="{k["url"]}"><b>{esc(k["title"])}</b>{f"<span>{esc(desc)}</span>" if desc else ""}</a></li>')
     return f'<ul class="index-list">{"".join(items)}</ul>'
 
 
@@ -567,12 +567,12 @@ def side_nav(url, lang="cs"):
             sub = ""
             if n.get("children") and (n["url"] == url or url in _descendants(n)):
                 sub = walk(n["children"], depth + 1)
-            out.append(f'<li><a href="{n["url"]}#main"{cur}>{esc(n["title"])}</a>{sub}</li>')
+            out.append(f'<li><a href="{n["url"]}"{cur}>{esc(n["title"])}</a>{sub}</li>')
         return f'<ul>{"".join(out)}</ul>'
     if not top.get("children") or info["top"] == url:  # a section's own page already lists its children
         return ""
     return (f'<nav class="side-nav" aria-label="{esc(I18N[lang]["inSection"])}"><p class="label">'
-            f'<a href="{top["url"]}#main">{esc(top["title"])}</a></p>{walk(top["children"])}</nav>')
+            f'<a href="{top["url"]}">{esc(top["title"])}</a></p>{walk(top["children"])}</nav>')
 
 
 def _descendants(node):
